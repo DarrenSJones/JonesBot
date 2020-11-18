@@ -29,4 +29,7 @@ dependencies {
     
     // https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc
 	compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '6.1.0.jre7'
+	
+	// https://github.com/DV8FromTheWorld/JDA
+	compile group: 'net.dv8tion', name: 'JDA', version: '4.2.0_168'
 }
