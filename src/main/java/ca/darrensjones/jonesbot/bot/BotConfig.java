@@ -7,21 +7,17 @@ package ca.darrensjones.jonesbot.bot;
  */
 public class BotConfig {
 
+	public final String BOT_VERSION;
 	public final String BOT_TOKEN;
 	public final String BOT_OWNER_ID;
 	public final String BOT_PREFIX;
-	public final String PATH_RESOURCES;
-	public final String PATH_FRINKIAC;
-	public final String PATH_SCHEDULE;
 	public final String TOKEN_OPENWEATHERMAP;
 
-	public BotConfig(String botToken, String botOwnerId, String prefix, String pathResources, String pathFrinkiac, String pathSchedule, String tokenWeather) {
+	public BotConfig(String botVersion, String botToken, String botOwnerId, String prefix, String tokenOpenWeatherMap) {
+		this.BOT_VERSION = botVersion;
 		this.BOT_TOKEN = botToken;
 		this.BOT_OWNER_ID = botOwnerId;
 		this.BOT_PREFIX = prefix;
-		this.PATH_RESOURCES = pathResources;
-		this.PATH_FRINKIAC = pathFrinkiac;
-		this.PATH_SCHEDULE = pathSchedule;
-		this.TOKEN_OPENWEATHERMAP = tokenWeather;
+		this.TOKEN_OPENWEATHERMAP = tokenOpenWeatherMap;
 	}
 }

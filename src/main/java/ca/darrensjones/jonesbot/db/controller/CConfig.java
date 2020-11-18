@@ -27,8 +27,8 @@ public class CConfig extends AbstractController {
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());
 		}
-		BotConfig bc = new BotConfig(map.get("BOT_TOKEN"), map.get("BOT_OWNER_ID"), map.get("BOT_PREFIX"), map.get("PATH_RESOURCES"), map.get("PATH_FRINKIAC"),
-				map.get("PATH_SCHEDULE"), map.get("TOKEN_OPENWEATHERMAP"));
+		BotConfig bc = new BotConfig(map.get("BOT_VERSION"), map.get("BOT_TOKEN"), map.get("BOT_OWNER_ID"), map.get("BOT_PREFIX"),
+				map.get("TOKEN_OPENWEATHERMAP"));
 		return bc;
 	}
 }

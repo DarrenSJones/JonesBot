@@ -22,6 +22,6 @@ public class EventListener extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent event) {
 		if (event.getAuthor().isBot()) return;
 
-		Reporter.debug(bot.jda.getSelfUser().toString());
+		Reporter.debug(String.format("Current Version:[%s]", bot.config.BOT_VERSION));
 	}
 }
