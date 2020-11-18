@@ -20,6 +20,6 @@ public class Main {
 
 		bot = new Bot();
 
-		System.out.println(String.format("Bot Initialized! Logged in as: [%s]", bot.jda.getSelfUser().toString()));
+		Reporter.info(String.format("Bot Initialized! Logged in as: [%s]", bot.jda.getSelfUser().toString()));
 	}
 }

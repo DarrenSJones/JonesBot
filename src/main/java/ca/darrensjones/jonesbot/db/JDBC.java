@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import ca.darrensjones.jonesbot.log.Reporter;
+
 /**
  * @author Darren Jones
  * @version 1.0.0 2020-11-18
@@ -28,11 +30,13 @@ public class JDBC {
 
 	private Connection createConnection() {
 		String url = String.format("jdbc:sqlserver://%s;databaseName=%s;integratedSecurity=true;loginTimeout=30;", driver, database);
-		System.out.println(String.format("Creating new JDBC Connection:[%s] UserName:[%s] Password:[%s]", url, userName, password));
+		Reporter.info(String.format("Creating JDBC Connection:[%s] UserName:[%s] Password:[%s]", url, userName, password));
 		try {
-			return DriverManager.getConnection(url, userName, password);
+			Connection connection = DriverManager.getConnection(url, userName, password);
+			Reporter.info(String.format("JDBC Connection created:[%s]", connection.getCatalog()));
+			return connection;
 		} catch (SQLException e) {
-			System.out.print(e.getMessage());
+			Reporter.fatal(e.getMessage());
 		}
 		return null;
 	}

@@ -3,6 +3,7 @@ package ca.darrensjones.jonesbot.bot;
 import javax.security.auth.login.LoginException;
 
 import ca.darrensjones.jonesbot.db.controller.CConfig;
+import ca.darrensjones.jonesbot.log.Reporter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 
@@ -23,12 +24,12 @@ public class Bot {
 
 	public void resetJDA() {
 		try {
-			JDABuilder builder = JDABuilder.createDefault(config.BOT_TOKEN);// .addEventListeners(new EventListener(this));
+			JDABuilder builder = JDABuilder.createDefault(config.BOT_TOKEN); // .addEventListeners(new EventListener(this));
 			jda = builder.build();
 			jda.awaitReady();
-			System.out.println("JDA Reset and Ready.");
+			Reporter.info("JDA Reset and Ready.");
 		} catch (InterruptedException | LoginException e) {
-			System.out.println(e.getMessage());
+			Reporter.fatal(e.getMessage());
 		}
 	}
 }
