@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration status="DEBUG">
+	<Appenders>
+		<Console name="LogToConsole" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%p] %m%n" />
+		</Console>
+		<File name="LogToTrace" fileName="target/trace.log">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p] %m%n</Pattern>
+			</PatternLayout>
+		</File>
+	</Appenders>
+	<Loggers>
+		<Logger name="ConsoleLogger" level="trace" additivity="false">
+			<AppenderRef ref="LogToConsole" />
+		</Logger>
+		<Logger name="TraceLogger" level="trace" additivity="false">
+			<AppenderRef ref="LogToTrace" />
+		</Logger>
+	</Loggers>
+</Configuration>

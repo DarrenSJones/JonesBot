@@ -2,6 +2,7 @@ package ca.darrensjones.jonesbot.main;
 
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.db.BotDB;
+import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
@@ -13,6 +14,8 @@ public class Main {
 	private static Bot bot;
 
 	public static void main(String[] args) {
+		Reporter.info("Bot initializating...");
+
 		BotDB.init();
 
 		bot = new Bot();
