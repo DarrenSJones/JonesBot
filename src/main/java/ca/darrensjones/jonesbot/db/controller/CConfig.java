@@ -17,7 +17,7 @@ public class CConfig {
 	public static BotConfig getConfig() {
 		HashMap<String, String> map = new HashMap<String, String>();
 		try {
-			ResultSet rs = BotDB.get().select("SELECT * FROM dbo.bot_config");
+			ResultSet rs = BotDB.get().select("SELECT item_key, item_value FROM bot_config");
 			while (rs.next()) map.put(rs.getString("item_key"), rs.getString("item_value"));
 			rs.getStatement().close();
 		} catch (Exception e) {

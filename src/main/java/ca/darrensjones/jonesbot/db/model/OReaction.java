@@ -14,6 +14,6 @@ public class OReaction extends AbstractModel {
 	public String regex;
 
 	public String toLog() {
-		return String.format("ID:[%s] Shortcode:[\\%s] Unicode:[\\%s] Regex:[%s]", id, shortcode, unicode, regex);
+		return String.format("id:[%s] shortcode:[%s] unicode:[%s] regex:[%s]", id, shortcode, unicode, regex);
 	}
 }
