@@ -17,7 +17,6 @@ public class Main {
 		Reporter.info("Bot initializating...");
 
 		BotDB.init();
-
 		bot = new Bot();
 
 		Reporter.info(String.format("Bot Initialized! Logged in as: [%s]", bot.jda.getSelfUser().toString()));

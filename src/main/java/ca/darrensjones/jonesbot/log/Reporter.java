@@ -2,8 +2,6 @@ package ca.darrensjones.jonesbot.log;
 
 import org.apache.logging.log4j.Logger;
 
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-
 import org.apache.logging.log4j.LogManager;
 
 /**
@@ -59,34 +57,5 @@ public class Reporter {
 	public static void fatal(String message, boolean printToConsole) {
 		trace.fatal(message);
 		if (printToConsole) console.fatal(message);
-	}
-
-	/* Returns Event information based on the Event type. */
-	public static String getEventInfo(MessageReceivedEvent event) {
-		String author = "";
-		String guild = "";
-		String channel = "";
-		String content = "";
-
-		switch (event.getChannelType()) {
-		case PRIVATE:
-			author = event.getAuthor().getName();
-			guild = "none";
-			channel = "private";
-			content = event.getMessage().getContentDisplay();
-			break;
-
-		case TEXT:
-			author = event.getAuthor().getName();
-			guild = event.getGuild().getName();
-			channel = event.getChannel().getName();
-			content = event.getMessage().getContentDisplay();
-			break;
-
-		default:
-			warn("MessageReceivedEvent ChannelType Invalid: [" + event.getChannelType().toString() + "]", true);
-		}
-
-		return String.format("Author:[%s], Guild:[%s], Channel:[%s], Content:[%s]", author, guild, channel, content);
 	}
 }

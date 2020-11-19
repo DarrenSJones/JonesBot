@@ -17,18 +17,13 @@ public class CConfig extends AbstractController {
 
 	public static BotConfig getConfig() {
 		HashMap<String, String> map = new HashMap<String, String>();
-		String sql = "SELECT * FROM dbo.bot_config";
 		try {
-			ResultSet rs = BotDB.get().select(sql);
-			while (rs.next()) {
-				map.put(rs.getString("item_key"), rs.getString("item_value"));
-			}
+			ResultSet rs = BotDB.get().select("SELECT * FROM dbo.bot_config");
+			while (rs.next()) map.put(rs.getString("item_key"), rs.getString("item_value"));
 			rs.getStatement().close();
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());
 		}
-		BotConfig bc = new BotConfig(map.get("BOT_VERSION"), map.get("BOT_TOKEN"), map.get("BOT_OWNER_ID"), map.get("BOT_PREFIX"),
-				map.get("TOKEN_OPENWEATHERMAP"));
-		return bc;
+		return new BotConfig(map.get("BOT_VERSION"), map.get("BOT_TOKEN"), map.get("BOT_OWNER_ID"), map.get("BOT_PREFIX"), map.get("TOKEN_OPENWEATHERMAP"));
 	}
 }

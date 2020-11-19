@@ -1,7 +1,6 @@
 package ca.darrensjones.jonesbot.main;
 
 import ca.darrensjones.jonesbot.bot.Bot;
-import ca.darrensjones.jonesbot.log.Reporter;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -22,6 +21,6 @@ public class EventListener extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent event) {
 		if (event.getAuthor().isBot()) return;
 
-		Reporter.debug(String.format("Current Version:[%s]", bot.config.BOT_VERSION));
+		bot.reactionHandler.execute(event.getMessage());
 	}
 }
