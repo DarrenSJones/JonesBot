@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.darrensjones.jonesbot.db.AbstractModel;
 import ca.darrensjones.jonesbot.db.BotDB;
 import ca.darrensjones.jonesbot.db.model.OReaction;
 import ca.darrensjones.jonesbot.log.Reporter;
@@ -15,7 +14,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
  * @version 1.0.0 2020-11-18
  * @since 1.0.0 2020-11-18
  */
-public class CReaction extends AbstractModel {
+public class CReaction {
 
 	private static OReaction setRecord(ResultSet rs) throws SQLException {
 		OReaction record = new OReaction();

@@ -14,6 +14,7 @@ public class Main {
 	private static Bot bot;
 
 	public static void main(String[] args) {
+		Reporter.info("");
 		Reporter.info("Bot initializating...");
 
 		BotDB.init();

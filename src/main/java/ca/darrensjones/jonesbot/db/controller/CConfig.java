@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 
 import ca.darrensjones.jonesbot.bot.BotConfig;
-import ca.darrensjones.jonesbot.db.AbstractController;
 import ca.darrensjones.jonesbot.db.BotDB;
 import ca.darrensjones.jonesbot.log.Reporter;
 
@@ -13,7 +12,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
  * @version 1.0.0 2020-11-18
  * @since 1.0.0 2020-11-18
  */
-public class CConfig extends AbstractController {
+public class CConfig {
 
 	public static BotConfig getConfig() {
 		HashMap<String, String> map = new HashMap<String, String>();

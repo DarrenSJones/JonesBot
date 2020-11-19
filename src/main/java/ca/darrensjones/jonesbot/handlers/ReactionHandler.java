@@ -39,7 +39,7 @@ public class ReactionHandler {
 		this.list = CReaction.getAll();
 	}
 
-	public boolean hasReaction(String content) {
+	private boolean hasReaction(String content) {
 		for (OReaction reaction : list) {
 			Pattern pattern = Pattern.compile("(?=(\\W|^)" + reaction.regex + "(\\W|$))");
 			if (pattern.matcher(content.toLowerCase()).find()) return true;
@@ -47,7 +47,7 @@ public class ReactionHandler {
 		return false;
 	}
 
-	public List<OReaction> getReactions(String content) {
+	private List<OReaction> getReactions(String content) {
 		ArrayList<Object[]> a = new ArrayList<Object[]>(); // <index, OReaction>
 		for (OReaction reaction : list) {
 			Pattern pattern = Pattern.compile("(?=(\\W|^)" + reaction.regex + "(\\W|$))");
