@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="JonesBot Test Suite" verbose="10" preserve-order="true">
+
+	<test name="DB">
+		<classes>
+			<class name="ca.darrensjones.jonesbot.test.db.Tables" />
+			<class name="ca.darrensjones.jonesbot.test.db.controller.TCReaction" />
+		</classes>
+	</test>
+
+	<test name="Reaction">
+		<classes>
+			<class name="ca.darrensjones.jonesbot.test.reaction.HasReaction" />
+			<class name="ca.darrensjones.jonesbot.test.reaction.GetReactions" />
+		</classes>
+	</test>
+
+</suite>

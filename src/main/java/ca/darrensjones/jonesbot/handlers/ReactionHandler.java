@@ -13,12 +13,12 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-18
+ * @version 1.0.0 2020-11-21
  * @since 1.0.0 2020-11-18
  */
 public class ReactionHandler {
 
-	private List<OReaction> list;
+	public List<OReaction> list;
 
 	public ReactionHandler() {
 		setList();
@@ -39,7 +39,7 @@ public class ReactionHandler {
 		this.list = CReaction.getAll();
 	}
 
-	private boolean hasReaction(String content) {
+	public boolean hasReaction(String content) {
 		for (OReaction reaction : list) {
 			Pattern pattern = Pattern.compile("(?=(\\W|^)" + reaction.regex + "(\\W|$))");
 			if (pattern.matcher(content.toLowerCase()).find()) return true;
@@ -47,7 +47,7 @@ public class ReactionHandler {
 		return false;
 	}
 
-	private List<OReaction> getReactions(String content) {
+	public List<OReaction> getReactions(String content) {
 		ArrayList<Object[]> a = new ArrayList<Object[]>(); // <index, OReaction>
 		for (OReaction reaction : list) {
 			Pattern pattern = Pattern.compile("(?=(\\W|^)" + reaction.regex + "(\\W|$))");

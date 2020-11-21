@@ -1,0 +1,70 @@
+package ca.darrensjones.jonesbot.test.db;
+
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import ca.darrensjones.jonesbot.db.BotDB;
+import ca.darrensjones.jonesbot.log.Reporter;
+
+/**
+ * @author Darren Jones
+ * @version 1.0.0 2020-11-21
+ * @since 1.0.0 2020-11-21
+ */
+public class Tables {
+
+	@Test
+	public void allTables() {
+		List<String> tables = new ArrayList<String>();
+		try {
+			ResultSet rs = BotDB.get().select("SELECT * FROM " + BotDB.getDefaultDB() + ".sys.tables");
+			while (rs.next()) tables.add(rs.getString(1));
+			rs.getStatement().close();
+		} catch (Exception e) {
+			Reporter.fatal(e.getMessage());
+		}
+
+		Assert.assertEquals(tables.size(), 2);
+		Assert.assertEquals(tables.get(0), "bot_config");
+		Assert.assertEquals(tables.get(1), "reaction");
+	}
+
+	@Test(dependsOnMethods = "allTables", alwaysRun = true)
+	public void bot_config() {
+		List<String> columns = getColumnNames("bot_config");
+		Assert.assertEquals(columns.size(), 2);
+		Assert.assertEquals(columns.get(0), "item_key");
+		Assert.assertEquals(columns.get(1), "item_value");
+	}
+
+	@Test(dependsOnMethods = "bot_config", alwaysRun = true)
+	public void reaction() {
+		List<String> columns = getColumnNames("reaction");
+		Assert.assertEquals(columns.size(), 4);
+		Assert.assertEquals(columns.get(0), "id");
+		Assert.assertEquals(columns.get(1), "shortcode");
+		Assert.assertEquals(columns.get(2), "unicode");
+		Assert.assertEquals(columns.get(3), "regex");
+	}
+
+	/**
+	 * A standard way of returning column names by Table. Not a Test.
+	 */
+	private List<String> getColumnNames(String tableName) {
+		List<String> columns = new ArrayList<String>();
+		try {
+			ResultSet rs = BotDB.get().select("SELECT * FROM " + tableName);
+			ResultSetMetaData rsmd = rs.getMetaData();
+			for (int i = 1; i <= rsmd.getColumnCount(); i++) columns.add(rsmd.getColumnName(i));
+			rs.getStatement().close();
+		} catch (Exception e) {
+			Reporter.fatal(e.getMessage());
+		}
+		return columns;
+	}
+}
