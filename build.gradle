@@ -1,4 +1,4 @@
-apply plugin: 'java'
+apply plugin: "java"
  
 sourceCompatibility = JavaVersion.VERSION_14
 targetCompatibility = JavaVersion.VERSION_14
@@ -12,17 +12,25 @@ repositories {
 
 dependencies {
 	// https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc
-	compile('com.microsoft.sqlserver:mssql-jdbc:6.1.0.jre7')
+	compile("com.microsoft.sqlserver:mssql-jdbc:6.1.0.jre7")
 	
 	// https://github.com/DV8FromTheWorld/JDA
-	compile('net.dv8tion:JDA:4.2.0_168')
+	compile("net.dv8tion:JDA:4.2.0_168")
 	
 	// https://logging.apache.org/log4j/2.x/maven-artifacts.html
-	compile('org.apache.logging.log4j:log4j-core:2.14.0')
+	compile("org.apache.logging.log4j:log4j-core:2.14.0")
 	
 	// https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
-	compile('org.slf4j:slf4j-simple:1.7.30')
+	compile("org.slf4j:slf4j-simple:1.7.30")
 	
 	// https://mvnrepository.com/artifact/org.testng/testng
-	testCompile('org.testng:testng:7.3.0')
+	testCompile("org.testng:testng:6.14.3")
+}
+
+test {
+	useTestNG() {
+		listeners.add("ca.darrensjones.jonesbot.test.BotTestListener")
+		suites "testng.xml"
+		testLogging.showStandardStreams = true
+	}
 }
