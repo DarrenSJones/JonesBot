@@ -6,12 +6,12 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-18
+ * @version 1.0.0 2020-11-21
  * @since 1.0.0 2020-11-18
  */
 public class BotDB {
 
-	private static final String defaultDB = "jonesbot";
+	private static String defaultDB = "jonesbot";
 	private static HashMap<String, JDBC> connections = new HashMap<String, JDBC>();
 
 	public static JDBC get(String database) {
@@ -24,9 +24,17 @@ public class BotDB {
 		return get(defaultDB);
 	}
 
+	public static String getDefaultDB() {
+		return defaultDB;
+	}
+
 	public static void init() {
 		connections.clear();
-		connections.put("jonesbot", new JDBC("localhost:1433", "jonesbot", "jonesbot", defaultDB));
+		connections.put(defaultDB, new JDBC("localhost:1433", "jonesbot", "jonesbot", defaultDB));
 		Reporter.info("BotDB connection list set.");
+	}
+
+	public static void test() {
+		defaultDB = "jonesbottest";
 	}
 }
