@@ -1,4 +1,4 @@
-package ca.darrensjones.jonesbot.handlers;
+package ca.darrensjones.jonesbot.handler;
 
 import java.util.ArrayList;
 import java.util.List;

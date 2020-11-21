@@ -3,7 +3,7 @@ package ca.darrensjones.jonesbot.bot;
 import javax.security.auth.login.LoginException;
 
 import ca.darrensjones.jonesbot.db.controller.CConfig;
-import ca.darrensjones.jonesbot.handlers.ReactionHandler;
+import ca.darrensjones.jonesbot.handler.ReactionHandler;
 import ca.darrensjones.jonesbot.log.Reporter;
 import ca.darrensjones.jonesbot.main.EventListener;
 import net.dv8tion.jda.api.JDA;

@@ -3,17 +3,16 @@
 
 <suite name="JonesBot Test Suite" verbose="10" preserve-order="true">
 
-	<test name="DB">
+	<test name="Database">
 		<classes>
 			<class name="ca.darrensjones.jonesbot.test.db.Tables" />
 			<class name="ca.darrensjones.jonesbot.test.db.controller.TCReaction" />
 		</classes>
 	</test>
 
-	<test name="Reaction">
+	<test name="Handlers">
 		<classes>
-			<class name="ca.darrensjones.jonesbot.test.reaction.HasReaction" />
-			<class name="ca.darrensjones.jonesbot.test.reaction.GetReactions" />
+			<class name="ca.darrensjones.jonesbot.test.handler.TReactionHandler" />
 		</classes>
 	</test>
 
