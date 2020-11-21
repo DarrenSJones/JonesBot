@@ -11,7 +11,7 @@ import net.dv8tion.jda.api.JDABuilder;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-18
+ * @version 1.0.0 2020-11-21
  * @since 1.0.0 2020-11-18
  */
 public class Bot {
@@ -21,9 +21,13 @@ public class Bot {
 	public ReactionHandler reactionHandler;
 
 	public Bot() {
+		this(false);
+	}
+
+	public Bot(boolean test) {
 		this.config = CConfig.getConfig();
-		resetJDA();
 		this.reactionHandler = new ReactionHandler();
+		if (!test) resetJDA();
 	}
 
 	public void resetJDA() {
