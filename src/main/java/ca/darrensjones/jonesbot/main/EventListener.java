@@ -21,6 +21,6 @@ public class EventListener extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent event) {
 		if (event.getAuthor().isBot()) return;
 
-		bot.reactionHandler.execute(event.getMessage());
+		bot.reactionHandler.process(event.getMessage());
 	}
 }

@@ -24,7 +24,7 @@ public class ReactionHandler {
 		setList();
 	}
 
-	public void execute(Message message) {
+	public void process(Message message) {
 		if (!hasReaction(message.getContentDisplay())) return;
 
 		Reporter.info("Start Reaction. " + LogUtils.getMessageInfo(message));
