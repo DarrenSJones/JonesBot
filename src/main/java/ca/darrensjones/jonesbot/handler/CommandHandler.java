@@ -43,6 +43,13 @@ public class CommandHandler {
 		else return false;
 	}
 
+	public AbstractCommand getCommand(String commandName) {
+		for (AbstractCommand c : commands) {
+			if (c.getName().equalsIgnoreCase(commandName)) return c;
+		}
+		return null;
+	}
+
 	public void setCommands() {
 		commands = new ArrayList<AbstractCommand>();
 		commands.add(new CommandPing());
