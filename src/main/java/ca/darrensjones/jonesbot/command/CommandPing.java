@@ -36,7 +36,7 @@ public class CommandPing extends AbstractCommand {
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setTitle("Help: " + getName());
 		eb.setDescription("Nothing to Help!");
-		eb.setColor(new Color(0, 0, 0));
+		eb.setColor(new Color(0, 153, 255));
 		message.getChannel().sendMessage(eb.build()).queue();
 	}
 
