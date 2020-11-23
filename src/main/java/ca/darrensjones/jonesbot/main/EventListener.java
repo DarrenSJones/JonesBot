@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-22
+ * @version 1.0.0 2020-11-23
  * @since 1.0.0 2020-11-18
  */
 public class EventListener extends ListenerAdapter {
@@ -21,7 +21,7 @@ public class EventListener extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent event) {
 		if (event.getAuthor().isBot()) return;
 
-		if (event.getMessage().getContentDisplay().startsWith(bot.config.BOT_PREFIX)) bot.commandHandler.process(event.getMessage());
+		if (bot.commandHandler.isCommand(event.getMessage().getContentDisplay())) bot.commandHandler.process(event.getMessage());
 
 		bot.reactionHandler.process(event.getMessage());
 	}
