@@ -13,6 +13,7 @@
 	<test name="Handlers">
 		<classes>
 			<class name="ca.darrensjones.jonesbot.test.handler.TReactionHandler" />
+			<class name="ca.darrensjones.jonesbot.test.handler.TCommandHandler" />
 		</classes>
 	</test>
 
