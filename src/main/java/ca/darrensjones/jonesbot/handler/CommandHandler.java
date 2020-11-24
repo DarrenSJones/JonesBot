@@ -38,12 +38,14 @@ public class CommandHandler {
 
 		if (c != null) {
 			if (hasHelp(content)) {
+				Reporter.info("Sub-Help found");
 				EmbedBuilder eb = new EmbedBuilder();
 				eb.setTitle("Sub-Help: " + c.getName());
 				eb.setDescription(String.format(c.getHelp(), bot.config.BOT_PREFIX));
 				eb.setColor(new Color(0, 153, 255));
 				message.getChannel().sendMessage(eb.build()).queue();
 			} else {
+				Reporter.info(String.format("Executing Command: [%s]", c.getName()));
 				c.execute(bot, message);
 			}
 		} else {
