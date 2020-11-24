@@ -25,6 +25,8 @@ public class TCommandHelp {
 		Assert.assertEquals(c.getTriggers()[0], "help");
 		Assert.assertEquals(c.getTriggers()[1], "h");
 
+		Assert.assertEquals(c.getHelp(), "**!help** The full list of Commands (you are here!)");
+
 		Assert.assertTrue(c.isVisible());
 	}
 }
