@@ -9,6 +9,7 @@ import ca.darrensjones.jonesbot.command.CommandCowbell;
 import ca.darrensjones.jonesbot.command.CommandHelp;
 import ca.darrensjones.jonesbot.command.CommandPing;
 import ca.darrensjones.jonesbot.command.CommandReaction;
+import ca.darrensjones.jonesbot.command.CommandReload;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.log.LogUtils;
 import ca.darrensjones.jonesbot.log.Reporter;
@@ -87,5 +88,6 @@ public class CommandHandler {
 		commands.add(new CommandHelp());
 		commands.add(new CommandPing());
 		commands.add(new CommandReaction());
+		commands.add(new CommandReload());
 	}
 }
