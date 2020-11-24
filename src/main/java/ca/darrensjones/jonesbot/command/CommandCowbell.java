@@ -44,6 +44,5 @@ public class CommandCowbell extends AbstractCommand {
 	@Override
 	public void execute(Bot bot, Message message) {
 		message.getChannel().sendMessage("https://media.giphy.com/media/3o6ozscsz4jRX7xuQE/giphy.gif").queue();
-//		message.getChannel().sendFile(new File("src/main/resources/images/cowbell.gif")).queue();
 	}
 }
