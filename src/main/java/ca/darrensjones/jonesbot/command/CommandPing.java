@@ -2,12 +2,13 @@ package ca.darrensjones.jonesbot.command;
 
 import java.awt.Color;
 
+import ca.darrensjones.jonesbot.bot.Bot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-23
+ * @version 1.0.0 2020-11-24
  * @since 1.0.0 2020-11-23
  */
 public class CommandPing extends AbstractCommand {
@@ -46,7 +47,7 @@ public class CommandPing extends AbstractCommand {
 	}
 
 	@Override
-	public void execute(Message message) {
+	public void execute(Bot bot, Message message) {
 		message.getChannel().sendMessage("Pong!").queue();
 	}
 }

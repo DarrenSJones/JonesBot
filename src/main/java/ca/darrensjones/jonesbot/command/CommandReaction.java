@@ -3,6 +3,7 @@ package ca.darrensjones.jonesbot.command;
 import java.awt.Color;
 import java.util.List;
 
+import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.db.controller.CReaction;
 import ca.darrensjones.jonesbot.db.model.OReaction;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -10,7 +11,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-23
+ * @version 1.0.0 2020-11-24
  * @since 1.0.0 2020-11-23
  */
 public class CommandReaction extends AbstractCommand {
@@ -49,7 +50,7 @@ public class CommandReaction extends AbstractCommand {
 	}
 
 	@Override
-	public void execute(Message message) {
+	public void execute(Bot bot, Message message) {
 		List<OReaction> list = CReaction.getAll();
 		String description = "Contact your Admin for additions:";
 		for (OReaction r : list) description += String.format("\n%s", r.toEmbed());

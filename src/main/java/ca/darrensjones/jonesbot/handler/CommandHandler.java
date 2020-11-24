@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-23
+ * @version 1.0.0 2020-11-24
  * @since 1.0.0 2020-11-22
  */
 public class CommandHandler {
@@ -30,7 +30,7 @@ public class CommandHandler {
 		Reporter.info("Start CommandHandler. " + LogUtils.getMessageInfo(message));
 
 		AbstractCommand c = getCommand(message.getContentDisplay().split("\\s+")[0].substring(bot.config.BOT_PREFIX.length()));
-		if (c != null) c.execute(message);
+		if (c != null) c.execute(bot, message);
 		else Reporter.info("Command not found in list.");
 
 		Reporter.info("End CommandHandler.");
@@ -39,6 +39,10 @@ public class CommandHandler {
 	public boolean isCommand(String content) {
 		if (content.startsWith(bot.config.BOT_PREFIX)) return true;
 		else return false;
+	}
+
+	public List<AbstractCommand> getCommands() {
+		return commands;
 	}
 
 	public AbstractCommand getCommand(String commandName) {
