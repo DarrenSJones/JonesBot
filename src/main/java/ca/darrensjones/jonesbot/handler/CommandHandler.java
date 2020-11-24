@@ -29,11 +29,9 @@ public class CommandHandler {
 	public void process(Message message) {
 		Reporter.info("Start CommandHandler. " + LogUtils.getMessageInfo(message));
 
-		String content = message.getContentDisplay().toLowerCase();
-		String com = content.split("\\s+")[0].substring(bot.config.BOT_PREFIX.length());
-		for (AbstractCommand c : commands) {
-			if (c.getName().equalsIgnoreCase(com)) c.execute(message);
-		}
+		AbstractCommand c = getCommand(message.getContentDisplay().split("\\s+")[0].substring(bot.config.BOT_PREFIX.length()));
+		if (c != null) c.execute(message);
+		else Reporter.info("Command not found in list.");
 
 		Reporter.info("End CommandHandler.");
 	}
@@ -45,7 +43,9 @@ public class CommandHandler {
 
 	public AbstractCommand getCommand(String commandName) {
 		for (AbstractCommand c : commands) {
-			if (c.getName().equalsIgnoreCase(commandName)) return c;
+			for (String t : c.getTriggers()) {
+				if (t.equalsIgnoreCase(commandName)) return c;
+			}
 		}
 		return null;
 	}

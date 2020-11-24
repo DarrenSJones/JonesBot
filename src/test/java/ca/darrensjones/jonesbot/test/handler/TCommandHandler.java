@@ -41,11 +41,15 @@ public class TCommandHandler {
 
 		/* Valid Commands */
 		Assert.assertTrue(c.isCommand("!ping"));
+		Assert.assertTrue(c.isCommand("!p"));
 		Assert.assertTrue(c.isCommand("!reaction"));
+		Assert.assertTrue(c.isCommand("!reactions"));
 
 		/* Close-to-valid Commands */
 		Assert.assertFalse(c.isCommand("ping"));
+		Assert.assertFalse(c.isCommand("p"));
 		Assert.assertFalse(c.isCommand("reaction"));
+		Assert.assertFalse(c.isCommand("reactions"));
 	}
 
 	@Test(dependsOnMethods = "isCommand", alwaysRun = true)
@@ -53,10 +57,11 @@ public class TCommandHandler {
 
 		/* Valid Commands */
 		Assert.assertNotNull(c.getCommand("ping"));
+		Assert.assertNotNull(c.getCommand("p"));
 		Assert.assertNotNull(c.getCommand("reaction"));
+		Assert.assertNotNull(c.getCommand("reactions"));
 
 		/* Close-to-valid Commands */
-		Assert.assertNull(c.getCommand("p"));
 		Assert.assertNull(c.getCommand("pi"));
 		Assert.assertNull(c.getCommand("pin"));
 		Assert.assertNull(c.getCommand("pings"));
@@ -64,6 +69,6 @@ public class TCommandHandler {
 		Assert.assertNull(c.getCommand("r"));
 		Assert.assertNull(c.getCommand("re"));
 		Assert.assertNull(c.getCommand("reactio"));
-		Assert.assertNull(c.getCommand("reactions"));
+		Assert.assertNull(c.getCommand("reactionss"));
 	}
 }
