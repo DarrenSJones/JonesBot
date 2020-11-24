@@ -36,7 +36,7 @@ public class CommandPing extends AbstractCommand {
 
 	@Override
 	public String getHelp(Message message) {
-		return "%sping " + getDescription();
+		return "**%sping** " + getDescription();
 	}
 
 	@Override

@@ -42,7 +42,7 @@ public class CommandReaction extends AbstractCommand {
 
 	@Override
 	public String getHelp(Message message) {
-		return "%sreaction " + getDescription();
+		return "**%sreaction** " + getDescription();
 	}
 
 	@Override
