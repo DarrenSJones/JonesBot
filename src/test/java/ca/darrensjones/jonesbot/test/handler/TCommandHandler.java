@@ -83,4 +83,18 @@ public class TCommandHandler {
 		Assert.assertNull(c.getCommand("reactio"));
 		Assert.assertNull(c.getCommand("reactionss"));
 	}
+
+	@Test(dependsOnMethods = "getCommand", alwaysRun = true)
+	public void hasHelp() {
+
+		/* Valid Help */
+		Assert.assertTrue(c.hasHelp("!ping !help"));
+		Assert.assertTrue(c.hasHelp("!reaction !help"));
+
+		/* Close-to-valid Help */
+		Assert.assertFalse(c.hasHelp("!h"));
+		Assert.assertFalse(c.hasHelp("!help"));
+		Assert.assertFalse(c.hasHelp("!ping !h"));
+		Assert.assertFalse(c.hasHelp("!ping !helps"));
+	}
 }

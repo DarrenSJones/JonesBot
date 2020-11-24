@@ -1,5 +1,6 @@
 package ca.darrensjones.jonesbot.handler;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import ca.darrensjones.jonesbot.command.CommandPing;
 import ca.darrensjones.jonesbot.command.CommandReaction;
 import ca.darrensjones.jonesbot.log.LogUtils;
 import ca.darrensjones.jonesbot.log.Reporter;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
@@ -30,9 +32,22 @@ public class CommandHandler {
 	public void process(Message message) {
 		Reporter.info("Start CommandHandler. " + LogUtils.getMessageInfo(message));
 
-		AbstractCommand c = getCommand(message.getContentDisplay().split("\\s+")[0].substring(bot.config.BOT_PREFIX.length()));
-		if (c != null) c.execute(bot, message);
-		else Reporter.info("Command not found in list.");
+		String content = message.getContentDisplay();
+		AbstractCommand c = getCommand(content.split("\\s+")[0].substring(bot.config.BOT_PREFIX.length()));
+
+		if (c != null) {
+			if (hasHelp(content)) {
+				EmbedBuilder eb = new EmbedBuilder();
+				eb.setTitle("Sub-Help: " + c.getName());
+				eb.setDescription(String.format(c.getHelp(), bot.config.BOT_PREFIX));
+				eb.setColor(new Color(0, 153, 255));
+				message.getChannel().sendMessage(eb.build()).queue();
+			} else {
+				c.execute(bot, message);
+			}
+		} else {
+			Reporter.info("Command not found in list.");
+		}
 
 		Reporter.info("End CommandHandler.");
 	}
@@ -53,6 +68,14 @@ public class CommandHandler {
 			}
 		}
 		return null;
+	}
+
+	public boolean hasHelp(String content) {
+		String[] args = content.split("\\s+");
+		for (int i = 1; i < args.length; i++) {
+			if (args[i].equalsIgnoreCase(bot.config.BOT_PREFIX + "help")) return true;
+		}
+		return false;
 	}
 
 	public void setCommands() {
