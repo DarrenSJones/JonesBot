@@ -8,7 +8,7 @@ import ca.darrensjones.jonesbot.test.BotTest;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-23
+ * @version 1.0.0 2020-11-24
  * @since 1.0.0 2020-11-23
  */
 public class TCommandReaction {
@@ -19,7 +19,7 @@ public class TCommandReaction {
 	public void commandBasics() {
 		Assert.assertEquals(c.getName(), "Reaction");
 
-		Assert.assertEquals(c.getDescription(), "Displays a list of Reactions recognized by the Bot");
+		Assert.assertEquals(c.getDescription(), "A list of reactions the Bot will respond with");
 
 		Assert.assertEquals(c.getTriggers().length, 2);
 		Assert.assertEquals(c.getTriggers()[0], "reaction");

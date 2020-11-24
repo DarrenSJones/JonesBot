@@ -27,7 +27,7 @@ public class CommandReaction extends AbstractCommand {
 
 	@Override
 	public String getDescription() {
-		return "Displays a list of Reactions recognized by the Bot";
+		return "A list of reactions the Bot will respond with";
 	}
 
 	@Override
