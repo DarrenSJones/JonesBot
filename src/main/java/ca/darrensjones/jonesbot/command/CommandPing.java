@@ -1,9 +1,6 @@
 package ca.darrensjones.jonesbot.command;
 
-import java.awt.Color;
-
 import ca.darrensjones.jonesbot.bot.Bot;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
@@ -38,12 +35,8 @@ public class CommandPing extends AbstractCommand {
 	}
 
 	@Override
-	public void help(Message message) {
-		EmbedBuilder eb = new EmbedBuilder();
-		eb.setTitle("Help: " + getName());
-		eb.setDescription("Nothing to Help!");
-		eb.setColor(new Color(0, 153, 255));
-		message.getChannel().sendMessage(eb.build()).queue();
+	public String getHelp(Message message) {
+		return "%sping " + getDescription();
 	}
 
 	@Override

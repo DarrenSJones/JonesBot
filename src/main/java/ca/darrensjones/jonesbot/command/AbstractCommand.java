@@ -47,7 +47,7 @@ public abstract class AbstractCommand {
 	 * 
 	 * @return Command Help
 	 */
-	public abstract void help(Message message);
+	public abstract String getHelp(Message message);
 
 	/**
 	 * Executes the Command

@@ -38,19 +38,15 @@ public class CommandHelp extends AbstractCommand {
 	}
 
 	@Override
-	public void help(Message message) {
-		EmbedBuilder eb = new EmbedBuilder();
-		eb.setTitle("Help: " + getName());
-		eb.setDescription("Nothing to Help!");
-		eb.setColor(new Color(0, 153, 255));
-		message.getChannel().sendMessage(eb.build()).queue();
+	public String getHelp(Message message) {
+		return "%shelp " + getDescription();
 	}
 
 	@Override
 	public void execute(Bot bot, Message message) {
 		String help = String.format("Commands are not case-sensitive. Try \"{command} %shelp\" for more information.", bot.config.BOT_PREFIX);
 		for (AbstractCommand c : bot.commandHandler.getCommands()) {
-			help += String.format("%n**%s%s**: %s", bot.config.BOT_PREFIX, c.getName(), c.getDescription());
+			help += String.format("%n**%s%s**: %s", bot.config.BOT_PREFIX, c.getTriggers()[0], c.getDescription());
 		}
 
 		EmbedBuilder eb = new EmbedBuilder();

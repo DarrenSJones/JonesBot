@@ -8,8 +8,8 @@ import ca.darrensjones.jonesbot.test.BotTest;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-23
- * @since 1.0.0 2020-11-23
+ * @version 1.0.0 2020-11-24
+ * @since 1.0.0 2020-11-24
  */
 public class TCommandHelp {
 

@@ -41,12 +41,8 @@ public class CommandReaction extends AbstractCommand {
 	}
 
 	@Override
-	public void help(Message message) {
-		EmbedBuilder eb = new EmbedBuilder();
-		eb.setTitle("Help: " + getName());
-		eb.setDescription("Nothing to Help!");
-		eb.setColor(new Color(0, 153, 255));
-		message.getChannel().sendMessage(eb.build()).queue();
+	public String getHelp(Message message) {
+		return "%sreaction " + getDescription();
 	}
 
 	@Override
