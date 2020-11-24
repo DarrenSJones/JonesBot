@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.darrensjones.jonesbot.bot.Bot;
-import ca.darrensjones.jonesbot.command.AbstractCommand;
 import ca.darrensjones.jonesbot.command.CommandHelp;
 import ca.darrensjones.jonesbot.command.CommandPing;
 import ca.darrensjones.jonesbot.command.CommandReaction;
+import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.log.LogUtils;
 import ca.darrensjones.jonesbot.log.Reporter;
 import net.dv8tion.jda.api.EmbedBuilder;

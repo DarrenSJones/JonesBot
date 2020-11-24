@@ -3,6 +3,7 @@ package ca.darrensjones.jonesbot.command;
 import java.awt.Color;
 
 import ca.darrensjones.jonesbot.bot.Bot;
+import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 

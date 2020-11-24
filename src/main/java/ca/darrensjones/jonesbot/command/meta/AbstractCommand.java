@@ -1,4 +1,4 @@
-package ca.darrensjones.jonesbot.command;
+package ca.darrensjones.jonesbot.command.meta;
 
 import ca.darrensjones.jonesbot.bot.Bot;
 import net.dv8tion.jda.api.entities.Message;

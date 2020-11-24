@@ -3,7 +3,7 @@ package ca.darrensjones.jonesbot.test.command;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import ca.darrensjones.jonesbot.command.AbstractCommand;
+import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.test.BotTest;
 
 /**

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.List;
 
 import ca.darrensjones.jonesbot.bot.Bot;
+import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.db.controller.CReaction;
 import ca.darrensjones.jonesbot.db.model.OReaction;
 import net.dv8tion.jda.api.EmbedBuilder;
