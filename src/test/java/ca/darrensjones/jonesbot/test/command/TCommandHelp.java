@@ -14,7 +14,7 @@ import ca.darrensjones.jonesbot.test.BotTest;
  */
 public class TCommandHelp {
 
-	private static final AbstractCommand c = BotTest.get().commandHandler.getCommand("ping");
+	private static final AbstractCommand c = BotTest.get().commandHandler.getCommand("help");
 
 	@Test
 	public void commandBasics() {
@@ -26,7 +26,7 @@ public class TCommandHelp {
 		Assert.assertEquals(c.getTriggers()[0], "help");
 		Assert.assertEquals(c.getTriggers()[1], "h");
 
-		Assert.assertEquals(c.getHelp(), "**!help** The full list of Commands (you are here!)");
+		Assert.assertEquals(c.getHelp(), "**%shelp** The full list of Commands (you are here!)");
 
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
