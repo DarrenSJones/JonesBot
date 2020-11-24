@@ -5,6 +5,7 @@ import java.util.List;
 
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
+import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
 import ca.darrensjones.jonesbot.db.controller.CReaction;
 import ca.darrensjones.jonesbot.db.model.OReaction;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -37,8 +38,8 @@ public class CommandReaction extends AbstractCommand {
 	}
 
 	@Override
-	public boolean isVisible() {
-		return true;
+	public CommandVisibility visibility() {
+		return CommandVisibility.PUBLIC;
 	}
 
 	@Override

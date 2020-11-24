@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
+import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 
@@ -34,8 +35,8 @@ public class CommandHelp extends AbstractCommand {
 	}
 
 	@Override
-	public boolean isVisible() {
-		return true;
+	public CommandVisibility visibility() {
+		return CommandVisibility.PUBLIC;
 	}
 
 	@Override
@@ -47,7 +48,9 @@ public class CommandHelp extends AbstractCommand {
 	public void execute(Bot bot, Message message) {
 		String help = String.format("Commands are not case-sensitive. Try \"{command} %shelp\" for more information.", bot.config.BOT_PREFIX);
 		for (AbstractCommand c : bot.commandHandler.getCommands()) {
-			help += String.format("%n**%s%s**: %s", bot.config.BOT_PREFIX, c.getTriggers()[0], c.getDescription());
+			if (c.visibility().equals(CommandVisibility.PUBLIC)) {
+				help += String.format("%n**%s%s**: %s", bot.config.BOT_PREFIX, c.getTriggers()[0], c.getDescription());
+			}
 		}
 
 		EmbedBuilder eb = new EmbedBuilder();

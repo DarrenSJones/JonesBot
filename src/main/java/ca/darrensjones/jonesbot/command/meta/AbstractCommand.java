@@ -40,7 +40,7 @@ public abstract class AbstractCommand {
 	 * 
 	 * @return True if in Help list, False otherwise
 	 */
-	public abstract boolean isVisible();
+	public abstract CommandVisibility visibility();
 
 	/**
 	 * Help specific to the Command

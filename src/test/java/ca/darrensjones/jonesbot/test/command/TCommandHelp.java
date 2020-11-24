@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
+import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
 import ca.darrensjones.jonesbot.test.BotTest;
 
 /**
@@ -27,6 +28,6 @@ public class TCommandHelp {
 
 		Assert.assertEquals(c.getHelp(), "**!help** The full list of Commands (you are here!)");
 
-		Assert.assertTrue(c.isVisible());
+		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 }
