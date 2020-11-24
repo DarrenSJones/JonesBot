@@ -27,6 +27,11 @@ public class CommandPing extends AbstractCommand {
 	}
 
 	@Override
+	public String[] getTriggers() {
+		return new String[] { "ping", "p" };
+	}
+
+	@Override
 	public boolean isVisible() {
 		return true;
 	}

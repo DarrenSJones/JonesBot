@@ -28,6 +28,13 @@ public abstract class AbstractCommand {
 	public abstract String getDescription();
 
 	/**
+	 * Commands can have multiple triggers besides the name
+	 * 
+	 * @return triggers
+	 */
+	public abstract String[] getTriggers();
+
+	/**
 	 * Whether the Command is listed in Help or not
 	 * 
 	 * @return True if in Help list, False otherwise

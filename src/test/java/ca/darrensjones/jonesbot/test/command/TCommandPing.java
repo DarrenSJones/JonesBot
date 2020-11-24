@@ -21,6 +21,10 @@ public class TCommandPing {
 
 		Assert.assertEquals(c.getDescription(), "Pong!");
 
+		Assert.assertEquals(c.getTriggers().length, 2);
+		Assert.assertEquals(c.getTriggers()[0], "ping");
+		Assert.assertEquals(c.getTriggers()[1], "p");
+
 		Assert.assertTrue(c.isVisible());
 	}
 }

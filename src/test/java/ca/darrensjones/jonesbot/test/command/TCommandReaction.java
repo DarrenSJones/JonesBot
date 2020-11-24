@@ -21,6 +21,10 @@ public class TCommandReaction {
 
 		Assert.assertEquals(c.getDescription(), "Displays a list of Reactions recognized by the Bot");
 
+		Assert.assertEquals(c.getTriggers().length, 2);
+		Assert.assertEquals(c.getTriggers()[0], "reaction");
+		Assert.assertEquals(c.getTriggers()[1], "reactions");
+
 		Assert.assertTrue(c.isVisible());
 	}
 }

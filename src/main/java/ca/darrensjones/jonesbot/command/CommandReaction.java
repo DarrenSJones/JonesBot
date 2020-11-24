@@ -30,6 +30,11 @@ public class CommandReaction extends AbstractCommand {
 	}
 
 	@Override
+	public String[] getTriggers() {
+		return new String[] { "reaction", "reactions" };
+	}
+
+	@Override
 	public boolean isVisible() {
 		return true;
 	}
