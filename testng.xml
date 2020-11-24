@@ -17,4 +17,11 @@
 		</classes>
 	</test>
 
+	<test name="Commands">
+		<classes>
+			<class name="ca.darrensjones.jonesbot.test.command.TCommandPing" />
+			<class name="ca.darrensjones.jonesbot.test.command.TCommandReaction" />
+		</classes>
+	</test>
+
 </suite>
