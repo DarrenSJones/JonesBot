@@ -19,6 +19,8 @@
 
 	<test name="Commands">
 		<classes>
+			<class name="ca.darrensjones.jonesbot.test.command.TCommandCowbell" />
+			<class name="ca.darrensjones.jonesbot.test.command.TCommandHelp" />
 			<class name="ca.darrensjones.jonesbot.test.command.TCommandPing" />
 			<class name="ca.darrensjones.jonesbot.test.command.TCommandReaction" />
 		</classes>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.darrensjones.jonesbot.bot.Bot;
+import ca.darrensjones.jonesbot.command.CommandCowbell;
 import ca.darrensjones.jonesbot.command.CommandHelp;
 import ca.darrensjones.jonesbot.command.CommandPing;
 import ca.darrensjones.jonesbot.command.CommandReaction;
@@ -80,6 +81,7 @@ public class CommandHandler {
 
 	public void setCommands() {
 		commands = new ArrayList<AbstractCommand>();
+		commands.add(new CommandCowbell());
 		commands.add(new CommandHelp());
 		commands.add(new CommandPing());
 		commands.add(new CommandReaction());
