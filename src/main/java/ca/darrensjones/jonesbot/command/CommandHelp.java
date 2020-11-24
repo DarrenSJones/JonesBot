@@ -38,7 +38,7 @@ public class CommandHelp extends AbstractCommand {
 	}
 
 	@Override
-	public String getHelp(Message message) {
+	public String getHelp() {
 		return "**%shelp** " + getDescription();
 	}
 
