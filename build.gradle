@@ -23,6 +23,9 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
 	compile("org.slf4j:slf4j-simple:1.7.30")
 	
+	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+	compile("com.googlecode.json-simple:json-simple:1.1.1")
+	
 	// https://mvnrepository.com/artifact/org.testng/testng
 	testCompile("org.testng:testng:6.14.3")
 }
