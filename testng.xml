@@ -19,13 +19,7 @@
 
 	<test name="Commands">
 		<classes>
-			<class name="ca.darrensjones.jonesbot.test.command.TCommandCatFact" />
-			<class name="ca.darrensjones.jonesbot.test.command.TCommandCowbell" />
-			<class name="ca.darrensjones.jonesbot.test.command.TCommandHelp" />
-			<class name="ca.darrensjones.jonesbot.test.command.TCommandOwner" />
-			<class name="ca.darrensjones.jonesbot.test.command.TCommandPing" />
-			<class name="ca.darrensjones.jonesbot.test.command.TCommandReaction" />
-			<class name="ca.darrensjones.jonesbot.test.command.TCommandReload" />
+			<class name="ca.darrensjones.jonesbot.test.command.CommandBasics" />
 		</classes>
 	</test>
 
