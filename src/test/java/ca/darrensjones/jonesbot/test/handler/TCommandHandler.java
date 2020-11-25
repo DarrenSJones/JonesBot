@@ -56,13 +56,14 @@ public class TCommandHandler {
 	public void getCommands() {
 
 		/* Validates List */
-		Assert.assertEquals(c.getCommands().size(), 6);
+		Assert.assertEquals(c.getCommands().size(), 7);
 		Assert.assertEquals(c.getCommands().get(0).getName(), "Cat Fact");
 		Assert.assertEquals(c.getCommands().get(1).getName(), "Cowbell");
 		Assert.assertEquals(c.getCommands().get(2).getName(), "Help");
-		Assert.assertEquals(c.getCommands().get(3).getName(), "Ping");
-		Assert.assertEquals(c.getCommands().get(4).getName(), "Reaction");
-		Assert.assertEquals(c.getCommands().get(5).getName(), "Reload");
+		Assert.assertEquals(c.getCommands().get(3).getName(), "Owner");
+		Assert.assertEquals(c.getCommands().get(4).getName(), "Ping");
+		Assert.assertEquals(c.getCommands().get(5).getName(), "Reaction");
+		Assert.assertEquals(c.getCommands().get(6).getName(), "Reload");
 	}
 
 	@Test(dependsOnMethods = "getCommands", alwaysRun = true)

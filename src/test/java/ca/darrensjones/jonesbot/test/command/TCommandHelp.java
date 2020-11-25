@@ -20,13 +20,13 @@ public class TCommandHelp {
 	public void commandBasics() {
 		Assert.assertEquals(c.getName(), "Help");
 
-		Assert.assertEquals(c.getDescription(), "The full list of Commands (you are here!)");
+		Assert.assertEquals(c.getDescription(), "The full list of Commands");
 
 		Assert.assertEquals(c.getTriggers().length, 2);
 		Assert.assertEquals(c.getTriggers()[0], "help");
 		Assert.assertEquals(c.getTriggers()[1], "h");
 
-		Assert.assertEquals(c.getHelp(), "**%shelp** The full list of Commands (you are here!)");
+		Assert.assertEquals(c.getHelp(), "**%shelp** The full list of Commands");
 
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}

@@ -44,6 +44,7 @@ public class CommandReload extends AbstractCommand {
 	@Override
 	public void execute(Bot bot, Message message) {
 		if (!message.getAuthor().getId().equals(bot.config.BOT_OWNER_ID)) return;
+
 		bot.commandHandler.setCommands();
 		bot.reactionHandler.setList();
 		message.getChannel().sendMessage("Commands and Reactions reloaded!").queue();

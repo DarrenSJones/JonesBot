@@ -8,6 +8,7 @@ import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.CommandCatFact;
 import ca.darrensjones.jonesbot.command.CommandCowbell;
 import ca.darrensjones.jonesbot.command.CommandHelp;
+import ca.darrensjones.jonesbot.command.CommandOwner;
 import ca.darrensjones.jonesbot.command.CommandPing;
 import ca.darrensjones.jonesbot.command.CommandReaction;
 import ca.darrensjones.jonesbot.command.CommandReload;
@@ -88,6 +89,7 @@ public class CommandHandler {
 		commands.add(new CommandCatFact());
 		commands.add(new CommandCowbell());
 		commands.add(new CommandHelp());
+		commands.add(new CommandOwner());
 		commands.add(new CommandPing());
 		commands.add(new CommandReaction());
 		commands.add(new CommandReload());
