@@ -1,4 +1,4 @@
-package ca.darrensjones.jonesbot.test;
+package ca.darrensjones.jonesbot.testcore;
 
 import org.testng.ITestContext;
 import org.testng.ITestListener;

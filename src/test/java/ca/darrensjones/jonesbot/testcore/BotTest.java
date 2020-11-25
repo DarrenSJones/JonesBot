@@ -1,4 +1,4 @@
-package ca.darrensjones.jonesbot.test;
+package ca.darrensjones.jonesbot.testcore;
 
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.db.BotDB;

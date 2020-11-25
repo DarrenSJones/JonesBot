@@ -38,7 +38,7 @@ dependencies {
 
 test {
 	useTestNG() {
-		listeners.add("ca.darrensjones.jonesbot.test.BotTestListener")
+		listeners.add("ca.darrensjones.jonesbot.testcore.BotTestListener")
 		suites "testng.xml"
 		testLogging.showStandardStreams = true
 	}

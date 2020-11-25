@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import ca.darrensjones.jonesbot.handler.CommandHandler;
-import ca.darrensjones.jonesbot.test.BotTest;
+import ca.darrensjones.jonesbot.testcore.BotTest;
 
 /**
  * @author Darren Jones
