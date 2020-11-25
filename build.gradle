@@ -28,6 +28,12 @@ dependencies {
 	
 	// https://mvnrepository.com/artifact/org.testng/testng
 	testCompile("org.testng:testng:6.14.3")
+	
+	// https://mvnrepository.com/artifact/org.mock-server/mockserver-netty
+	testCompile("org.mock-server:mockserver-netty:3.9.1")
+	
+	// https://mvnrepository.com/artifact/org.mock-server/mockserver-client-java
+	compile("org.mock-server:mockserver-client-java:5.11.2")
 }
 
 test {
