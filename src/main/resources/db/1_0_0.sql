@@ -13,7 +13,8 @@ VALUES
 	('BOT_TOKEN',				'discord-bot-token-here'),
 	('BOT_OWNER_ID',			'discord-bot-owner-id-here'),
 	('BOT_PREFIX',				'!'),
-	('TOKEN_OPENWEATHERMAP',	'openweathermap-token-here');
+	('TOKEN_OPENWEATHERMAP',	'openweathermap-token-here'),
+	('HOST_CATFACT',			'https://catfact.ninja');
 
 DROP TABLE IF EXISTS "reaction";
 
@@ -22,7 +23,3 @@ CREATE TABLE "reaction" (
 	"shortcode"	VARCHAR(20)			NOT NULL,
 	"unicode"	NVARCHAR(10)		NOT NULL,
 	"regex"		VARCHAR(255)		NOT NULL);
-
-
-
-

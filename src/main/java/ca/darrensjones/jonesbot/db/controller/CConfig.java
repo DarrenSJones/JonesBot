@@ -23,6 +23,7 @@ public class CConfig {
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());
 		}
-		return new BotConfig(map.get("BOT_VERSION"), map.get("BOT_TOKEN"), map.get("BOT_OWNER_ID"), map.get("BOT_PREFIX"), map.get("TOKEN_OPENWEATHERMAP"));
+		return new BotConfig(map.get("BOT_VERSION"), map.get("BOT_TOKEN"), map.get("BOT_OWNER_ID"), map.get("BOT_PREFIX"), map.get("TOKEN_OPENWEATHERMAP"),
+				map.get("HOST_CATFACT"));
 	}
 }

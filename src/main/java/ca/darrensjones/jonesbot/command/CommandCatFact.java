@@ -53,7 +53,7 @@ public class CommandCatFact extends AbstractCommand {
 	@Override
 	public void execute(Bot bot, Message message) {
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.setDescription(getResponse());
+		eb.setDescription(getResponse(bot.config.HOST_CATFACT));
 		eb.setFooter("Cat Fact", "http://www.nyan.cat/cats/original.gif");
 		eb.setTimestamp(new Date().toInstant());
 		eb.setColor(new Color(254, 119, 255));
@@ -61,9 +61,9 @@ public class CommandCatFact extends AbstractCommand {
 		message.getChannel().sendMessage(eb.build()).queue();
 	}
 
-	public String getResponse() {
+	public String getResponse(String host) {
 		try {
-			String response = RequestUtils.getResponseBody("https://catfact.ninja/fact");
+			String response = RequestUtils.getResponseBody(host + "/fact");
 			JSONObject json = (JSONObject) new JSONParser().parse(response);
 			return json.get("fact").toString();
 		} catch (Exception e) {
