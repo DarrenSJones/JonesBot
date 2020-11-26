@@ -16,7 +16,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-24
+ * @version 1.0.0 2020-11-26
  * @since 1.0.0 2020-11-24
  */
 public class CommandCatFact extends AbstractCommand {
@@ -27,7 +27,7 @@ public class CommandCatFact extends AbstractCommand {
 
 	@Override
 	public String getName() {
-		return "Cat Fact";
+		return "CatFact";
 	}
 
 	@Override
@@ -52,21 +52,23 @@ public class CommandCatFact extends AbstractCommand {
 
 	@Override
 	public void execute(Bot bot, Message message) {
-		String fact;
-		try {
-			String response = RequestUtils.getResponseBody("https://catfact.ninja/fact");
-			JSONObject json = (JSONObject) new JSONParser().parse(response);
-			fact = json.get("fact").toString();
-		} catch (Exception e) {
-			fact = "Cat Fact not found.";
-			Reporter.fatal(e.getMessage());
-		}
-
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.setDescription(fact);
+		eb.setDescription(getResponse());
 		eb.setFooter("Cat Fact", "http://www.nyan.cat/cats/original.gif");
 		eb.setTimestamp(new Date().toInstant());
 		eb.setColor(new Color(254, 119, 255));
+
 		message.getChannel().sendMessage(eb.build()).queue();
+	}
+
+	public String getResponse() {
+		try {
+			String response = RequestUtils.getResponseBody("https://catfact.ninja/fact");
+			JSONObject json = (JSONObject) new JSONParser().parse(response);
+			return json.get("fact").toString();
+		} catch (Exception e) {
+			Reporter.fatal(e.getMessage());
+			return "Cat Fact not found.";
+		}
 	}
 }
