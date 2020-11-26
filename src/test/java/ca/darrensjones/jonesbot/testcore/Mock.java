@@ -11,7 +11,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
  * @version 1.0.0 2020-11-26
  * @since 1.0.0 2020-11-25
  */
-public class BotMock {
+public class Mock {
 
 	private static ClientAndServer clientAndServer;
 	private static MockServerClient client;
@@ -37,6 +37,7 @@ public class BotMock {
 	}
 
 	public static MockServerClient getClient() {
+		if (clientAndServer == null) createClientAndServer();
 		if (client == null) createClient();
 		return client;
 	}
