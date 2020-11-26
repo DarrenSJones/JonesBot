@@ -11,7 +11,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
  * @version 1.0.0 2020-11-22
  * @since 1.0.0 2020-11-21
  */
-public class BotTestListener implements ITestListener {
+public class TestListener implements ITestListener {
 
 	@Override
 	public void onTestStart(ITestResult result) {
