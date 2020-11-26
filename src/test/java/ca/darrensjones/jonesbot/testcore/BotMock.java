@@ -1,24 +1,25 @@
 package ca.darrensjones.jonesbot.testcore;
 
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.mockserver.client.MockServerClient;
+import org.mockserver.configuration.ConfigurationProperties;
 import org.mockserver.integration.ClientAndServer;
 
 import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-25
+ * @version 1.0.0 2020-11-26
  * @since 1.0.0 2020-11-25
  */
 public class BotMock {
 
 	private static ClientAndServer clientAndServer;
-	private static CloseableHttpClient httpClient;
+	private static MockServerClient client;
 
 	public static void createClientAndServer() {
 		clientAndServer = new ClientAndServer(1080);
-		Reporter.debug("Created new MockServer ClientAndServer");
+		ConfigurationProperties.disableSystemOut(true); // Bot uses it's own output
+		Reporter.debug("Created new MockServer ClientAndServer: localhost:1080");
 	}
 
 	public static ClientAndServer getClientAndServer() {
@@ -26,13 +27,17 @@ public class BotMock {
 		return clientAndServer;
 	}
 
-	public static void createHttpClient() {
-		httpClient = HttpClients.createDefault();
-		Reporter.debug("Created new MockServer HttpClient");
+	public static void stopClientAndServer() {
+		if (clientAndServer != null) clientAndServer.stop();
 	}
 
-	public static CloseableHttpClient getHttpClient() {
-		if (httpClient == null) createHttpClient();
-		return httpClient;
+	public static void createClient() {
+		client = new MockServerClient("localhost", 1080);
+		Reporter.debug("Created new MockServer Client: localhost:1080");
+	}
+
+	public static MockServerClient getClient() {
+		if (client == null) createClient();
+		return client;
 	}
 }
