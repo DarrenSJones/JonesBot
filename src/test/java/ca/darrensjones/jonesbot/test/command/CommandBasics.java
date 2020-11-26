@@ -10,7 +10,7 @@ import ca.darrensjones.jonesbot.testcore.BotTest;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-24
+ * @version 1.0.0 2020-11-25
  * @since 1.0.0 2020-11-24
  */
 public class CommandBasics {
@@ -18,9 +18,21 @@ public class CommandBasics {
 	private static final CommandHandler h = BotTest.get().commandHandler;
 
 	@Test
+	public void getCommandsList() {
+		Assert.assertEquals(h.getCommands().size(), 7);
+		Assert.assertEquals(h.getCommands().get(0).getName(), "CatFact");
+		Assert.assertEquals(h.getCommands().get(1).getName(), "Cowbell");
+		Assert.assertEquals(h.getCommands().get(2).getName(), "Help");
+		Assert.assertEquals(h.getCommands().get(3).getName(), "Owner");
+		Assert.assertEquals(h.getCommands().get(4).getName(), "Ping");
+		Assert.assertEquals(h.getCommands().get(5).getName(), "Reaction");
+		Assert.assertEquals(h.getCommands().get(6).getName(), "Reload");
+	}
+
+	@Test(dependsOnMethods = "getCommandsList", alwaysRun = true)
 	public void basicsCatFact() {
 		AbstractCommand c = h.getCommand("catfact");
-		Assert.assertEquals(c.getName(), "Cat Fact");
+		Assert.assertEquals(c.getName(), "CatFact");
 		Assert.assertEquals(c.getDescription(), "Displays a random cat fact from https://catfact.ninja");
 		Assert.assertEquals(c.getTriggers(), new String[] { "catfact", "catfacts" });
 		Assert.assertEquals(c.getHelp(), "**%scatfact** Displays a random cat fact from https://catfact.ninja");

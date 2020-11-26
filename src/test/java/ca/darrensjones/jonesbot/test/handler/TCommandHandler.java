@@ -8,7 +8,7 @@ import ca.darrensjones.jonesbot.testcore.BotTest;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-24
+ * @version 1.0.0 2020-11-25
  * @since 1.0.0 2020-11-23
  */
 public class TCommandHandler {
@@ -55,15 +55,8 @@ public class TCommandHandler {
 	@Test(dependsOnMethods = "isCommand", alwaysRun = true)
 	public void getCommands() {
 
-		/* Validates List */
-		Assert.assertEquals(c.getCommands().size(), 7);
-		Assert.assertEquals(c.getCommands().get(0).getName(), "Cat Fact");
-		Assert.assertEquals(c.getCommands().get(1).getName(), "Cowbell");
-		Assert.assertEquals(c.getCommands().get(2).getName(), "Help");
-		Assert.assertEquals(c.getCommands().get(3).getName(), "Owner");
-		Assert.assertEquals(c.getCommands().get(4).getName(), "Ping");
-		Assert.assertEquals(c.getCommands().get(5).getName(), "Reaction");
-		Assert.assertEquals(c.getCommands().get(6).getName(), "Reload");
+		/* Full list is validated in CommandBasics */
+		Assert.assertNotNull(c.getCommands());
 	}
 
 	@Test(dependsOnMethods = "getCommands", alwaysRun = true)
