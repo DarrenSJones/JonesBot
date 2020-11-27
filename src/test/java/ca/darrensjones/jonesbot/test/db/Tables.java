@@ -13,7 +13,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-21
+ * @version 1.0.0 2020-11-27
  * @since 1.0.0 2020-11-21
  */
 public class Tables {
