@@ -22,7 +22,7 @@ public class Tables {
 	public void allTables() {
 		List<String> tables = new ArrayList<String>();
 		try {
-			ResultSet rs = BotDB.get().select("SELECT * FROM " + BotDB.getDefaultDB() + ".sys.tables");
+			ResultSet rs = BotDB.get().select("SELECT * FROM " + BotDB.getDefaultDB() + ".sys.tables ORDER BY name");
 			while (rs.next()) tables.add(rs.getString(1));
 			rs.getStatement().close();
 		} catch (Exception e) {
