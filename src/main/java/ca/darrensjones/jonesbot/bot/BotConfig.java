@@ -2,7 +2,7 @@ package ca.darrensjones.jonesbot.bot;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-18
+ * @version 1.0.0 2020-11-26
  * @since 1.0.0 2020-11-18
  */
 public class BotConfig {
@@ -24,9 +24,7 @@ public class BotConfig {
 	}
 }
 /*-
-Utils: Request/Response, JSON Read
 Schedule
-Command: CatFacts
 Command: Frinkiac
 Command: MoaS
 Command: Morbotron

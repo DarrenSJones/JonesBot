@@ -3,17 +3,17 @@ package ca.darrensjones.jonesbot.test.handler;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import ca.darrensjones.jonesbot.handler.ReactionHandler;
+import ca.darrensjones.jonesbot.handler.AutoResponseHandler;
 import ca.darrensjones.jonesbot.testcore.BotTest;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-21
+ * @version 1.0.0 2020-11-26
  * @since 1.0.0 2020-11-21
  */
-public class TReactionHandler {
+public class TAutoResponseHandler {
 
-	private static final ReactionHandler r = BotTest.get().reactionHandler;
+	private static final AutoResponseHandler r = BotTest.get().autoResponseHandler;
 
 	@Test
 	public void hasReaction() {

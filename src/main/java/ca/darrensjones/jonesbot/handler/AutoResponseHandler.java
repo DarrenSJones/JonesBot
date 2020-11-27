@@ -13,14 +13,14 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-21
+ * @version 1.0.0 2020-11-26
  * @since 1.0.0 2020-11-18
  */
-public class ReactionHandler {
+public class AutoResponseHandler {
 
 	public List<OReaction> list;
 
-	public ReactionHandler() {
+	public AutoResponseHandler() {
 		setList();
 	}
 
