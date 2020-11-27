@@ -9,7 +9,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-19
+ * @version 1.0.0 2020-11-27
  * @since 1.0.0 2020-11-18
  */
 public class CConfig {
@@ -23,7 +23,7 @@ public class CConfig {
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());
 		}
-		return new BotConfig(map.get("BOT_VERSION"), map.get("BOT_TOKEN"), map.get("BOT_OWNER_ID"), map.get("BOT_PREFIX"), map.get("TOKEN_OPENWEATHERMAP"),
-				map.get("HOST_CATFACT"));
+		return new BotConfig(map.get("BOT_VERSION"), map.get("BOT_TOKEN"), map.get("BOT_OWNER_ID"), map.get("BOT_PREFIX"), map.get("CATFACT_HOST"),
+				map.get("WEATHER_TOKEN"));
 	}
 }

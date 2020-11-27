@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-26
+ * @version 1.0.0 2020-11-27
  * @since 1.0.0 2020-11-24
  */
 public class CommandCatFact extends AbstractCommand {
@@ -50,7 +50,7 @@ public class CommandCatFact extends AbstractCommand {
 	@Override
 	public void execute(Bot bot, Message message) {
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.setDescription(getResponse(bot.config.HOST_CATFACT));
+		eb.setDescription(getResponse(bot.config.CATFACT_HOST));
 		eb.setFooter("Cat Fact", "http://www.nyan.cat/cats/original.gif");
 		eb.setTimestamp(new Date().toInstant());
 		eb.setColor(new Color(254, 119, 255));

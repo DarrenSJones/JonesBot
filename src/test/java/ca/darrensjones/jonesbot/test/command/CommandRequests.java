@@ -10,7 +10,7 @@ import ca.darrensjones.jonesbot.testcore.Mock;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-26
+ * @version 1.0.0 2020-11-27
  * @since 1.0.0 2020-11-26
  */
 public class CommandRequests {
@@ -22,6 +22,6 @@ public class CommandRequests {
 		Mock.reset();
 		Mock.setExpectation("GET", "/fact", 200, "src/test/resources/mock/CatFact.json");
 
-		Assert.assertEquals(new CommandCatFact().getResponse(b.config.HOST_CATFACT), "This is a test Cat Fact!");
+		Assert.assertEquals(new CommandCatFact().getResponse(b.config.CATFACT_HOST), "This is a test Cat Fact!");
 	}
 }
