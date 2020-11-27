@@ -1,4 +1,4 @@
-USE jonesbot
+USE jonesbottest
 
 DROP TABLE IF EXISTS "bot_config";
 
@@ -13,8 +13,10 @@ VALUES
 	('BOT_TOKEN',				'discord-bot-token-here'),
 	('BOT_OWNER_ID',			'discord-bot-owner-id-here'),
 	('BOT_PREFIX',				'!'),
-	('TOKEN_OPENWEATHERMAP',	'openweathermap-token-here'),
-	('HOST_CATFACT',			'https://catfact.ninja');
+	('CATFACT_HOST',			'https://catfact.ninja'),
+	('WEATHER_DEFAULT_CITY',	'Regina,Saskatchewan,CA'),
+	('WEATHER_HOST',			'http://api.openweathermap.org'),
+	('WEATHER_TOKEN',			'openweathermap-token-here');
 
 DROP TABLE IF EXISTS "reaction";
 
