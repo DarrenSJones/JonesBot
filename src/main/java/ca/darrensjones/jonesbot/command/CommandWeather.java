@@ -8,45 +8,42 @@ import net.dv8tion.jda.api.entities.Message;
 /**
  * @author Darren Jones
  * @version 1.0.0 2020-11-26
- * @since 1.0.0 2020-11-24
+ * @since 1.0.0 2020-11-26
  */
-public class CommandReload extends AbstractCommand {
+public class CommandWeather extends AbstractCommand {
 
-	public CommandReload() {
+	public CommandWeather() {
 		super();
 	}
 
 	@Override
 	public String getName() {
-		return "Reload";
+		return "Weather";
 	}
 
 	@Override
 	public String getDescription() {
-		return "Reloads all lists from the SQL Database";
+		return "Gets the Weather from http://https://openweathermap.org/";
 	}
 
 	@Override
 	public String[] getTriggers() {
-		return new String[] { "reload" };
+		return new String[] { "weather", "w" };
 	}
 
 	@Override
 	public CommandVisibility visibility() {
-		return CommandVisibility.OWNER;
+		return CommandVisibility.PUBLIC;
 	}
 
 	@Override
 	public String getHelp() {
-		return "**%sreload** " + getDescription();
+		String output = "**%sweather** " + getDescription();
+		return output;
 	}
 
 	@Override
 	public void execute(Bot bot, Message message) {
-		if (!message.getAuthor().getId().equals(bot.config.BOT_OWNER_ID)) return;
-
-		bot.commandHandler.setCommands();
-		bot.autoResponseHandler.setList();
-		message.getChannel().sendMessage("Commands and Reactions reloaded!").queue();
+		message.getChannel().sendMessage("Weather!").queue();
 	}
 }

@@ -19,7 +19,7 @@ public class CommandBasics {
 
 	@Test
 	public void getCommandsList() {
-		Assert.assertEquals(h.getCommands().size(), 7);
+		Assert.assertEquals(h.getCommands().size(), 8);
 		Assert.assertEquals(h.getCommands().get(0).getName(), "CatFact");
 		Assert.assertEquals(h.getCommands().get(1).getName(), "Cowbell");
 		Assert.assertEquals(h.getCommands().get(2).getName(), "Help");
@@ -27,6 +27,7 @@ public class CommandBasics {
 		Assert.assertEquals(h.getCommands().get(4).getName(), "Ping");
 		Assert.assertEquals(h.getCommands().get(5).getName(), "Reaction");
 		Assert.assertEquals(h.getCommands().get(6).getName(), "Reload");
+		Assert.assertEquals(h.getCommands().get(7).getName(), "Weather");
 	}
 
 	@Test(dependsOnMethods = "getCommandsList", alwaysRun = true)
@@ -89,9 +90,18 @@ public class CommandBasics {
 	@Test(dependsOnMethods = "basicsHelp", alwaysRun = true)
 	public void basicsReload() {
 		AbstractCommand c = h.getCommand("reload");
-		Assert.assertEquals(c.getDescription(), "Reloads all lists from the SQL Database.");
+		Assert.assertEquals(c.getDescription(), "Reloads all lists from the SQL Database");
 		Assert.assertEquals(c.getTriggers(), new String[] { "reload" });
-		Assert.assertEquals(c.getHelp(), "**%sreload** Reloads all lists from the SQL Database.");
+		Assert.assertEquals(c.getHelp(), "**%sreload** Reloads all lists from the SQL Database");
 		Assert.assertEquals(c.visibility(), CommandVisibility.OWNER);
+	}
+
+	@Test(dependsOnMethods = "basicsHelp", alwaysRun = true)
+	public void basicsWeather() {
+		AbstractCommand c = h.getCommand("weather");
+		Assert.assertEquals(c.getDescription(), "Gets the Weather from http://https://openweathermap.org/");
+		Assert.assertEquals(c.getTriggers(), new String[] { "weather", "w" });
+		Assert.assertEquals(c.getHelp(), "**%sweather** Gets the Weather from http://https://openweathermap.org/");
+		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 }
