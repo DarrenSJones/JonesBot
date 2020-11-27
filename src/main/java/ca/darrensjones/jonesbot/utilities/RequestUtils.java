@@ -8,6 +8,8 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  * @author Darren Jones
@@ -21,5 +23,11 @@ public class RequestUtils {
 		HttpGet httpGet = new HttpGet(new URI(requestUrl));
 		HttpEntity httpEntity = httpClient.execute(httpGet).getEntity();
 		return IOUtils.toString(httpEntity.getContent(), StandardCharsets.UTF_8.name());
+	}
+
+	public static String getResponseBodyField(String requestUrl, String field) throws Exception {
+		String response = getResponseBody(requestUrl);
+		JSONObject json = (JSONObject) new JSONParser().parse(response);
+		return json.get(field).toString();
 	}
 }
