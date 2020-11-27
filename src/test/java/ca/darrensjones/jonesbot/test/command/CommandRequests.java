@@ -22,6 +22,6 @@ public class CommandRequests {
 		Mock.reset();
 		Mock.setExpectation("GET", "/fact", 200, "src/test/resources/mock/CatFact.json");
 
-		Assert.assertEquals(new CommandCatFact().getResponse(b.config.CATFACT_HOST), "This is a test Cat Fact!");
+		Assert.assertEquals(new CommandCatFact(b).getResponse(b.config.CATFACT_HOST), "This is a test Cat Fact!");
 	}
 }

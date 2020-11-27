@@ -7,13 +7,13 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-26
+ * @version 1.0.0 2020-11-27
  * @since 1.0.0 2020-11-24
  */
 public class CommandReload extends AbstractCommand {
 
-	public CommandReload() {
-		super();
+	public CommandReload(Bot bot) {
+		super(bot);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class CommandReload extends AbstractCommand {
 	}
 
 	@Override
-	public void execute(Bot bot, Message message) {
+	public void execute(Message message) {
 		if (!message.getAuthor().getId().equals(bot.config.BOT_OWNER_ID)) return;
 
 		bot.commandHandler.setCommands();

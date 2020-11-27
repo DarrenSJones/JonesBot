@@ -18,8 +18,8 @@ import net.dv8tion.jda.api.entities.Message;
  */
 public class CommandCatFact extends AbstractCommand {
 
-	public CommandCatFact() {
-		super();
+	public CommandCatFact(Bot bot) {
+		super(bot);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class CommandCatFact extends AbstractCommand {
 	}
 
 	@Override
-	public void execute(Bot bot, Message message) {
+	public void execute(Message message) {
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setDescription(getResponse(bot.config.CATFACT_HOST));
 		eb.setFooter("Cat Fact", "http://www.nyan.cat/cats/original.gif");

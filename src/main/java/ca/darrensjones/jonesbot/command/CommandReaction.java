@@ -13,13 +13,13 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-24
+ * @version 1.0.0 2020-11-27
  * @since 1.0.0 2020-11-23
  */
 public class CommandReaction extends AbstractCommand {
 
-	public CommandReaction() {
-		super();
+	public CommandReaction(Bot bot) {
+		super(bot);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class CommandReaction extends AbstractCommand {
 	}
 
 	@Override
-	public void execute(Bot bot, Message message) {
+	public void execute(Message message) {
 		List<OReaction> list = CReaction.getAll();
 		String description = "Contact your Admin for additions:";
 		for (OReaction r : list) description += String.format("\n%s", r.toEmbed());

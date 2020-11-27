@@ -50,7 +50,7 @@ public class CommandHandler {
 				message.getChannel().sendMessage(eb.build()).queue();
 			} else {
 				Reporter.info(String.format("Executing Command: [%s]", c.getName()));
-				c.execute(bot, message);
+				c.execute(message);
 			}
 		} else {
 			Reporter.info("Command not found in list.");
@@ -87,13 +87,13 @@ public class CommandHandler {
 
 	public void setCommands() {
 		commands = new ArrayList<AbstractCommand>();
-		commands.add(new CommandCatFact());
-		commands.add(new CommandCowbell());
-		commands.add(new CommandHelp());
-		commands.add(new CommandOwner());
-		commands.add(new CommandPing());
-		commands.add(new CommandReaction());
-		commands.add(new CommandReload());
-		commands.add(new CommandWeather());
+		commands.add(new CommandCatFact(bot));
+		commands.add(new CommandCowbell(bot));
+		commands.add(new CommandHelp(bot));
+		commands.add(new CommandOwner(bot));
+		commands.add(new CommandPing(bot));
+		commands.add(new CommandReaction(bot));
+		commands.add(new CommandReload(bot));
+		commands.add(new CommandWeather(bot));
 	}
 }

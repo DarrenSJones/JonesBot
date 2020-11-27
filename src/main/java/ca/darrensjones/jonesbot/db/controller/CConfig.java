@@ -24,6 +24,6 @@ public class CConfig {
 			Reporter.fatal(e.getMessage());
 		}
 		return new BotConfig(map.get("BOT_VERSION"), map.get("BOT_TOKEN"), map.get("BOT_OWNER_ID"), map.get("BOT_PREFIX"), map.get("CATFACT_HOST"),
-				map.get("WEATHER_TOKEN"));
+				map.get("WEATHER_TOKEN"), map.get("WEATHER_HOST"), map.get("WEATHER_DEFAULT_CITY"));
 	}
 }

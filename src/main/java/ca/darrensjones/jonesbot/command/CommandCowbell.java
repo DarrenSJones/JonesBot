@@ -7,13 +7,13 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-24
+ * @version 1.0.0 2020-11-27
  * @since 1.0.0 2020-11-24
  */
 public class CommandCowbell extends AbstractCommand {
 
-	public CommandCowbell() {
-		super();
+	public CommandCowbell(Bot bot) {
+		super(bot);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class CommandCowbell extends AbstractCommand {
 	}
 
 	@Override
-	public void execute(Bot bot, Message message) {
+	public void execute(Message message) {
 		message.getChannel().sendMessage("https://media.giphy.com/media/3o6ozscsz4jRX7xuQE/giphy.gif").queue();
 	}
 }

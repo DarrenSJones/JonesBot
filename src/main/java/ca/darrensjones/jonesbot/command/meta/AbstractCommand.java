@@ -5,13 +5,15 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-24
+ * @version 1.0.0 2020-11-27
  * @since 1.0.0 2020-11-23
  */
 public abstract class AbstractCommand {
 
-	public AbstractCommand() {
+	protected final Bot bot;
 
+	public AbstractCommand(Bot bot) {
+		this.bot = bot;
 	}
 
 	/**
@@ -54,5 +56,5 @@ public abstract class AbstractCommand {
 	 * 
 	 * @param message The Message that triggered the Command
 	 */
-	public abstract void execute(Bot bot, Message message);
+	public abstract void execute(Message message);
 }
