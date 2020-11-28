@@ -39,7 +39,7 @@ public class CommandWeather extends AbstractCommand {
 
 	@Override
 	public String getDescription() {
-		return "Gets the Weather from http://https://openweathermap.org/";
+		return "Gets the Weather from https://openweathermap.org/";
 	}
 
 	@Override

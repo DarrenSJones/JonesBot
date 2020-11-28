@@ -10,7 +10,7 @@ import ca.darrensjones.jonesbot.testcore.BotTest;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-25
+ * @version 1.0.0 2020-11-28
  * @since 1.0.0 2020-11-24
  */
 public class CommandBasics {
@@ -19,7 +19,7 @@ public class CommandBasics {
 
 	@Test
 	public void getCommandsList() {
-		Assert.assertEquals(h.getCommands().size(), 8);
+		Assert.assertEquals(h.getCommands().size(), 9);
 		Assert.assertEquals(h.getCommands().get(0).getName(), "CatFact");
 		Assert.assertEquals(h.getCommands().get(1).getName(), "Cowbell");
 		Assert.assertEquals(h.getCommands().get(2).getName(), "Help");
@@ -27,7 +27,8 @@ public class CommandBasics {
 		Assert.assertEquals(h.getCommands().get(4).getName(), "Ping");
 		Assert.assertEquals(h.getCommands().get(5).getName(), "Reaction");
 		Assert.assertEquals(h.getCommands().get(6).getName(), "Reload");
-		Assert.assertEquals(h.getCommands().get(7).getName(), "Weather");
+		Assert.assertEquals(h.getCommands().get(7).getName(), "Simpsons");
+		Assert.assertEquals(h.getCommands().get(8).getName(), "Weather");
 	}
 
 	@Test(dependsOnMethods = "getCommandsList", alwaysRun = true)
@@ -87,7 +88,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
-	@Test(dependsOnMethods = "basicsHelp", alwaysRun = true)
+	@Test(dependsOnMethods = "basicsReaction", alwaysRun = true)
 	public void basicsReload() {
 		AbstractCommand c = h.getCommand("reload");
 		Assert.assertEquals(c.getDescription(), "Reloads all lists from the SQL Database");
@@ -96,12 +97,21 @@ public class CommandBasics {
 		Assert.assertEquals(c.visibility(), CommandVisibility.OWNER);
 	}
 
-	@Test(dependsOnMethods = "basicsHelp", alwaysRun = true)
+	@Test(dependsOnMethods = "basicsReload", alwaysRun = true)
+	public void basicsSimpsons() {
+		AbstractCommand c = h.getCommand("simpsons");
+		Assert.assertEquals(c.getDescription(), "Returns an image from http://frinkiac.com");
+		Assert.assertEquals(c.getTriggers(), new String[] { "simpsons", "s" });
+		Assert.assertEquals(c.getHelp(), "**%ssimpsons** Returns an image from http://frinkiac.com");
+		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
+	}
+
+	@Test(dependsOnMethods = "basicsSimpsons", alwaysRun = true)
 	public void basicsWeather() {
 		AbstractCommand c = h.getCommand("weather");
-		Assert.assertEquals(c.getDescription(), "Gets the Weather from http://https://openweathermap.org/");
+		Assert.assertEquals(c.getDescription(), "Gets the Weather from https://openweathermap.org/");
 		Assert.assertEquals(c.getTriggers(), new String[] { "weather", "w" });
-		Assert.assertEquals(c.getHelp(), "**%sweather** Gets the Weather from http://https://openweathermap.org/");
+		Assert.assertEquals(c.getHelp(), "**%sweather** Gets the Weather from https://openweathermap.org/");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 }

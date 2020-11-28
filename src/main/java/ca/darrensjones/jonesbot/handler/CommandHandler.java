@@ -12,6 +12,7 @@ import ca.darrensjones.jonesbot.command.CommandOwner;
 import ca.darrensjones.jonesbot.command.CommandPing;
 import ca.darrensjones.jonesbot.command.CommandReaction;
 import ca.darrensjones.jonesbot.command.CommandReload;
+import ca.darrensjones.jonesbot.command.CommandSimpsons;
 import ca.darrensjones.jonesbot.command.CommandWeather;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.log.LogUtils;
@@ -21,7 +22,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-24
+ * @version 1.0.0 2020-11-28
  * @since 1.0.0 2020-11-22
  */
 public class CommandHandler {
@@ -94,6 +95,7 @@ public class CommandHandler {
 		commands.add(new CommandPing(bot));
 		commands.add(new CommandReaction(bot));
 		commands.add(new CommandReload(bot));
+		commands.add(new CommandSimpsons(bot));
 		commands.add(new CommandWeather(bot));
 	}
 }
