@@ -44,6 +44,5 @@ public class Mock {
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());
 		}
-
 	}
 }

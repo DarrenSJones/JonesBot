@@ -7,6 +7,7 @@ package ca.darrensjones.jonesbot.bot;
  */
 public class BotConfig {
 
+	public final boolean TEST;
 	public final String BOT_VERSION;
 	public final String BOT_TOKEN;
 	public final String BOT_OWNER_ID;
@@ -16,8 +17,9 @@ public class BotConfig {
 	public final String WEATHER_HOST;
 	public final String WEATHER_DEFAULT_CITY;
 
-	public BotConfig(String botVersion, String botToken, String botOwnerId, String prefix, String catFactHost, String weatherToken, String weatherHost,
-			String weatherDefaultCity) {
+	public BotConfig(boolean test, String botVersion, String botToken, String botOwnerId, String prefix, String catFactHost, String weatherToken,
+			String weatherHost, String weatherDefaultCity) {
+		this.TEST = test;
 		this.BOT_VERSION = botVersion;
 		this.BOT_TOKEN = botToken;
 		this.BOT_OWNER_ID = botOwnerId;
@@ -34,5 +36,4 @@ Command: Frinkiac
 Command: MoaS
 Command: Morbotron
 Command: Schedule
-Command: Weather
 */

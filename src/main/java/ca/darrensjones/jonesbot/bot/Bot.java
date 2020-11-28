@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.JDABuilder;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-26
+ * @version 1.0.0 2020-11-28
  * @since 1.0.0 2020-11-18
  */
 public class Bot {
@@ -30,7 +30,7 @@ public class Bot {
 		this.config = CConfig.getConfig();
 		this.commandHandler = new CommandHandler(this);
 		this.autoResponseHandler = new AutoResponseHandler();
-		if (!test) resetJDA();
+		if (!config.TEST) resetJDA();
 	}
 
 	public void resetJDA() {

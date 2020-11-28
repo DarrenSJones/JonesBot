@@ -21,6 +21,7 @@
 		<classes>
 			<class name="ca.darrensjones.jonesbot.test.command.CommandBasics" />
 			<class name="ca.darrensjones.jonesbot.test.command.CommandRequests" />
+			<class name="ca.darrensjones.jonesbot.test.command.TCommandWeather" />
 		</classes>
 	</test>
 
