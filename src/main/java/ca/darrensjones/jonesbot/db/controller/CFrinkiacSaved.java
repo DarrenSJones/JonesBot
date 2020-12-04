@@ -24,15 +24,27 @@ public class CFrinkiacSaved {
 		record.timestamp = rs.getString("timestamp");
 		record.regex = rs.getString("regex");
 		record.host = rs.getString("host");
-		record.color = rs.getString("color");
 		return record;
+	}
+
+	public static List<OFrinkiacSaved> getById(String id) {
+		List<OFrinkiacSaved> list = new ArrayList<OFrinkiacSaved>();
+		try {
+			ResultSet rs = BotDB.get().select("SELECT s.id, [name], [key], timestamp, regex, host "
+					+ "FROM frinkiac_saved s JOIN frinkiac_host h ON s.host_id = h.id WHERE s.id = " + id + " ORDER BY s.id");
+			while (rs.next()) list.add(setRecord(rs));
+			rs.getStatement().close();
+		} catch (Exception e) {
+			Reporter.fatal(e.getMessage());
+		}
+		return list;
 	}
 
 	public static List<OFrinkiacSaved> getAll() {
 		List<OFrinkiacSaved> list = new ArrayList<OFrinkiacSaved>();
 		try {
-			ResultSet rs = BotDB.get().select(
-					"SELECT s.id, [name], [key], timestamp, regex, host, color FROM frinkiac_saved s JOIN frinkiac_host h ON s.host_id = h.id ORDER BY s.id");
+			ResultSet rs = BotDB.get()
+					.select("SELECT s.id, [name], [key], timestamp, regex, host FROM frinkiac_saved s JOIN frinkiac_host h ON s.host_id = h.id ORDER BY s.id");
 			while (rs.next()) list.add(setRecord(rs));
 			rs.getStatement().close();
 		} catch (Exception e) {

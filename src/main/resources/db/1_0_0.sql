@@ -31,16 +31,15 @@ CREATE TABLE "reaction" (
 DROP TABLE IF EXISTS "frinkiac_host";
 
 CREATE TABLE "frinkiac_host" (
-	"id"	INT IDENTITY(1, 1)	NOT NULL	PRIMARY KEY,
-	"host"	VARCHAR(32)			NOT NULL,
-	"color"	VARCHAR(10)			NOT NULL);
+	"id"	INT			NOT NULL	PRIMARY KEY,
+	"host"	VARCHAR(32)	NOT NULL);
 
 INSERT INTO frinkiac_host
-	(host, color)
+	(id, host)
 VALUES
-	('https://frinkiac.com/',			'#FED90F'),
-	('https://morbotron.com/',			'#70E3A2'),
-	('https://masterofallscience.com/',	'#CFDBDB');
+	(1,	'https://frinkiac.com/'),
+	(2,	'https://morbotron.com/'),
+	(3,	'https://masterofallscience.com/');
 
 
 DROP TABLE IF EXISTS "frinkiac_saved";
