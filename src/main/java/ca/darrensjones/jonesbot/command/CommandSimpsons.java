@@ -19,7 +19,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-28
+ * @version 1.0.0 2020-12-03
  * @since 1.0.0 2020-11-28
  */
 public class CommandSimpsons extends AbstractCommand {
@@ -148,7 +148,7 @@ public class CommandSimpsons extends AbstractCommand {
 
 	public static String buildRequestUrlKeyTimestamp(String host, String key, String timestamp) {
 		if (key.equalsIgnoreCase("movie")) {
-			key = "Movie";
+			key = "Movie"; // Must have this casing
 		} else {
 			key = key.replace("s", "S").replace("e", "E"); // Must be uppercase
 			if (Pattern.compile("^S\\dE").matcher(key).find()) key = "S0" + key.substring(1);

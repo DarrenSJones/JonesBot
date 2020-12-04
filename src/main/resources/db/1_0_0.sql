@@ -48,7 +48,7 @@ DROP TABLE IF EXISTS "frinkiac_saved";
 CREATE TABLE "frinkiac_saved" (
 	"id"		INT IDENTITY(1, 1)	NOT NULL	PRIMARY KEY,
 	"host_id"	INT					NOT NULL,
-	"label"		VARCHAR(32)			NOT NULL,
+	"name"		VARCHAR(32)			NOT NULL,
 	"key"		VARCHAR(6)			NOT NULL,
 	"timestamp"	VARCHAR(10)			NOT NULL,
 	"regex"		VARCHAR(255)		NOT NULL);
