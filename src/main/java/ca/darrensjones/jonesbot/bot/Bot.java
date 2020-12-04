@@ -4,7 +4,6 @@ import javax.security.auth.login.LoginException;
 
 import ca.darrensjones.jonesbot.db.controller.CConfig;
 import ca.darrensjones.jonesbot.handler.CommandHandler;
-import ca.darrensjones.jonesbot.handler.ListHandler;
 import ca.darrensjones.jonesbot.handler.AutoResponseHandler;
 import ca.darrensjones.jonesbot.log.Reporter;
 import ca.darrensjones.jonesbot.main.EventListener;
@@ -22,7 +21,6 @@ public class Bot {
 	public JDA jda;
 	public AutoResponseHandler autoResponseHandler;
 	public CommandHandler commandHandler;
-	public ListHandler listHandler;
 
 	public Bot() {
 		this(false);
@@ -30,9 +28,8 @@ public class Bot {
 
 	public Bot(boolean test) {
 		this.config = CConfig.getConfig();
-		this.autoResponseHandler = new AutoResponseHandler(this);
+		this.autoResponseHandler = new AutoResponseHandler();
 		this.commandHandler = new CommandHandler(this);
-		this.listHandler = new ListHandler();
 		if (!config.TEST) resetJDA();
 	}
 

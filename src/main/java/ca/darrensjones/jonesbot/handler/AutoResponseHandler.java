@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ca.darrensjones.jonesbot.bot.Bot;
+import ca.darrensjones.jonesbot.db.controller.CReaction;
 import ca.darrensjones.jonesbot.db.model.OReaction;
 import ca.darrensjones.jonesbot.log.LogUtils;
 import ca.darrensjones.jonesbot.log.Reporter;
@@ -13,15 +13,19 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-03
+ * @version 1.0.0 2020-12-04
  * @since 1.0.0 2020-11-18
  */
 public class AutoResponseHandler {
 
-	private final Bot bot;
+	public List<OReaction> reactions;
 
-	public AutoResponseHandler(Bot bot) {
-		this.bot = bot;
+	public AutoResponseHandler() {
+		setList();
+	}
+
+	public void setList() {
+		this.reactions = CReaction.getAll();
 	}
 
 	public void process(Message message) {
@@ -36,7 +40,7 @@ public class AutoResponseHandler {
 	}
 
 	public boolean hasReaction(String content) {
-		for (OReaction reaction : bot.listHandler.reactions) {
+		for (OReaction reaction : reactions) {
 			Pattern pattern = Pattern.compile("(?=(\\W|^)" + reaction.regex + "(\\W|$))");
 			if (pattern.matcher(content.toLowerCase()).find()) return true;
 		}
@@ -45,7 +49,7 @@ public class AutoResponseHandler {
 
 	public List<OReaction> getReactions(String content) {
 		ArrayList<Object[]> a = new ArrayList<Object[]>(); // <index, OReaction>
-		for (OReaction reaction : bot.listHandler.reactions) {
+		for (OReaction reaction : reactions) {
 			Pattern pattern = Pattern.compile("(?=(\\W|^)" + reaction.regex + "(\\W|$))");
 			Matcher matcher = pattern.matcher(content.toLowerCase());
 			if (matcher.find()) {
