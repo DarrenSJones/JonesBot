@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-27
+ * @version 1.0.0 2020-12-03
  * @since 1.0.0 2020-11-24
  */
 public class CommandReload extends AbstractCommand {
@@ -46,7 +46,7 @@ public class CommandReload extends AbstractCommand {
 		if (!message.getAuthor().getId().equals(bot.config.BOT_OWNER_ID)) return;
 
 		bot.commandHandler.setCommands();
-		bot.autoResponseHandler.setList();
+		bot.listHandler.setLists();
 		message.getChannel().sendMessage("Commands and Reactions reloaded!").queue();
 	}
 }
