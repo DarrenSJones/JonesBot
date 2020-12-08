@@ -15,6 +15,8 @@ VALUES
 	('BOT_PREFIX',				'!'),
 	('CATFACT_HOST',			'https://catfact.ninja'),
 	('SIMPSONS_HOST',			'https://frinkiac.com'),
+	('FUTURAMA_HOST',			'https://morbotron.com'),
+	('RICK&MORTY_HOST',			'https://masterofallscience.com'),
 	('WEATHER_DEFAULT_CITY',	'Regina,Saskatchewan,CA'),
 	('WEATHER_HOST',			'http://api.openweathermap.org'),
 	('WEATHER_TOKEN',			'openweathermap-token-here');
