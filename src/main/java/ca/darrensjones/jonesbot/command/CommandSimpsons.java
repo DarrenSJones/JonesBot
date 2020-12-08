@@ -12,6 +12,7 @@ import org.json.simple.parser.JSONParser;
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
+import ca.darrensjones.jonesbot.command.utilities.Frinkiac;
 import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
 import ca.darrensjones.jonesbot.log.Reporter;
 import ca.darrensjones.jonesbot.utilities.RequestUtils;
@@ -57,15 +58,23 @@ public class CommandSimpsons extends AbstractCommand {
 	@Override
 	public void execute(Message message) {
 
+		// TODO get these from DB
 		String baseUrl = "https://frinkiac.com";
+		Color color = new Color(254, 217, 15);
 
-		EmbedBuilder eb = new EmbedBuilder();
-		eb.setColor(new Color(254, 217, 15));
+		if (Pattern.compile(bot.config.BOT_PREFIX + "saved\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
+			message.getChannel().sendMessage(Frinkiac.buildEmbedSaved(baseUrl, bot.dataHandler.savedSimpsons, color).build()).queue();
+			return;
+		} else if (Pattern.compile(bot.config.BOT_PREFIX + "regex\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
+			message.getChannel().sendMessage(Frinkiac.buildEmbedRegex(baseUrl, bot.dataHandler.savedSimpsons, color).build()).queue();
+			return;
+		}
 
-//		boolean flagSaved = Pattern.compile(bot.config.BOT_PREFIX + "saved?\\s?").matcher(message.getContentDisplay().toLowerCase()).find();
-//		boolean flagRegex = Pattern.compile(bot.config.BOT_PREFIX + "regex?\\s?").matcher(message.getContentDisplay().toLowerCase()).find();
 //		boolean flagLast = Pattern.compile(bot.config.BOT_PREFIX + "l(ast)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find();
 		boolean flagDetail = Pattern.compile(bot.config.BOT_PREFIX + "d(etail)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find();
+
+		EmbedBuilder eb = new EmbedBuilder();
+		eb.setColor(color);
 
 		String content = message.getContentDisplay().replaceAll(bot.config.BOT_PREFIX + "\\w+(\\s+)?", "").trim();
 		String query, caption, title, request, response;
@@ -82,13 +91,13 @@ public class CommandSimpsons extends AbstractCommand {
 		if (StringUtils.isBlank(query)) {
 			title = "Random Search";
 			request = baseUrl + "/api/random";
-		} else if (hasSaved(bot, query)) {
-			OFrinkiacSaved s = getSaved(bot, query);
+		} else if (Frinkiac.hasSaved(bot.dataHandler.savedSimpsons, query)) {
+			OFrinkiacSaved s = Frinkiac.getSaved(bot.dataHandler.savedSimpsons, query);
 			title = String.format("Saved: \"%s\"", s.name);
-			request = String.format("%sapi/caption?e=%s&t=%s", baseUrl, s.key, s.timestamp);
-		} else if (isKeyTimestamp(query)) {
+			request = String.format("%s/api/caption?e=%s&t=%s", baseUrl, s.key, s.timestamp);
+		} else if (Frinkiac.isKeyTimestamp(query)) {
 			title = String.format("Timestamp: \"%s\"", query);
-			request = buildRequestUrlKeyTimestamp(baseUrl, query.split("\\s+")[0], query.split("\\s+")[1]);
+			request = Frinkiac.buildRequestUrlKeyTimestamp(baseUrl, query.split("\\s+")[0], query.split("\\s+")[1]);
 		} else {
 			title = String.format("Search: \"%s\"", query);
 			request = baseUrl + "/api/search?q=" + query.trim().replaceAll("\\s+", "%20");
@@ -104,7 +113,7 @@ public class CommandSimpsons extends AbstractCommand {
 
 			} else if (request.contains("api/search?q=")) { // Query Search needs an extra request
 				JSONObject json = (JSONObject) ((JSONArray) new JSONParser().parse(response)).get(0);
-				request = buildRequestUrlKeyTimestamp(baseUrl, json.get("Episode").toString(), json.get("Timestamp").toString());
+				request = Frinkiac.buildRequestUrlKeyTimestamp(baseUrl, json.get("Episode").toString(), json.get("Timestamp").toString());
 				response = RequestUtils.getResponseBody(request, bot.config.TEST);
 			}
 
@@ -141,37 +150,5 @@ public class CommandSimpsons extends AbstractCommand {
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());
 		}
-	}
-
-	public static boolean hasSaved(Bot bot, String content) {
-		for (OFrinkiacSaved saved : bot.dataHandler.savedSimpsons) {
-			Pattern pattern = Pattern.compile("(?=(\\W|^)" + saved.regex + "(\\W|$))");
-			if (pattern.matcher(content.toLowerCase()).find()) return true;
-		}
-		return false;
-	}
-
-	public static OFrinkiacSaved getSaved(Bot bot, String content) {
-		for (OFrinkiacSaved saved : bot.dataHandler.savedSimpsons) {
-			Pattern pattern = Pattern.compile("(?=(\\W|^)" + saved.regex + "(\\W|$))");
-			if (pattern.matcher(content.toLowerCase()).find()) return saved;
-		}
-		return null;
-	}
-
-	public static boolean isKeyTimestamp(String query) {
-		if (Pattern.compile("^(s\\d{1,2}e\\d{1,2}|movie)\\s+\\d+$").matcher(query.toLowerCase()).find()) return true;
-		return false;
-	}
-
-	public static String buildRequestUrlKeyTimestamp(String host, String key, String timestamp) {
-		if (key.equalsIgnoreCase("movie")) {
-			key = "Movie"; // Must have this casing
-		} else {
-			key = key.replace("s", "S").replace("e", "E"); // Must be uppercase
-			if (Pattern.compile("^S\\dE").matcher(key).find()) key = "S0" + key.substring(1);
-			if (Pattern.compile("E\\d$").matcher(key).find()) key = key.substring(0, 4) + "0" + key.substring(4);
-		}
-		return host + "/api/caption?e=" + key + "&t=" + timestamp;
 	}
 }
