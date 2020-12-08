@@ -27,8 +27,6 @@ public class CommandSimpsons extends AbstractCommand {
 
 	private final Color color;
 	private final String host;
-	private String lastTitle;
-	private String lastResponse;
 
 	public CommandSimpsons(Bot bot) {
 		super(bot);
@@ -65,12 +63,14 @@ public class CommandSimpsons extends AbstractCommand {
 	public void execute(Message message) {
 
 		if (Frinkiac.hasSubcommandSaved(bot.config.BOT_PREFIX, message.getContentDisplay())) {
-			message.getChannel().sendMessage(Frinkiac.buildEmbedSaved(color, host, bot.dataHandler.savedSimpsons).build()).queue();
+			message.getChannel().sendMessage(Frinkiac.buildEmbedSaved(color, host, bot.dataHandler.simpsonsSaved).build()).queue();
 			return;
 		} else if (Frinkiac.hasSubcommandRegex(bot.config.BOT_PREFIX, message.getContentDisplay())) {
-			message.getChannel().sendMessage(Frinkiac.buildEmbedRegex(color, host, bot.dataHandler.savedSimpsons).build()).queue();
+			message.getChannel().sendMessage(Frinkiac.buildEmbedRegex(color, host, bot.dataHandler.simpsonsSaved).build()).queue();
 			return;
 		} else if (Frinkiac.hasSubcommandLast(bot.config.BOT_PREFIX, message.getContentDisplay())) {
+			String lastTitle = bot.dataHandler.simpsonsLast.get(message.getTextChannel().getId())[0];
+			String lastResponse = bot.dataHandler.simpsonsLast.get(message.getTextChannel().getId())[1];
 			message.getChannel().sendMessage(Frinkiac.buildEmbed(false, true, color, host, "[Last] " + lastTitle, lastResponse, "").build()).queue();
 			return;
 		}
@@ -91,8 +91,8 @@ public class CommandSimpsons extends AbstractCommand {
 		if (StringUtils.isBlank(query)) {
 			title = "Random Search";
 			request = host + "/api/random";
-		} else if (Frinkiac.hasSaved(bot.dataHandler.savedSimpsons, query)) {
-			OFrinkiacSaved s = Frinkiac.getSaved(bot.dataHandler.savedSimpsons, query);
+		} else if (Frinkiac.hasSaved(bot.dataHandler.simpsonsSaved, query)) {
+			OFrinkiacSaved s = Frinkiac.getSaved(bot.dataHandler.simpsonsSaved, query);
 			title = String.format("Saved: \"%s\"", s.name);
 			request = String.format("%s/api/caption?e=%s&t=%s", host, s.key, s.timestamp);
 		} else if (Frinkiac.isKeyTimestamp(query)) {
@@ -118,8 +118,7 @@ public class CommandSimpsons extends AbstractCommand {
 				response = RequestUtils.getResponseBody(request, bot.config.TEST);
 			}
 
-			lastTitle = title;
-			lastResponse = response;
+			bot.dataHandler.setLastSimpsons(message.getTextChannel().getId(), title, response);
 
 			message.getChannel().sendMessage(Frinkiac.buildEmbed(true, flagDetail, color, host, title, response, caption).build()).queue();
 

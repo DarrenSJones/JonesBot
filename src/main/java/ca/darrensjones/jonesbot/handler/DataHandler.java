@@ -1,5 +1,6 @@
 package ca.darrensjones.jonesbot.handler;
 
+import java.util.HashMap;
 import java.util.List;
 
 import ca.darrensjones.jonesbot.db.controller.CFrinkiacSaved;
@@ -12,17 +13,31 @@ import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
  */
 public class DataHandler {
 
-	public List<OFrinkiacSaved> savedSimpsons;
-	public List<OFrinkiacSaved> savedFuturama;
-	public List<OFrinkiacSaved> savedRickMorty;
+	// Saved Key/Timestamp from the DB
+	public List<OFrinkiacSaved> simpsonsSaved;
+	public List<OFrinkiacSaved> futuramaSaved;
+	public List<OFrinkiacSaved> rickMortySaved;
+
+	// Last Title and Response, stored by channel
+	public HashMap<String, String[]> simpsonsLast;
+	public HashMap<String, String[]> futuramaLast;
+	public HashMap<String, String[]> rickMortyLast;
 
 	public DataHandler() {
 		setSaved();
+		simpsonsLast = new HashMap<String, String[]>();
+		futuramaLast = new HashMap<String, String[]>();
+		rickMortyLast = new HashMap<String, String[]>();
 	}
 
 	public void setSaved() {
-		savedSimpsons = CFrinkiacSaved.getById("1");
-		savedFuturama = CFrinkiacSaved.getById("2");
-		savedRickMorty = CFrinkiacSaved.getById("3");
+		simpsonsSaved = CFrinkiacSaved.getById("1");
+		futuramaSaved = CFrinkiacSaved.getById("2");
+		rickMortySaved = CFrinkiacSaved.getById("3");
+	}
+
+	public void setLastSimpsons(String messageChannel, String title, String response) {
+		if (simpsonsLast != null) simpsonsLast.remove(messageChannel);
+		simpsonsLast.put(messageChannel, new String[] { title, response });
 	}
 }
