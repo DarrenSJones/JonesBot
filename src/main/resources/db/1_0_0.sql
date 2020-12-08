@@ -14,6 +14,7 @@ VALUES
 	('BOT_OWNER_ID',			'discord-bot-owner-id-here'),
 	('BOT_PREFIX',				'!'),
 	('CATFACT_HOST',			'https://catfact.ninja'),
+	('SIMPSONS_HOST',			'https://frinkiac.com'),
 	('WEATHER_DEFAULT_CITY',	'Regina,Saskatchewan,CA'),
 	('WEATHER_HOST',			'http://api.openweathermap.org'),
 	('WEATHER_TOKEN',			'openweathermap-token-here');
