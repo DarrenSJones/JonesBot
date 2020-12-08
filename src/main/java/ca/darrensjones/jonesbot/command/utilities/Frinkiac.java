@@ -55,6 +55,11 @@ public class Frinkiac {
 		return eb;
 	}
 
+	public static boolean hasSubcommandLast(String prefix, String content) {
+		if (Pattern.compile(prefix + "l(ast)?\\s?").matcher(content.toLowerCase()).find()) return true;
+		return false;
+	}
+
 	public static boolean hasSubcommandSaved(String prefix, String content) {
 		if (Pattern.compile(prefix + "saved\\s?").matcher(content.toLowerCase()).find()) return true;
 		return false;

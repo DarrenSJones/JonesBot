@@ -25,15 +25,15 @@ import net.dv8tion.jda.api.entities.Message;
  */
 public class CommandSimpsons extends AbstractCommand {
 
-	private final String host;
 	private final Color color;
+	private final String host;
 	private String lastTitle;
 	private String lastResponse;
 
 	public CommandSimpsons(Bot bot) {
 		super(bot);
-		this.host = bot.config.SIMPSONS_HOST;
 		this.color = new Color(254, 217, 15);
+		this.host = bot.config.SIMPSONS_HOST;
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class CommandSimpsons extends AbstractCommand {
 		} else if (Frinkiac.hasSubcommandRegex(bot.config.BOT_PREFIX, message.getContentDisplay())) {
 			message.getChannel().sendMessage(Frinkiac.buildEmbedRegex(color, host, bot.dataHandler.savedSimpsons).build()).queue();
 			return;
-		} else if (Pattern.compile(bot.config.BOT_PREFIX + "l(ast)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
+		} else if (Frinkiac.hasSubcommandLast(bot.config.BOT_PREFIX, message.getContentDisplay())) {
 			message.getChannel().sendMessage(Frinkiac.buildEmbed(false, true, color, host, "[Last] " + lastTitle, lastResponse, "").build()).queue();
 			return;
 		}
