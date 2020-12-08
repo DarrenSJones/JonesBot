@@ -76,6 +76,7 @@ public class CommandBasics {
 	@Test(dependsOnMethods = "basicsHelp", alwaysRun = true)
 	public void basicsOwner() {
 		AbstractCommand c = h.getCommand("owner");
+		Assert.assertEquals(c.getName(), "Owner");
 		Assert.assertEquals(c.getDescription(), "The full list of Owner-only Commands");
 		Assert.assertEquals(c.getTriggers(), new String[] { "owner" });
 		Assert.assertEquals(c.getHelp(), "**%sowner** The full list of Owner-only Commands");
@@ -85,6 +86,7 @@ public class CommandBasics {
 	@Test(dependsOnMethods = "basicsOwner", alwaysRun = true)
 	public void basicsPing() {
 		AbstractCommand c = h.getCommand("ping");
+		Assert.assertEquals(c.getName(), "Ping");
 		Assert.assertEquals(c.getDescription(), "Pong!");
 		Assert.assertEquals(c.getTriggers(), new String[] { "ping", "p" });
 		Assert.assertEquals(c.getHelp(), "**%sping** Pong!");
@@ -94,6 +96,7 @@ public class CommandBasics {
 	@Test(dependsOnMethods = "basicsPing", alwaysRun = true)
 	public void basicsReaction() {
 		AbstractCommand c = h.getCommand("reaction");
+		Assert.assertEquals(c.getName(), "Reaction");
 		Assert.assertEquals(c.getDescription(), "A list of reactions the Bot will respond with");
 		Assert.assertEquals(c.getTriggers(), new String[] { "reaction", "reactions" });
 		Assert.assertEquals(c.getHelp(), "**%sreaction** A list of reactions the Bot will respond with");
@@ -103,6 +106,7 @@ public class CommandBasics {
 	@Test(dependsOnMethods = "basicsReaction", alwaysRun = true)
 	public void basicsReload() {
 		AbstractCommand c = h.getCommand("reload");
+		Assert.assertEquals(c.getName(), "Reload");
 		Assert.assertEquals(c.getDescription(), "Reloads all lists from the SQL Database");
 		Assert.assertEquals(c.getTriggers(), new String[] { "reload" });
 		Assert.assertEquals(c.getHelp(), "**%sreload** Reloads all lists from the SQL Database");
@@ -122,6 +126,7 @@ public class CommandBasics {
 	@Test(dependsOnMethods = "basicsRickMorty", alwaysRun = true)
 	public void basicsSimpsons() {
 		AbstractCommand c = h.getCommand("simpsons");
+		Assert.assertEquals(c.getName(), "Simpsons");
 		Assert.assertEquals(c.getDescription(), "Returns an image from http://frinkiac.com");
 		Assert.assertEquals(c.getTriggers(), new String[] { "simpsons", "s" });
 		Assert.assertEquals(c.getHelp(), "**%ssimpsons** Returns an image from http://frinkiac.com");
@@ -131,6 +136,7 @@ public class CommandBasics {
 	@Test(dependsOnMethods = "basicsSimpsons", alwaysRun = true)
 	public void basicsWeather() {
 		AbstractCommand c = h.getCommand("weather");
+		Assert.assertEquals(c.getName(), "Weather");
 		Assert.assertEquals(c.getDescription(), "Gets the Weather from https://openweathermap.org/");
 		Assert.assertEquals(c.getTriggers(), new String[] { "weather", "w" });
 		Assert.assertEquals(c.getHelp(), "**%sweather** Gets the Weather from https://openweathermap.org/");
