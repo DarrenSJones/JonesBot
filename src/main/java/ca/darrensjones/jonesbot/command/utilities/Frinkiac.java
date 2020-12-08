@@ -14,6 +14,11 @@ import net.dv8tion.jda.api.EmbedBuilder;
  */
 public class Frinkiac {
 
+	public static boolean hasSubcommandSaved(String prefix, String content) {
+		if (Pattern.compile(prefix + "saved\\s?").matcher(content.toLowerCase()).find()) return true;
+		return false;
+	}
+
 	public static EmbedBuilder buildEmbedSaved(String host, List<OFrinkiacSaved> list, Color color) {
 		String desc = "Contact your Admin for additions:";
 		for (OFrinkiacSaved saved : list) desc += String.format("\n%s [%s]", saved.name, String.format("%s/caption/%s/%s", host, saved.key, saved.timestamp));
@@ -22,6 +27,11 @@ public class Frinkiac {
 		eb.setDescription(desc);
 		eb.setColor(color);
 		return eb;
+	}
+
+	public static boolean hasSubcommandRegex(String prefix, String content) {
+		if (Pattern.compile(prefix + "regex\\s?").matcher(content.toLowerCase()).find()) return true;
+		return false;
 	}
 
 	public static EmbedBuilder buildEmbedRegex(String host, List<OFrinkiacSaved> list, Color color) {

@@ -63,10 +63,10 @@ public class CommandSimpsons extends AbstractCommand {
 	@Override
 	public void execute(Message message) {
 
-		if (Pattern.compile(bot.config.BOT_PREFIX + "saved\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
+		if (Frinkiac.hasSubcommandSaved(bot.config.BOT_PREFIX, message.getContentDisplay())) {
 			message.getChannel().sendMessage(Frinkiac.buildEmbedSaved(host, bot.dataHandler.savedSimpsons, color).build()).queue();
 			return;
-		} else if (Pattern.compile(bot.config.BOT_PREFIX + "regex\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
+		} else if (Frinkiac.hasSubcommandRegex(bot.config.BOT_PREFIX, message.getContentDisplay())) {
 			message.getChannel().sendMessage(Frinkiac.buildEmbedRegex(host, bot.dataHandler.savedSimpsons, color).build()).queue();
 			return;
 		}
@@ -74,11 +74,9 @@ public class CommandSimpsons extends AbstractCommand {
 //		boolean flagLast = Pattern.compile(bot.config.BOT_PREFIX + "l(ast)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find();
 		boolean flagDetail = Pattern.compile(bot.config.BOT_PREFIX + "d(etail)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find();
 
-		EmbedBuilder eb = new EmbedBuilder();
-		eb.setColor(color);
-
-		String content = message.getContentDisplay().replaceAll(bot.config.BOT_PREFIX + "\\w+(\\s+)?", "").trim();
-		String query, caption, title, request, response;
+		String content = message.getContentDisplay().replaceAll(bot.config.BOT_PREFIX + "\\w+(\\s+)?", "").trim(); // Removes subcommands
+		String query, caption;
+		String title, request, response;
 
 		// Query is used for searching, anything on a new line is used for captioning
 		if (content.indexOf("\n") > 0) {
@@ -103,6 +101,9 @@ public class CommandSimpsons extends AbstractCommand {
 			title = String.format("Search: \"%s\"", query);
 			request = host + "/api/search?q=" + query.trim().replaceAll("\\s+", "%20");
 		}
+
+		EmbedBuilder eb = new EmbedBuilder();
+		eb.setColor(color);
 
 		try {
 			response = RequestUtils.getResponseBody(request, bot.config.TEST);
