@@ -28,20 +28,6 @@ CREATE TABLE "reaction" (
 	"regex"		VARCHAR(255)		NOT NULL);
 
 
-DROP TABLE IF EXISTS "frinkiac_host";
-
-CREATE TABLE "frinkiac_host" (
-	"id"	INT			NOT NULL	PRIMARY KEY,
-	"host"	VARCHAR(32)	NOT NULL);
-
-INSERT INTO frinkiac_host
-	(id, host)
-VALUES
-	(1,	'https://frinkiac.com/'),
-	(2,	'https://morbotron.com/'),
-	(3,	'https://masterofallscience.com/');
-
-
 DROP TABLE IF EXISTS "frinkiac_saved";
 
 CREATE TABLE "frinkiac_saved" (

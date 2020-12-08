@@ -11,7 +11,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-03
+ * @version 1.0.0 2020-12-08
  * @since 1.0.0 2020-12-03
  */
 public class CFrinkiacSaved {
@@ -23,15 +23,13 @@ public class CFrinkiacSaved {
 		record.key = rs.getString("key");
 		record.timestamp = rs.getString("timestamp");
 		record.regex = rs.getString("regex");
-		record.host = rs.getString("host");
 		return record;
 	}
 
 	public static List<OFrinkiacSaved> getById(String id) {
 		List<OFrinkiacSaved> list = new ArrayList<OFrinkiacSaved>();
 		try {
-			ResultSet rs = BotDB.get().select("SELECT s.id, [name], [key], timestamp, regex, host "
-					+ "FROM frinkiac_saved s JOIN frinkiac_host h ON s.host_id = h.id WHERE s.id = " + id + " ORDER BY s.id");
+			ResultSet rs = BotDB.get().select("SELECT id, [name], [key], timestamp, regex FROM frinkiac_saved WHERE host_id = " + id + " Order By id");
 			while (rs.next()) list.add(setRecord(rs));
 			rs.getStatement().close();
 		} catch (Exception e) {
@@ -43,8 +41,7 @@ public class CFrinkiacSaved {
 	public static List<OFrinkiacSaved> getAll() {
 		List<OFrinkiacSaved> list = new ArrayList<OFrinkiacSaved>();
 		try {
-			ResultSet rs = BotDB.get()
-					.select("SELECT s.id, [name], [key], timestamp, regex, host FROM frinkiac_saved s JOIN frinkiac_host h ON s.host_id = h.id ORDER BY s.id");
+			ResultSet rs = BotDB.get().select("SELECT id, [name], [key], timestamp, regex FROM frinkiac_saved ORDER BY id");
 			while (rs.next()) list.add(setRecord(rs));
 			rs.getStatement().close();
 		} catch (Exception e) {

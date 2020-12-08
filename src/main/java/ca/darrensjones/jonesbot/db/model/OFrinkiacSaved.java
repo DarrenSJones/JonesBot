@@ -13,5 +13,4 @@ public class OFrinkiacSaved extends AbstractModel {
 	public String key;
 	public String timestamp;
 	public String regex;
-	public String host;
 }

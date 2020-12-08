@@ -13,7 +13,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-27
+ * @version 1.0.0 2020-12-08
  * @since 1.0.0 2020-11-21
  */
 public class Tables {
@@ -29,11 +29,10 @@ public class Tables {
 			Reporter.fatal(e.getMessage());
 		}
 
-		Assert.assertEquals(tables.size(), 4);
+		Assert.assertEquals(tables.size(), 3);
 		Assert.assertEquals(tables.get(0), "bot_config");
-		Assert.assertEquals(tables.get(1), "frinkiac_host");
-		Assert.assertEquals(tables.get(2), "frinkiac_saved");
-		Assert.assertEquals(tables.get(3), "reaction");
+		Assert.assertEquals(tables.get(1), "frinkiac_saved");
+		Assert.assertEquals(tables.get(2), "reaction");
 	}
 
 	@Test(dependsOnMethods = "allTables", alwaysRun = true)
