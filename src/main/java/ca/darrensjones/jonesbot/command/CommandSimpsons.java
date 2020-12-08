@@ -12,6 +12,7 @@ import org.json.simple.parser.JSONParser;
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
+import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
 import ca.darrensjones.jonesbot.log.Reporter;
 import ca.darrensjones.jonesbot.utilities.RequestUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -19,7 +20,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-03
+ * @version 1.0.0 2020-12-08
  * @since 1.0.0 2020-11-28
  */
 public class CommandSimpsons extends AbstractCommand {
@@ -67,8 +68,7 @@ public class CommandSimpsons extends AbstractCommand {
 		boolean flagDetail = Pattern.compile(bot.config.BOT_PREFIX + "d(etail)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find();
 
 		String content = message.getContentDisplay().replaceAll(bot.config.BOT_PREFIX + "\\w+(\\s+)?", "").trim();
-		String query, caption;
-		String title, request, response;
+		String query, caption, title, request, response;
 
 		// Query is used for searching, anything on a new line is used for captioning
 		if (content.indexOf("\n") > 0) {
@@ -82,8 +82,10 @@ public class CommandSimpsons extends AbstractCommand {
 		if (StringUtils.isBlank(query)) {
 			title = "Random Search";
 			request = baseUrl + "/api/random";
-//		} else if (savedList.hasSaved(query)) {
-//			request = savedList.getSaved(query).getRequestApi();
+		} else if (hasSaved(bot, query)) {
+			OFrinkiacSaved s = getSaved(bot, query);
+			title = String.format("Saved: \"%s\"", s.name);
+			request = String.format("%sapi/caption?e=%s&t=%s", baseUrl, s.key, s.timestamp);
 		} else if (isKeyTimestamp(query)) {
 			title = String.format("Timestamp: \"%s\"", query);
 			request = buildRequestUrlKeyTimestamp(baseUrl, query.split("\\s+")[0], query.split("\\s+")[1]);
@@ -139,6 +141,22 @@ public class CommandSimpsons extends AbstractCommand {
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());
 		}
+	}
+
+	public static boolean hasSaved(Bot bot, String content) {
+		for (OFrinkiacSaved saved : bot.dataHandler.savedSimpsons) {
+			Pattern pattern = Pattern.compile("(?=(\\W|^)" + saved.regex + "(\\W|$))");
+			if (pattern.matcher(content.toLowerCase()).find()) return true;
+		}
+		return false;
+	}
+
+	public static OFrinkiacSaved getSaved(Bot bot, String content) {
+		for (OFrinkiacSaved saved : bot.dataHandler.savedSimpsons) {
+			Pattern pattern = Pattern.compile("(?=(\\W|^)" + saved.regex + "(\\W|$))");
+			if (pattern.matcher(content.toLowerCase()).find()) return saved;
+		}
+		return null;
 	}
 
 	public static boolean isKeyTimestamp(String query) {
