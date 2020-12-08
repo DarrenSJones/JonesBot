@@ -17,7 +17,6 @@ public class Frinkiac {
 	public static EmbedBuilder buildEmbedSaved(String host, List<OFrinkiacSaved> list, Color color) {
 		String desc = "Contact your Admin for additions:";
 		for (OFrinkiacSaved saved : list) desc += String.format("\n%s [%s]", saved.name, String.format("%s/caption/%s/%s", host, saved.key, saved.timestamp));
-
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setTitle("Saved List");
 		eb.setDescription(desc);
@@ -28,7 +27,6 @@ public class Frinkiac {
 	public static EmbedBuilder buildEmbedRegex(String host, List<OFrinkiacSaved> list, Color color) {
 		String desc = "Contact your Admin for additions:";
 		for (OFrinkiacSaved saved : list) desc += String.format("\n%s: %s", saved.name, saved.regex);
-
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setTitle("Saved List");
 		eb.setDescription(desc);

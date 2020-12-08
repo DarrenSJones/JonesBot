@@ -13,6 +13,8 @@ import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
 public class DataHandler {
 
 	public List<OFrinkiacSaved> savedSimpsons;
+	public List<OFrinkiacSaved> savedFuturama;
+	public List<OFrinkiacSaved> savedRickMorty;
 
 	public DataHandler() {
 		setSaved();
@@ -20,5 +22,7 @@ public class DataHandler {
 
 	public void setSaved() {
 		savedSimpsons = CFrinkiacSaved.getById("1");
+		savedFuturama = CFrinkiacSaved.getById("2");
+		savedRickMorty = CFrinkiacSaved.getById("3");
 	}
 }
