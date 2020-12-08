@@ -3,7 +3,6 @@ package ca.darrensjones.jonesbot.command;
 import java.awt.Color;
 import java.util.regex.Pattern;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -28,6 +27,8 @@ public class CommandSimpsons extends AbstractCommand {
 
 	private final String host;
 	private final Color color;
+	private String lastTitle;
+	private String lastResponse;
 
 	public CommandSimpsons(Bot bot) {
 		super(bot);
@@ -64,19 +65,19 @@ public class CommandSimpsons extends AbstractCommand {
 	public void execute(Message message) {
 
 		if (Frinkiac.hasSubcommandSaved(bot.config.BOT_PREFIX, message.getContentDisplay())) {
-			message.getChannel().sendMessage(Frinkiac.buildEmbedSaved(host, bot.dataHandler.savedSimpsons, color).build()).queue();
+			message.getChannel().sendMessage(Frinkiac.buildEmbedSaved(color, host, bot.dataHandler.savedSimpsons).build()).queue();
 			return;
 		} else if (Frinkiac.hasSubcommandRegex(bot.config.BOT_PREFIX, message.getContentDisplay())) {
-			message.getChannel().sendMessage(Frinkiac.buildEmbedRegex(host, bot.dataHandler.savedSimpsons, color).build()).queue();
+			message.getChannel().sendMessage(Frinkiac.buildEmbedRegex(color, host, bot.dataHandler.savedSimpsons).build()).queue();
+			return;
+		} else if (Pattern.compile(bot.config.BOT_PREFIX + "l(ast)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
+			message.getChannel().sendMessage(Frinkiac.buildEmbed(false, true, color, host, "[Last] " + lastTitle, lastResponse, "").build()).queue();
 			return;
 		}
 
-//		boolean flagLast = Pattern.compile(bot.config.BOT_PREFIX + "l(ast)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find();
 		boolean flagDetail = Pattern.compile(bot.config.BOT_PREFIX + "d(etail)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find();
-
 		String content = message.getContentDisplay().replaceAll(bot.config.BOT_PREFIX + "\\w+(\\s+)?", "").trim(); // Removes subcommands
-		String query, caption;
-		String title, request, response;
+		String query, caption, title, request, response;
 
 		// Query is used for searching, anything on a new line is used for captioning
 		if (content.indexOf("\n") > 0) {
@@ -102,12 +103,10 @@ public class CommandSimpsons extends AbstractCommand {
 			request = host + "/api/search?q=" + query.trim().replaceAll("\\s+", "%20");
 		}
 
-		EmbedBuilder eb = new EmbedBuilder();
-		eb.setColor(color);
-
 		try {
 			response = RequestUtils.getResponseBody(request, bot.config.TEST);
 			if (StringUtils.isBlank(response) || response.equals("[]")) {
+				EmbedBuilder eb = new EmbedBuilder();
 				eb.setTitle(title, host);
 				eb.setDescription("Response not found for: " + request);
 				message.getChannel().sendMessage(eb.build()).queue();
@@ -119,35 +118,10 @@ public class CommandSimpsons extends AbstractCommand {
 				response = RequestUtils.getResponseBody(request, bot.config.TEST);
 			}
 
-			// Parses response for relevant info
-			JSONObject json = (JSONObject) new JSONParser().parse(response);
-			JSONObject ep = (JSONObject) json.get("Episode");
-			String key = ep.get("Key").toString();
-			String season = ep.get("Season").toString();
-			String episodeNumber = ep.get("EpisodeNumber").toString();
-			String episode = ((JSONObject) json.get("Frame")).get("Episode").toString();
-			String timestamp = ((JSONObject) json.get("Frame")).get("Timestamp").toString();
-			String epTitle = ep.get("Title").toString();
-			String image = String.format("%s/meme/%s/%s.jpg", host, episode, timestamp);
-			if (StringUtils.isNotBlank(caption)) image += "?b64lines=" + new Base64().encodeAsString(caption.getBytes());
-			String url = String.format("%s/caption/%s/%s", host, episode, timestamp);
-			String subtitles = "\u200B";
-			for (Object obj : (JSONArray) json.get("Subtitles")) subtitles += ((JSONObject) obj).get("Content").toString() + "\n";
-			int t = Integer.parseInt(timestamp) / 1000;
-			String minutes = StringUtils.leftPad(Integer.toString((int) Math.max(0, Math.floor(t / 60))), 2, "0");
-			String seconds = StringUtils.leftPad(Integer.toString((int) Math.max(0, t % 60)), 2, "0");
-			String description = String.format("Season %s / Episode %s (%s:%s)", season, episodeNumber, minutes, seconds);
-			Reporter.info(String.format("Key:[%s] Timestamp:[%s]", key, timestamp));
+			lastTitle = title;
+			lastResponse = response;
 
-			eb.setImage(image);
-			if (flagDetail) {
-				eb.setTitle(title, url);
-				eb.setDescription(String.format("\"%s\"", epTitle));
-				eb.addField(description, subtitles, false);
-			}
-
-			Reporter.info("Embed Built");
-			message.getChannel().sendMessage(eb.build()).queue();
+			message.getChannel().sendMessage(Frinkiac.buildEmbed(true, flagDetail, color, host, title, response, caption).build()).queue();
 
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());
