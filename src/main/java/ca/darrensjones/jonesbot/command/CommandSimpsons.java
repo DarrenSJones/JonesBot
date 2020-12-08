@@ -26,8 +26,13 @@ import net.dv8tion.jda.api.entities.Message;
  */
 public class CommandSimpsons extends AbstractCommand {
 
+	private final String host;
+	private final Color color;
+
 	public CommandSimpsons(Bot bot) {
 		super(bot);
+		this.host = bot.config.SIMPSONS_HOST;
+		this.color = new Color(254, 217, 15);
 	}
 
 	@Override
@@ -58,15 +63,11 @@ public class CommandSimpsons extends AbstractCommand {
 	@Override
 	public void execute(Message message) {
 
-		// TODO get these from DB
-		String baseUrl = "https://frinkiac.com";
-		Color color = new Color(254, 217, 15);
-
 		if (Pattern.compile(bot.config.BOT_PREFIX + "saved\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
-			message.getChannel().sendMessage(Frinkiac.buildEmbedSaved(baseUrl, bot.dataHandler.savedSimpsons, color).build()).queue();
+			message.getChannel().sendMessage(Frinkiac.buildEmbedSaved(host, bot.dataHandler.savedSimpsons, color).build()).queue();
 			return;
 		} else if (Pattern.compile(bot.config.BOT_PREFIX + "regex\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
-			message.getChannel().sendMessage(Frinkiac.buildEmbedRegex(baseUrl, bot.dataHandler.savedSimpsons, color).build()).queue();
+			message.getChannel().sendMessage(Frinkiac.buildEmbedRegex(host, bot.dataHandler.savedSimpsons, color).build()).queue();
 			return;
 		}
 
@@ -90,30 +91,30 @@ public class CommandSimpsons extends AbstractCommand {
 
 		if (StringUtils.isBlank(query)) {
 			title = "Random Search";
-			request = baseUrl + "/api/random";
+			request = host + "/api/random";
 		} else if (Frinkiac.hasSaved(bot.dataHandler.savedSimpsons, query)) {
 			OFrinkiacSaved s = Frinkiac.getSaved(bot.dataHandler.savedSimpsons, query);
 			title = String.format("Saved: \"%s\"", s.name);
-			request = String.format("%s/api/caption?e=%s&t=%s", baseUrl, s.key, s.timestamp);
+			request = String.format("%s/api/caption?e=%s&t=%s", host, s.key, s.timestamp);
 		} else if (Frinkiac.isKeyTimestamp(query)) {
 			title = String.format("Timestamp: \"%s\"", query);
-			request = Frinkiac.buildRequestUrlKeyTimestamp(baseUrl, query.split("\\s+")[0], query.split("\\s+")[1]);
+			request = Frinkiac.buildRequestUrlKeyTimestamp(host, query.split("\\s+")[0], query.split("\\s+")[1]);
 		} else {
 			title = String.format("Search: \"%s\"", query);
-			request = baseUrl + "/api/search?q=" + query.trim().replaceAll("\\s+", "%20");
+			request = host + "/api/search?q=" + query.trim().replaceAll("\\s+", "%20");
 		}
 
 		try {
 			response = RequestUtils.getResponseBody(request, bot.config.TEST);
 			if (StringUtils.isBlank(response) || response.equals("[]")) {
-				eb.setTitle(title, baseUrl);
+				eb.setTitle(title, host);
 				eb.setDescription("Response not found for: " + request);
 				message.getChannel().sendMessage(eb.build()).queue();
 				return;
 
 			} else if (request.contains("api/search?q=")) { // Query Search needs an extra request
 				JSONObject json = (JSONObject) ((JSONArray) new JSONParser().parse(response)).get(0);
-				request = Frinkiac.buildRequestUrlKeyTimestamp(baseUrl, json.get("Episode").toString(), json.get("Timestamp").toString());
+				request = Frinkiac.buildRequestUrlKeyTimestamp(host, json.get("Episode").toString(), json.get("Timestamp").toString());
 				response = RequestUtils.getResponseBody(request, bot.config.TEST);
 			}
 
@@ -126,9 +127,9 @@ public class CommandSimpsons extends AbstractCommand {
 			String episode = ((JSONObject) json.get("Frame")).get("Episode").toString();
 			String timestamp = ((JSONObject) json.get("Frame")).get("Timestamp").toString();
 			String epTitle = ep.get("Title").toString();
-			String image = String.format("%s/meme/%s/%s.jpg", baseUrl, episode, timestamp);
+			String image = String.format("%s/meme/%s/%s.jpg", host, episode, timestamp);
 			if (StringUtils.isNotBlank(caption)) image += "?b64lines=" + new Base64().encodeAsString(caption.getBytes());
-			String url = String.format("%s/caption/%s/%s", baseUrl, episode, timestamp);
+			String url = String.format("%s/caption/%s/%s", host, episode, timestamp);
 			String subtitles = "\u200B";
 			for (Object obj : (JSONArray) json.get("Subtitles")) subtitles += ((JSONObject) obj).get("Content").toString() + "\n";
 			int t = Integer.parseInt(timestamp) / 1000;

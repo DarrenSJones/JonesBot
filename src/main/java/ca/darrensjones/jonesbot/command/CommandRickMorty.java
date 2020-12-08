@@ -1,8 +1,11 @@
 package ca.darrensjones.jonesbot.command;
 
+import java.awt.Color;
+
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
@@ -12,8 +15,13 @@ import net.dv8tion.jda.api.entities.Message;
  */
 public class CommandRickMorty extends AbstractCommand {
 
+	private final String host;
+	private final Color color;
+
 	public CommandRickMorty(Bot bot) {
 		super(bot);
+		this.host = bot.config.RICKMORTY_HOST;
+		this.color = new Color(207, 219, 219);
 	}
 
 	@Override
@@ -43,6 +51,10 @@ public class CommandRickMorty extends AbstractCommand {
 
 	@Override
 	public void execute(Message message) {
-		message.getChannel().sendMessage("Command: Rick&Morty").queue();
+		EmbedBuilder eb = new EmbedBuilder();
+		eb.setColor(color);
+		eb.setTitle("Command: " + getName());
+		eb.setDescription(host);
+		message.getChannel().sendMessage(eb.build()).queue();
 	}
 }
