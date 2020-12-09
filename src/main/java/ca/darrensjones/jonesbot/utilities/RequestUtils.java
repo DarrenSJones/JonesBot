@@ -21,16 +21,12 @@ import ca.darrensjones.jonesbot.log.Reporter;
 public class RequestUtils {
 
 	public static String getResponseBody(String requestUrl) throws Exception {
-		return getResponseBody(requestUrl, false);
-	}
-
-	public static String getResponseBody(String requestUrl, boolean log) throws Exception {
-		if (log) Reporter.info(String.format("Sending Request:[%s]", requestUrl));
+		Reporter.info(String.format("Sending Request:[%s]", requestUrl));
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(new URI(requestUrl));
 		HttpEntity httpEntity = httpClient.execute(httpGet).getEntity();
 		String response = IOUtils.toString(httpEntity.getContent(), StandardCharsets.UTF_8.name());
-		if (log) Reporter.info(String.format("Received Response:[%s]", response));
+		Reporter.info(String.format("Received Response:[%s]", response));
 		return response;
 	}
 

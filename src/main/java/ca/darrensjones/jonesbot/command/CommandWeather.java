@@ -72,7 +72,7 @@ public class CommandWeather extends AbstractCommand {
 		String request = String.format("%s/data/2.5/%s?units=metric&appid=%s&q=%s", bot.config.WEATHER_HOST, forecastType, bot.config.WEATHER_TOKEN, city);
 
 		try {
-			String response = RequestUtils.getResponseBody(request, bot.config.TEST);
+			String response = RequestUtils.getResponseBody(request);
 
 			if (is5Day) eb = buildEmbed5Day(response);
 			else eb = buildEmbedCurrent(response);
