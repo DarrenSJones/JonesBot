@@ -43,17 +43,17 @@ public class Frinkiac {
 
 		boolean flagDetail = false;
 
-		if (Frinkiac.hasSubcommandSaved(prefix, message.getContentDisplay())) {
+		if (Pattern.compile(prefix + "saved\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
 			message.getChannel().sendMessage(Frinkiac.buildEmbedSaved(color, host, saved).build()).queue();
 			return;
-		} else if (Frinkiac.hasSubcommandRegex(prefix, message.getContentDisplay())) {
+		} else if (Pattern.compile(prefix + "regex\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
 			message.getChannel().sendMessage(Frinkiac.buildEmbedRegex(color, host, saved).build()).queue();
 			return;
-		} else if (Frinkiac.hasSubcommandLast(prefix, message.getContentDisplay())) {
+		} else if (Pattern.compile(prefix + "l(ast)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
 			String[] l = last.get(message.getTextChannel().getId());
 			message.getChannel().sendMessage(Frinkiac.buildEmbed(false, true, color, host, "[Last] " + l[0], l[1], null).build()).queue();
 			return;
-		} else if (Frinkiac.hasSubcommandDetail(prefix, message.getContentDisplay())) {
+		} else if (Pattern.compile(prefix + "d(etail)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
 			flagDetail = true;
 		}
 
@@ -140,21 +140,6 @@ public class Frinkiac {
 		return eb;
 	}
 
-	public static boolean hasSubcommandDetail(String prefix, String content) {
-		if (Pattern.compile(prefix + "d(etail)?\\s?").matcher(content.toLowerCase()).find()) return true;
-		return false;
-	}
-
-	public static boolean hasSubcommandLast(String prefix, String content) {
-		if (Pattern.compile(prefix + "l(ast)?\\s?").matcher(content.toLowerCase()).find()) return true;
-		return false;
-	}
-
-	public static boolean hasSubcommandSaved(String prefix, String content) {
-		if (Pattern.compile(prefix + "saved\\s?").matcher(content.toLowerCase()).find()) return true;
-		return false;
-	}
-
 	public static EmbedBuilder buildEmbedSaved(Color color, String host, List<OFrinkiacSaved> list) {
 		String desc = "Contact your Admin for additions:";
 		for (OFrinkiacSaved saved : list) desc += String.format("\n%s [%s]", saved.name, String.format("%s/caption/%s/%s", host, saved.key, saved.timestamp));
@@ -163,11 +148,6 @@ public class Frinkiac {
 		eb.setDescription(desc);
 		eb.setColor(color);
 		return eb;
-	}
-
-	public static boolean hasSubcommandRegex(String prefix, String content) {
-		if (Pattern.compile(prefix + "regex\\s?").matcher(content.toLowerCase()).find()) return true;
-		return false;
 	}
 
 	public static EmbedBuilder buildEmbedRegex(Color color, String host, List<OFrinkiacSaved> list) {
