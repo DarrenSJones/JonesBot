@@ -6,6 +6,7 @@
 	<test name="Database">
 		<classes>
 			<class name="ca.darrensjones.jonesbot.test.db.Tables" />
+			<class name="ca.darrensjones.jonesbot.test.db.controller.TCFrinkiacSaved" />
 			<class name="ca.darrensjones.jonesbot.test.db.controller.TCReaction" />
 		</classes>
 	</test>
