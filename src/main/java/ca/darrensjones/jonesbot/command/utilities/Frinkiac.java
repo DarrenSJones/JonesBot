@@ -83,18 +83,7 @@ public class Frinkiac {
 			request = host + "/api/search?q=" + query.trim().replaceAll("\\s+", "%20");
 		}
 
-		try {
-			String resp = RequestUtils.getResponseBody(request);
-			if (request.contains("/api/search?q=") && !resp.equals("[]")) { // Query Search needs an extra request
-				JSONObject json = (JSONObject) ((JSONArray) new JSONParser().parse(resp)).get(0);
-				request = Frinkiac.buildRequestUrlKeyTimestamp(host, json.get("Episode").toString(), json.get("Timestamp").toString());
-				resp = RequestUtils.getResponseBody(request);
-			}
-			if (StringUtils.isNotBlank(resp) && !resp.equals("Not Found\n")) response = resp;
-
-		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
-		}
+		response = getResponse(host, request);
 
 		if (StringUtils.isNotBlank(response)) {
 			DataHandler.setLast(last, message.getTextChannel().getId(), title, response);
@@ -154,10 +143,27 @@ public class Frinkiac {
 		String desc = "Contact your Admin for additions:";
 		for (OFrinkiacSaved saved : list) desc += String.format("\n%s: %s", saved.name, saved.regex);
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.setTitle("Saved List");
+		eb.setTitle("Saved List: Regex");
 		eb.setDescription(desc);
 		eb.setColor(color);
 		return eb;
+	}
+
+	public static String getResponse(String host, String request) {
+		String response = "";
+		try {
+			String resp = RequestUtils.getResponseBody(request);
+			if (request.contains("/api/search?q=") && !resp.equals("[]")) { // Query Search needs an extra request
+				JSONObject json = (JSONObject) ((JSONArray) new JSONParser().parse(resp)).get(0);
+				request = Frinkiac.buildRequestUrlKeyTimestamp(host, json.get("Episode").toString(), json.get("Timestamp").toString());
+				resp = RequestUtils.getResponseBody(request);
+			}
+			if (StringUtils.isNotBlank(resp) && !resp.equals("Not Found\n")) response = resp;
+
+		} catch (Exception e) {
+			Reporter.fatal(e.getMessage());
+		}
+		return response;
 	}
 
 	public static boolean hasSaved(List<OFrinkiacSaved> list, String content) {
