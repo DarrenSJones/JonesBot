@@ -23,7 +23,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-28
+ * @version 1.0.0 2020-12-09
  * @since 1.0.0 2020-11-26
  */
 public class CommandWeather extends AbstractCommand {
@@ -54,7 +54,10 @@ public class CommandWeather extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		String output = "**%sweather** " + getDescription();
+		String output = "**%sw** " + getDescription();
+		output += "\n**%sw {city}** Gets the Weather for the given city.";
+		output += "\n**%sw %s5day** Gets the 5-Day Forecast.";
+		output += "\n**%sw %s5day {city}** Gets the 5-Day Forecast for the given city.";
 		return output;
 	}
 

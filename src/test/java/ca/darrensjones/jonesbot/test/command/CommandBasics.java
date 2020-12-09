@@ -10,7 +10,7 @@ import ca.darrensjones.jonesbot.testcore.BotTest;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-08
+ * @version 1.0.0 2020-12-09
  * @since 1.0.0 2020-11-24
  */
 public class CommandBasics {
@@ -139,7 +139,8 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Weather");
 		Assert.assertEquals(c.getDescription(), "Gets the Weather from https://openweathermap.org/");
 		Assert.assertEquals(c.getTriggers(), new String[] { "weather", "w" });
-		Assert.assertEquals(c.getHelp(), "**%sweather** Gets the Weather from https://openweathermap.org/");
+		Assert.assertEquals(c.getHelp(), "**%sw** Gets the Weather from https://openweathermap.org/\n**%sw {city}** Gets the Weather for the given city."
+				+ "\n**%sw %s5day** Gets the 5-Day Forecast.\n**%sw %s5day {city}** Gets the 5-Day Forecast for the given city.");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 }
