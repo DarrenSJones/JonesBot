@@ -1,6 +1,7 @@
 package ca.darrensjones.jonesbot.command.utilities;
 
 import java.awt.Color;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -11,27 +12,112 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
+import ca.darrensjones.jonesbot.handler.DataHandler;
+import ca.darrensjones.jonesbot.log.Reporter;
+import ca.darrensjones.jonesbot.utilities.RequestUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-08
+ * @version 1.0.0 2020-12-09
  * @since 1.0.0 2020-12-08
  */
 public class Frinkiac {
+
+	public static String getHelp(String prefix) {
+		String s = "Blank commands will display a random image.";
+		s += "\nEntering a quote will return an image associated with that quote.";
+		s += "\n\"S00E00 0000\" can also be used to search for a specific episode and timestamp.";
+		s += "\n**" + prefix + "s {text-search}**: Display an image using the search.";
+		s += "\n**" + prefix + "s " + prefix + "d**: Display a random image, with detail.";
+		s += "\n**" + prefix + "s " + prefix + "d {text-search}**: Display an image using the search, with detail.";
+		s += "\n**" + prefix + "s " + prefix + "l**: Displays details for the last image posted.";
+		s += "\n**" + prefix + "s " + prefix + "saved**: Displays a list of saved images with links.";
+		s += "\n**" + prefix + "s " + prefix + "regex**: Displays a list of saved images with the regex that matches them.";
+		s += "\nAny text entered on a new line will be added to the image as a caption.";
+		return s;
+	}
+
+	public static void process(Message message, String prefix, Color color, String host, List<OFrinkiacSaved> saved, HashMap<String, String[]> last) {
+
+		boolean flagDetail = false;
+
+		if (Frinkiac.hasSubcommandSaved(prefix, message.getContentDisplay())) {
+			message.getChannel().sendMessage(Frinkiac.buildEmbedSaved(color, host, saved).build()).queue();
+			return;
+		} else if (Frinkiac.hasSubcommandRegex(prefix, message.getContentDisplay())) {
+			message.getChannel().sendMessage(Frinkiac.buildEmbedRegex(color, host, saved).build()).queue();
+			return;
+		} else if (Frinkiac.hasSubcommandLast(prefix, message.getContentDisplay())) {
+			String[] l = last.get(message.getTextChannel().getId());
+			message.getChannel().sendMessage(Frinkiac.buildEmbed(false, true, color, host, "[Last] " + l[0], l[1], null).build()).queue();
+			return;
+		} else if (Frinkiac.hasSubcommandDetail(prefix, message.getContentDisplay())) {
+			flagDetail = true;
+		}
+
+		String query = message.getContentDisplay().replaceAll(prefix + "\\w+(\\s+)?", "").trim(); // Removes command and subcommands
+		String caption = null;
+		String title, request;
+		String response = "";
+
+		// Query is used for searching, anything on a new line is used for captioning
+		if (query.indexOf("\n") > 0) {
+			caption = query.substring(query.indexOf("\n")).trim();
+			query = query.substring(0, query.indexOf("\n")).trim();
+		}
+
+		if (StringUtils.isBlank(query)) {
+			title = "Random Search";
+			request = host + "/api/random";
+		} else if (Frinkiac.hasSaved(saved, query)) {
+			OFrinkiacSaved s = Frinkiac.getSaved(saved, query);
+			title = String.format("Saved: \"%s\"", s.name);
+			request = Frinkiac.buildRequestUrlKeyTimestamp(host, s.key, s.timestamp);
+		} else if (Frinkiac.isKeyTimestamp(query)) {
+			title = String.format("Timestamp: \"%s\"", query);
+			request = Frinkiac.buildRequestUrlKeyTimestamp(host, query.split("\\s+")[0], query.split("\\s+")[1]);
+		} else {
+			title = String.format("Search: \"%s\"", query);
+			request = host + "/api/search?q=" + query.trim().replaceAll("\\s+", "%20");
+		}
+
+		try {
+			String resp = RequestUtils.getResponseBody(request);
+			if (request.contains("/api/search?q=") && !resp.equals("[]")) { // Query Search needs an extra request
+				JSONObject json = (JSONObject) ((JSONArray) new JSONParser().parse(resp)).get(0);
+				request = Frinkiac.buildRequestUrlKeyTimestamp(host, json.get("Episode").toString(), json.get("Timestamp").toString());
+				resp = RequestUtils.getResponseBody(request);
+			}
+			if (StringUtils.isNotBlank(resp) && !resp.equals("Not Found\n")) response = resp;
+
+		} catch (Exception e) {
+			Reporter.fatal(e.getMessage());
+		}
+
+		if (StringUtils.isNotBlank(response)) {
+			DataHandler.setLast(last, message.getTextChannel().getId(), title, response);
+			message.getChannel().sendMessage(Frinkiac.buildEmbed(true, flagDetail, color, host, title, response, caption).build()).queue();
+		} else {
+			EmbedBuilder eb = new EmbedBuilder();
+			eb.setTitle(title, host);
+			eb.setDescription("Response not found, try another search.");
+			message.getChannel().sendMessage(eb.build()).queue();
+		}
+	}
 
 	public static EmbedBuilder buildEmbed(boolean flagImage, boolean flagDetail, Color color, String host, String title, String response, String caption) {
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setColor(color);
 		try {
 			JSONObject json = (JSONObject) new JSONParser().parse(response);
-			JSONObject ep = (JSONObject) json.get("Episode");
-//			String key = ep.get("Key").toString();
-			String season = ep.get("Season").toString();
-			String episodeNumber = ep.get("EpisodeNumber").toString();
+//			String key = ((JSONObject) json.get("Episode")).get("Key").toString();
+			String season = ((JSONObject) json.get("Episode")).get("Season").toString();
+			String episodeNumber = ((JSONObject) json.get("Episode")).get("EpisodeNumber").toString();
 			String episode = ((JSONObject) json.get("Frame")).get("Episode").toString();
 			String timestamp = ((JSONObject) json.get("Frame")).get("Timestamp").toString();
-			String epTitle = ep.get("Title").toString();
+			String epTitle = ((JSONObject) json.get("Episode")).get("Title").toString();
 			String image = String.format("%s/meme/%s/%s.jpg", host, episode, timestamp);
 			if (StringUtils.isNotBlank(caption)) image += "?b64lines=" + new Base64().encodeAsString(caption.getBytes());
 			String url = String.format("%s/caption/%s/%s", host, episode, timestamp);
@@ -47,7 +133,6 @@ public class Frinkiac {
 				eb.setDescription(String.format("\"%s\"", epTitle));
 				eb.addField(description, subtitles, false);
 			}
-
 		} catch (Exception e) {
 			eb.setTitle("Error: " + title, host);
 			eb.setDescription("Error parsing response, please contact your administrator.");

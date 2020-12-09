@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
+import ca.darrensjones.jonesbot.command.utilities.Frinkiac;
 import ca.darrensjones.jonesbot.handler.CommandHandler;
 import ca.darrensjones.jonesbot.testcore.BotTest;
 
@@ -129,7 +130,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Simpsons");
 		Assert.assertEquals(c.getDescription(), "Returns an image from http://frinkiac.com");
 		Assert.assertEquals(c.getTriggers(), new String[] { "simpsons", "s" });
-		Assert.assertEquals(c.getHelp(), "**!simpsons** Returns an image from http://frinkiac.com");
+		Assert.assertEquals(c.getHelp(), Frinkiac.getHelp("!"));
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
