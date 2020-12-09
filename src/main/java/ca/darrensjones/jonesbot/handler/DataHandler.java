@@ -36,8 +36,8 @@ public class DataHandler {
 		rickMortySaved = CFrinkiacSaved.getById("3");
 	}
 
-	public void setLastSimpsons(String messageChannel, String title, String response) {
-		if (simpsonsLast != null) simpsonsLast.remove(messageChannel);
-		simpsonsLast.put(messageChannel, new String[] { title, response });
+	public static void setLast(HashMap<String, String[]> last, String messageChannel, String title, String response) {
+		last.remove(messageChannel);
+		last.put(messageChannel, new String[] { title, response });
 	}
 }
