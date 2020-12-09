@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import ca.darrensjones.jonesbot.command.utilities.Frinkiac;
 import ca.darrensjones.jonesbot.db.controller.CFrinkiacSaved;
 import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
+import ca.darrensjones.jonesbot.testcore.TestUtils;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 /**
@@ -32,27 +33,107 @@ public class TFrinkiac {
 
 	@Test(dependsOnMethods = "getHelp", alwaysRun = true)
 	public void buildEmbed() {
+
+		// Image and Detail
+		String response1 = TestUtils.readFile("src/test/resources/mock/frinkiac/frinkiac_blank.json");
+		MessageEmbed me1 = Frinkiac.buildEmbed(true, true, new Color(123, 123, 123), "http://host.dom", "Title", response1, "testencode").build();
+		Assert.assertEquals(me1.getImage().getUrl(), "http://host.dom/meme/S00E00/0.jpg?b64lines=dGVzdGVuY29kZQ==");
+		Assert.assertEquals(me1.getTitle(), "Title");
+		Assert.assertEquals(me1.getUrl(), "http://host.dom/caption/S00E00/0");
+		Assert.assertEquals(me1.getDescription(), "\"x\"");
+		Assert.assertEquals(me1.getFields().size(), 1);
+		Assert.assertEquals(me1.getFields().get(0).getName(), "Season 0 / Episode 0 (00:00)");
+		Assert.assertEquals(me1.getFields().get(0).getValue(), "\u200Bx");
+
+		// Image, no Detail
+		String response2 = TestUtils.readFile("src/test/resources/mock/frinkiac/frinkiac_blank.json");
+		MessageEmbed me2 = Frinkiac.buildEmbed(true, false, new Color(123, 123, 123), "http://host.dom", "Title", response2, "testencode").build();
+		Assert.assertEquals(me2.getImage().getUrl(), "http://host.dom/meme/S00E00/0.jpg?b64lines=dGVzdGVuY29kZQ==");
+		Assert.assertEquals(me2.getTitle(), null);
+		Assert.assertEquals(me2.getUrl(), null);
+		Assert.assertEquals(me2.getDescription(), null);
+		Assert.assertEquals(me2.getFields().size(), 0);
+
+		// Detail, no Image
+		String response3 = TestUtils.readFile("src/test/resources/mock/frinkiac/frinkiac_blank.json");
+		MessageEmbed me3 = Frinkiac.buildEmbed(false, true, new Color(123, 123, 123), "http://host.dom", "Title", response3, "testencode").build();
+		Assert.assertEquals(me3.getImage(), null);
+		Assert.assertEquals(me3.getTitle(), "Title");
+		Assert.assertEquals(me3.getUrl(), "http://host.dom/caption/S00E00/0");
+		Assert.assertEquals(me3.getDescription(), "\"x\"");
+		Assert.assertEquals(me3.getFields().size(), 1);
+		Assert.assertEquals(me3.getFields().get(0).getName(), "Season 0 / Episode 0 (00:00)");
+		Assert.assertEquals(me3.getFields().get(0).getValue(), "\u200Bx");
+
+		// No Image, no Detail - Should never happen
+		String response4 = TestUtils.readFile("src/test/resources/mock/frinkiac/frinkiac_blank.json");
+		MessageEmbed me4 = Frinkiac.buildEmbed(false, false, new Color(123, 123, 123), "http://host.dom", "Title", response4, "testencode").build();
+		Assert.assertEquals(me4.getImage(), null);
+		Assert.assertEquals(me4.getTitle(), null);
+		Assert.assertEquals(me4.getUrl(), null);
+		Assert.assertEquals(me4.getDescription(), null);
+		Assert.assertEquals(me4.getFields().size(), 0);
+
+		// No Subtitles
+		String response5 = TestUtils.readFile("src/test/resources/mock/frinkiac/frinkac_blank_no_subtitles.json");
+		MessageEmbed me5 = Frinkiac.buildEmbed(true, true, new Color(123, 123, 123), "http://host.dom", "Title", response5, "testencode").build();
+		Assert.assertEquals(me5.getImage().getUrl(), "http://host.dom/meme/S00E00/0.jpg?b64lines=dGVzdGVuY29kZQ==");
+		Assert.assertEquals(me5.getTitle(), "Title");
+		Assert.assertEquals(me5.getUrl(), "http://host.dom/caption/S00E00/0");
+		Assert.assertEquals(me5.getDescription(), "\"x\"");
+		Assert.assertEquals(me5.getFields().size(), 1);
+		Assert.assertEquals(me5.getFields().get(0).getName(), "Season 0 / Episode 0 (00:00)");
+		Assert.assertEquals(me5.getFields().get(0).getValue(), "\u200B");
+
+		// Large Response
+		String response6 = TestUtils.readFile("src/test/resources/mock/frinkiac/frinkac_large.json");
+		MessageEmbed me6 = Frinkiac.buildEmbed(true, true, new Color(123, 123, 123), "http://host.dom", "Title", response6, "testencode").build();
+		Assert.assertEquals(me6.getImage().getUrl(), "http://host.dom/meme/S99E99/9999999.jpg?b64lines=dGVzdGVuY29kZQ==");
+		Assert.assertEquals(me6.getTitle(), "Title");
+		Assert.assertEquals(me6.getUrl(), "http://host.dom/caption/S99E99/9999999");
+		Assert.assertEquals(me6.getDescription(), "\"abcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabc\"");
+		Assert.assertEquals(me6.getFields().size(), 1);
+		Assert.assertEquals(me6.getFields().get(0).getName(), "Season 99 / Episode 99 (166:39)");
+		Assert.assertEquals(me6.getFields().get(0).getValue(),
+				"\u200Babcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl"
+						+ "\nabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl"
+						+ "\nabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl"
+						+ "\nabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl"
+						+ "\nabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl"
+						+ "\nabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl"
+						+ "\nabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl");
+
+		// Special Characters
+		String response7 = TestUtils.readFile("src/test/resources/mock/frinkiac/frinkac_special.json");
+		MessageEmbed me7 = Frinkiac.buildEmbed(true, true, new Color(123, 123, 123), "http://host.dom", "Title", response7, "testencode").build();
+		Assert.assertEquals(me7.getImage().getUrl(), "http://host.dom/meme/Movie/0.jpg?b64lines=dGVzdGVuY29kZQ==");
+		Assert.assertEquals(me7.getTitle(), "Title");
+		Assert.assertEquals(me7.getUrl(), "http://host.dom/caption/Movie/0");
+		Assert.assertEquals(me7.getDescription(), "\".,:'-?!#$%&\\ö()\"");
+		Assert.assertEquals(me7.getFields().size(), 1);
+		Assert.assertEquals(me7.getFields().get(0).getName(), "Season 0 / Episode 0 (00:00)");
+		Assert.assertEquals(me7.getFields().get(0).getValue(), "\u200B.,:'-?!$%ö[]♪áé");
 	}
 
 	@Test(dependsOnMethods = "buildEmbed", alwaysRun = true)
 	public void buildEmbedSaved() {
-		MessageEmbed embed = Frinkiac.buildEmbedSaved(new Color(254, 217, 15), "host", CFrinkiacSaved.getById("1")).build();
+		MessageEmbed embed = Frinkiac.buildEmbedSaved(new Color(123, 123, 123), "host", CFrinkiacSaved.getById("1")).build();
 		Assert.assertEquals(embed.getTitle(), "Saved List");
 		Assert.assertEquals(embed.getDescription(),
 				"Contact your Admin for additions:" + "\nTrash [host/caption/S03E22/937738]" + "\nFlag [host/caption/S14E03/883966]"
 						+ "\nPig [host/caption/Movie/1321236]" + "\nCatholic Church [host/caption/S10E12/927876]" + "\nThe Anvil [host/caption/S08E15/856087]");
-		Assert.assertEquals(embed.getColor(), new Color(254, 217, 15));
+		Assert.assertEquals(embed.getColor(), new Color(123, 123, 123));
 	}
 
 	@Test(dependsOnMethods = "buildEmbedSaved", alwaysRun = true)
 	public void buildEmbedRegex() {
-		MessageEmbed embed = Frinkiac.buildEmbedRegex(new Color(254, 217, 15), "host", CFrinkiacSaved.getById("1")).build();
+		MessageEmbed embed = Frinkiac.buildEmbedRegex(new Color(123, 123, 123), "host", CFrinkiacSaved.getById("1")).build();
 		Assert.assertEquals(embed.getTitle(), "Saved List: Regex");
 		Assert.assertEquals(embed.getDescription(),
 				"Contact your Admin for additions:" + "\nTrash: trash" + "\nFlag: flags?" + "\nPig: (spider )?pig"
 						+ "\nCatholic Church: (catholic( church)?)|(we'?ve made a few changes)"
 						+ "\nThe Anvil: (the anvil)|(gay steel mill)|(we work hard\\,? we play hard)");
-		Assert.assertEquals(embed.getColor(), new Color(254, 217, 15));
+		Assert.assertEquals(embed.getColor(), new Color(123, 123, 123));
 	}
 
 	@Test(dependsOnMethods = "buildEmbedRegex", alwaysRun = true)
