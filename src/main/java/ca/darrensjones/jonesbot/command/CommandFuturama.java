@@ -1,12 +1,14 @@
 package ca.darrensjones.jonesbot.command;
 
 import java.awt.Color;
+import java.util.HashMap;
+import java.util.List;
 
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
 import ca.darrensjones.jonesbot.command.utilities.Frinkiac;
-import net.dv8tion.jda.api.EmbedBuilder;
+import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
@@ -16,13 +18,8 @@ import net.dv8tion.jda.api.entities.Message;
  */
 public class CommandFuturama extends AbstractCommand {
 
-	private final String host;
-	private final Color color;
-
 	public CommandFuturama(Bot bot) {
 		super(bot);
-		this.host = bot.config.FUTURAMA_HOST;
-		this.color = new Color(112, 227, 162);
 	}
 
 	@Override
@@ -52,10 +49,12 @@ public class CommandFuturama extends AbstractCommand {
 
 	@Override
 	public void execute(Message message) {
-		EmbedBuilder eb = new EmbedBuilder();
-		eb.setColor(color);
-		eb.setTitle("Command: " + getName());
-		eb.setDescription(host);
-		message.getChannel().sendMessage(eb.build()).queue();
+		String prefix = bot.config.BOT_PREFIX;
+		Color color = new Color(112, 227, 162);
+		String host = bot.config.FUTURAMA_HOST;
+		List<OFrinkiacSaved> saved = bot.dataHandler.futuramaSaved;
+		HashMap<String, String[]> last = bot.dataHandler.futuramaLast;
+
+		Frinkiac.process(message, prefix, color, host, saved, last);
 	}
 }

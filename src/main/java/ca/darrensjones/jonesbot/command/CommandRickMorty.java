@@ -1,12 +1,14 @@
 package ca.darrensjones.jonesbot.command;
 
 import java.awt.Color;
+import java.util.HashMap;
+import java.util.List;
 
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
 import ca.darrensjones.jonesbot.command.utilities.Frinkiac;
-import net.dv8tion.jda.api.EmbedBuilder;
+import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
@@ -16,13 +18,8 @@ import net.dv8tion.jda.api.entities.Message;
  */
 public class CommandRickMorty extends AbstractCommand {
 
-	private final String host;
-	private final Color color;
-
 	public CommandRickMorty(Bot bot) {
 		super(bot);
-		this.host = bot.config.RICKMORTY_HOST;
-		this.color = new Color(207, 219, 219);
 	}
 
 	@Override
@@ -52,10 +49,12 @@ public class CommandRickMorty extends AbstractCommand {
 
 	@Override
 	public void execute(Message message) {
-		EmbedBuilder eb = new EmbedBuilder();
-		eb.setColor(color);
-		eb.setTitle("Command: " + getName());
-		eb.setDescription(host);
-		message.getChannel().sendMessage(eb.build()).queue();
+		String prefix = bot.config.BOT_PREFIX;
+		Color color = new Color(207, 219, 219);
+		String host = bot.config.RICKMORTY_HOST;
+		List<OFrinkiacSaved> saved = bot.dataHandler.rickMortySaved;
+		HashMap<String, String[]> last = bot.dataHandler.rickMortyLast;
+
+		Frinkiac.process(message, prefix, color, host, saved, last);
 	}
 }
