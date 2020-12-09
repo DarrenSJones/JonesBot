@@ -22,7 +22,7 @@ public class TCommandWeather {
 	public void buildEmbedCurrent() {
 
 		/* Current High */
-		MessageEmbed high = w.buildEmbedCurrent(TestUtils.readFile("src/test/resources/mock/WeatherCurrentHigh.json")).build();
+		MessageEmbed high = w.buildEmbedCurrent(TestUtils.readFile("src/test/resources/mock/weather/WeatherCurrentHigh.json")).build();
 		Assert.assertEquals(high.getTitle(), "Current Weather");
 		Assert.assertEquals(high.getDescription(), "This is the name of a town that is very long");
 		Assert.assertEquals(high.getThumbnail().getUrl(), "http://openweathermap.org/img/w/04d.png");
@@ -41,7 +41,7 @@ public class TCommandWeather {
 		Assert.assertEquals(high.getFields().get(5).getValue(), EmbedBuilder.ZERO_WIDTH_SPACE);
 
 		/* Current Low */
-		MessageEmbed low = w.buildEmbedCurrent(TestUtils.readFile("src/test/resources/mock/WeatherCurrentLow.json")).build();
+		MessageEmbed low = w.buildEmbedCurrent(TestUtils.readFile("src/test/resources/mock/weather/WeatherCurrentLow.json")).build();
 		Assert.assertEquals(low.getTitle(), "Current Weather");
 		Assert.assertEquals(low.getDescription(), "AZ");
 		Assert.assertEquals(low.getThumbnail().getUrl(), "http://openweathermap.org/img/w/04d.png");
@@ -64,7 +64,7 @@ public class TCommandWeather {
 	public void buildEmbed5Day() {
 
 		/* 5 Day High */
-		MessageEmbed high = w.buildEmbed5Day(TestUtils.readFile("src/test/resources/mock/Weather5DayHigh.json")).build();
+		MessageEmbed high = w.buildEmbed5Day(TestUtils.readFile("src/test/resources/mock/weather/Weather5DayHigh.json")).build();
 		Assert.assertEquals(high.getTitle(), "5 Day Forecast");
 		Assert.assertEquals(high.getDescription(), "city5DayHighEmbed");
 		Assert.assertEquals(high.getThumbnail().getUrl(), "http://openweathermap.org/img/w/02d.png");
@@ -101,7 +101,7 @@ public class TCommandWeather {
 		Assert.assertEquals(high.getFields().get(14).getValue(), "High: 1000°C Low: 1000°C");
 
 		/* 5 Day Low */
-		MessageEmbed low = w.buildEmbed5Day(TestUtils.readFile("src/test/resources/mock/Weather5DayLow.json")).build();
+		MessageEmbed low = w.buildEmbed5Day(TestUtils.readFile("src/test/resources/mock/weather/Weather5DayLow.json")).build();
 		Assert.assertEquals(low.getTitle(), "5 Day Forecast");
 		Assert.assertEquals(low.getDescription(), "city5DayHighEmbed");
 		Assert.assertEquals(low.getThumbnail().getUrl(), "http://openweathermap.org/img/w/02d.png");
