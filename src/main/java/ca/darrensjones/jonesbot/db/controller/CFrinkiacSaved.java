@@ -11,7 +11,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-08
+ * @version 1.0.0 2020-12-09
  * @since 1.0.0 2020-12-03
  */
 public class CFrinkiacSaved {
@@ -30,18 +30,6 @@ public class CFrinkiacSaved {
 		List<OFrinkiacSaved> list = new ArrayList<OFrinkiacSaved>();
 		try {
 			ResultSet rs = BotDB.get().select("SELECT id, [name], [key], timestamp, regex FROM frinkiac_saved WHERE host_id = " + id + " Order By id");
-			while (rs.next()) list.add(setRecord(rs));
-			rs.getStatement().close();
-		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
-		}
-		return list;
-	}
-
-	public static List<OFrinkiacSaved> getAll() {
-		List<OFrinkiacSaved> list = new ArrayList<OFrinkiacSaved>();
-		try {
-			ResultSet rs = BotDB.get().select("SELECT id, [name], [key], timestamp, regex FROM frinkiac_saved ORDER BY id");
 			while (rs.next()) list.add(setRecord(rs));
 			rs.getStatement().close();
 		} catch (Exception e) {
