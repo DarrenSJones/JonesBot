@@ -5,6 +5,7 @@ import java.awt.Color;
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
+import ca.darrensjones.jonesbot.command.utilities.Frinkiac;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 
@@ -46,7 +47,7 @@ public class CommandFuturama extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return "**" + bot.config.BOT_PREFIX + "futurama** " + getDescription();
+		return Frinkiac.getHelp(bot.config.BOT_PREFIX);
 	}
 
 	@Override

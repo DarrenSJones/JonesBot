@@ -60,7 +60,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Futurama");
 		Assert.assertEquals(c.getDescription(), "Returns an image from http://morbotron.com");
 		Assert.assertEquals(c.getTriggers(), new String[] { "futurama", "f" });
-		Assert.assertEquals(c.getHelp(), "**!futurama** Returns an image from http://morbotron.com");
+		Assert.assertEquals(c.getHelp(), Frinkiac.getHelp("!"));
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
@@ -120,7 +120,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Rick&Morty");
 		Assert.assertEquals(c.getDescription(), "Returns an image from http://masterofallscience.com");
 		Assert.assertEquals(c.getTriggers(), new String[] { "rick&morty", "rick", "morty" });
-		Assert.assertEquals(c.getHelp(), "**!rick&morty** Returns an image from http://masterofallscience.com");
+		Assert.assertEquals(c.getHelp(), Frinkiac.getHelp("!"));
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
