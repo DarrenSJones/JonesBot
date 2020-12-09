@@ -39,7 +39,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "CatFact");
 		Assert.assertEquals(c.getDescription(), "Displays a random cat fact from https://catfact.ninja");
 		Assert.assertEquals(c.getTriggers(), new String[] { "catfact", "catfacts" });
-		Assert.assertEquals(c.getHelp(), "**%scatfact** Displays a random cat fact from https://catfact.ninja");
+		Assert.assertEquals(c.getHelp(), "**!catfact** Displays a random cat fact from https://catfact.ninja");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
@@ -49,7 +49,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Cowbell");
 		Assert.assertEquals(c.getDescription(), "When you need more of it");
 		Assert.assertEquals(c.getTriggers(), new String[] { "cowbell" });
-		Assert.assertEquals(c.getHelp(), "**%scowbell** When you need more of it");
+		Assert.assertEquals(c.getHelp(), "**!cowbell** When you need more of it");
 		Assert.assertEquals(c.visibility(), CommandVisibility.HIDDEN);
 	}
 
@@ -59,7 +59,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Futurama");
 		Assert.assertEquals(c.getDescription(), "Returns an image from http://morbotron.com");
 		Assert.assertEquals(c.getTriggers(), new String[] { "futurama", "f" });
-		Assert.assertEquals(c.getHelp(), "**%sfuturama** Returns an image from http://morbotron.com");
+		Assert.assertEquals(c.getHelp(), "**!futurama** Returns an image from http://morbotron.com");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
@@ -69,7 +69,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Help");
 		Assert.assertEquals(c.getDescription(), "The full list of Commands");
 		Assert.assertEquals(c.getTriggers(), new String[] { "help", "h" });
-		Assert.assertEquals(c.getHelp(), "**%shelp** The full list of Commands");
+		Assert.assertEquals(c.getHelp(), "**!help** The full list of Commands");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
@@ -79,7 +79,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Owner");
 		Assert.assertEquals(c.getDescription(), "The full list of Owner-only Commands");
 		Assert.assertEquals(c.getTriggers(), new String[] { "owner" });
-		Assert.assertEquals(c.getHelp(), "**%sowner** The full list of Owner-only Commands");
+		Assert.assertEquals(c.getHelp(), "**!owner** The full list of Owner-only Commands");
 		Assert.assertEquals(c.visibility(), CommandVisibility.OWNER);
 	}
 
@@ -89,7 +89,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Ping");
 		Assert.assertEquals(c.getDescription(), "Pong!");
 		Assert.assertEquals(c.getTriggers(), new String[] { "ping", "p" });
-		Assert.assertEquals(c.getHelp(), "**%sping** Pong!");
+		Assert.assertEquals(c.getHelp(), "**!ping** Pong!");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
@@ -99,7 +99,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Reaction");
 		Assert.assertEquals(c.getDescription(), "A list of reactions the Bot will respond with");
 		Assert.assertEquals(c.getTriggers(), new String[] { "reaction", "reactions" });
-		Assert.assertEquals(c.getHelp(), "**%sreaction** A list of reactions the Bot will respond with");
+		Assert.assertEquals(c.getHelp(), "**!reaction** A list of reactions the Bot will respond with");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
@@ -109,7 +109,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Reload");
 		Assert.assertEquals(c.getDescription(), "Reloads all lists from the SQL Database");
 		Assert.assertEquals(c.getTriggers(), new String[] { "reload" });
-		Assert.assertEquals(c.getHelp(), "**%sreload** Reloads all lists from the SQL Database");
+		Assert.assertEquals(c.getHelp(), "**!reload** Reloads all lists from the SQL Database");
 		Assert.assertEquals(c.visibility(), CommandVisibility.OWNER);
 	}
 
@@ -119,7 +119,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Rick&Morty");
 		Assert.assertEquals(c.getDescription(), "Returns an image from http://masterofallscience.com");
 		Assert.assertEquals(c.getTriggers(), new String[] { "rick&morty", "rick", "morty" });
-		Assert.assertEquals(c.getHelp(), "**%srick&morty** Returns an image from http://masterofallscience.com");
+		Assert.assertEquals(c.getHelp(), "**!rick&morty** Returns an image from http://masterofallscience.com");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
@@ -129,7 +129,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Simpsons");
 		Assert.assertEquals(c.getDescription(), "Returns an image from http://frinkiac.com");
 		Assert.assertEquals(c.getTriggers(), new String[] { "simpsons", "s" });
-		Assert.assertEquals(c.getHelp(), "**%ssimpsons** Returns an image from http://frinkiac.com");
+		Assert.assertEquals(c.getHelp(), "**!simpsons** Returns an image from http://frinkiac.com");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
@@ -139,8 +139,8 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Weather");
 		Assert.assertEquals(c.getDescription(), "Gets the Weather from https://openweathermap.org/");
 		Assert.assertEquals(c.getTriggers(), new String[] { "weather", "w" });
-		Assert.assertEquals(c.getHelp(), "**%sw** Gets the Weather from https://openweathermap.org/\n**%sw {city}** Gets the Weather for the given city."
-				+ "\n**%sw %s5day** Gets the 5-Day Forecast.\n**%sw %s5day {city}** Gets the 5-Day Forecast for the given city.");
+		Assert.assertEquals(c.getHelp(), "**!w** Gets the Weather from https://openweathermap.org/\n**!w {city}** Gets the Weather for the given city."
+				+ "\n**!w !5day** Gets the 5-Day Forecast.\n**!w !5day {city}** Gets the 5-Day Forecast for the given city.");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 }

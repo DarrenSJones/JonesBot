@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-08
+ * @version 1.0.0 2020-12-09
  * @since 1.0.0 2020-11-24
  */
 public class CommandCatFact extends AbstractCommand {
@@ -44,7 +44,7 @@ public class CommandCatFact extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return "**%scatfact** " + getDescription();
+		return "**" + bot.config.BOT_PREFIX + "catfact** " + getDescription();
 	}
 
 	@Override

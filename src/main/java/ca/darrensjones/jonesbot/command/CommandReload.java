@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-04
+ * @version 1.0.0 2020-12-09
  * @since 1.0.0 2020-11-24
  */
 public class CommandReload extends AbstractCommand {
@@ -38,7 +38,7 @@ public class CommandReload extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return "**%sreload** " + getDescription();
+		return "**" + bot.config.BOT_PREFIX + "reload** " + getDescription();
 	}
 
 	@Override

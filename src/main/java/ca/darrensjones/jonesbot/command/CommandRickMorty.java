@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-08
+ * @version 1.0.0 2020-12-09
  * @since 1.0.0 2020-12-08
  */
 public class CommandRickMorty extends AbstractCommand {
@@ -46,7 +46,7 @@ public class CommandRickMorty extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return "**%srick&morty** " + getDescription();
+		return "**" + bot.config.BOT_PREFIX + "rick&morty** " + getDescription();
 	}
 
 	@Override

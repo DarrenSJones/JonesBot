@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-27
+ * @version 1.0.0 2020-12-09
  * @since 1.0.0 2020-11-24
  */
 public class CommandHelp extends AbstractCommand {
@@ -41,7 +41,7 @@ public class CommandHelp extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return "**%shelp** " + getDescription();
+		return "**" + bot.config.BOT_PREFIX + "help** " + getDescription();
 	}
 
 	@Override

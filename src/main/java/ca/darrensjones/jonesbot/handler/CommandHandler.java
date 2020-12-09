@@ -24,7 +24,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-08
+ * @version 1.0.0 2020-12-09
  * @since 1.0.0 2020-11-22
  */
 public class CommandHandler {
@@ -48,7 +48,7 @@ public class CommandHandler {
 				Reporter.info("Sub-Help found");
 				EmbedBuilder eb = new EmbedBuilder();
 				eb.setTitle("Sub-Help: " + c.getName());
-				eb.setDescription(String.format(c.getHelp(), bot.config.BOT_PREFIX));
+				eb.setDescription(c.getHelp());
 				eb.setColor(new Color(0, 153, 255));
 				message.getChannel().sendMessage(eb.build()).queue();
 			} else {

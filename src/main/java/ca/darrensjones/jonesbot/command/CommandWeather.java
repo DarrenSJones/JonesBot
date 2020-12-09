@@ -54,10 +54,11 @@ public class CommandWeather extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		String output = "**%sw** " + getDescription();
-		output += "\n**%sw {city}** Gets the Weather for the given city.";
-		output += "\n**%sw %s5day** Gets the 5-Day Forecast.";
-		output += "\n**%sw %s5day {city}** Gets the 5-Day Forecast for the given city.";
+		String p = bot.config.BOT_PREFIX;
+		String output = "**" + p + "w** " + getDescription();
+		output += "\n**" + p + "w {city}** Gets the Weather for the given city.";
+		output += "\n**" + p + "w " + p + "5day** Gets the 5-Day Forecast.";
+		output += "\n**" + p + "w " + p + "5day {city}** Gets the 5-Day Forecast for the given city.";
 		return output;
 	}
 
