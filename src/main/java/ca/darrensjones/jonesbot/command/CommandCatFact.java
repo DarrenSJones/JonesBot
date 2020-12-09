@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-27
+ * @version 1.0.0 2020-12-08
  * @since 1.0.0 2020-11-24
  */
 public class CommandCatFact extends AbstractCommand {
@@ -58,7 +58,7 @@ public class CommandCatFact extends AbstractCommand {
 		message.getChannel().sendMessage(eb.build()).queue();
 	}
 
-	public String getResponse(String host) {
+	public static String getResponse(String host) {
 		try {
 			return RequestUtils.getResponseBodyField(host + "/fact", "fact");
 		} catch (Exception e) {

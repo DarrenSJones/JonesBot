@@ -15,7 +15,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-26
+ * @version 1.0.0 2020-12-08
  * @since 1.0.0 2020-11-25
  */
 public class Mock {
@@ -36,13 +36,17 @@ public class Mock {
 		Reporter.debug("Mock Server and Client reset");
 	}
 
-	public static void setExpectation(String requestMethod, String requestPath, int responseStatusCode, String responseBodyFilePath) {
+	public static void setExpectation(String requestMethod, String requestPath, int responseStatusCode, File file) {
 		try {
-			String response = FileUtils.readFileToString(new File(responseBodyFilePath), StandardCharsets.UTF_8);
-			client.when(HttpRequest.request().withMethod("GET").withPath("/fact"), Times.unlimited())
-					.respond(HttpResponse.response().withStatusCode(200).withBody(response));
+			String response = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
+			setExpectation(requestMethod, requestPath, responseStatusCode, response);
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());
 		}
+	}
+
+	public static void setExpectation(String requestMethod, String requestPath, int responseStatusCode, String response) {
+		client.when(HttpRequest.request().withMethod(requestMethod).withPath(requestPath), Times.unlimited())
+				.respond(HttpResponse.response().withStatusCode(responseStatusCode).withBody(response));
 	}
 }
