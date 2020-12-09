@@ -8,14 +8,12 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-28
+ * @version 1.0.0 2020-12-09
  * @since 1.0.0 2020-11-24
  */
 public class RequestUtils {
@@ -28,11 +26,5 @@ public class RequestUtils {
 		String response = IOUtils.toString(httpEntity.getContent(), StandardCharsets.UTF_8.name());
 		Reporter.info(String.format("Received Response:[%s]", response));
 		return response;
-	}
-
-	public static String getResponseBodyField(String requestUrl, String field) throws Exception {
-		String response = getResponseBody(requestUrl);
-		JSONObject json = (JSONObject) new JSONParser().parse(response);
-		return json.get(field).toString();
 	}
 }

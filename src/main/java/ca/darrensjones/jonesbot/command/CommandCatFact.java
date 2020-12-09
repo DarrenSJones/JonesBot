@@ -3,6 +3,9 @@ package ca.darrensjones.jonesbot.command;
 import java.awt.Color;
 import java.util.Date;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
@@ -60,7 +63,9 @@ public class CommandCatFact extends AbstractCommand {
 
 	public static String getResponse(String host) {
 		try {
-			return RequestUtils.getResponseBodyField(host + "/fact", "fact");
+			String response = RequestUtils.getResponseBody(host + "/fact");
+			JSONObject json = (JSONObject) new JSONParser().parse(response);
+			return json.get("fact").toString();
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());
 			return "Cat Fact not found.";
