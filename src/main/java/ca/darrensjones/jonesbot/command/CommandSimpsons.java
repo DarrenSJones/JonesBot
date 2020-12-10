@@ -55,6 +55,6 @@ public class CommandSimpsons extends AbstractCommand {
 		List<OFrinkiacSaved> saved = bot.dataHandler.simpsonsSaved;
 		HashMap<String, String[]> last = bot.dataHandler.simpsonsLast;
 
-		Frinkiac.process(message, prefix, color, host, saved, last);
+		message.getChannel().sendMessage(Frinkiac.process(message, prefix, color, host, saved, last).build()).queue();
 	}
 }

@@ -55,6 +55,6 @@ public class CommandRickMorty extends AbstractCommand {
 		List<OFrinkiacSaved> saved = bot.dataHandler.rickMortySaved;
 		HashMap<String, String[]> last = bot.dataHandler.rickMortyLast;
 
-		Frinkiac.process(message, prefix, color, host, saved, last);
+		message.getChannel().sendMessage(Frinkiac.process(message, prefix, color, host, saved, last).build()).queue();
 	}
 }

@@ -55,6 +55,6 @@ public class CommandFuturama extends AbstractCommand {
 		List<OFrinkiacSaved> saved = bot.dataHandler.futuramaSaved;
 		HashMap<String, String[]> last = bot.dataHandler.futuramaLast;
 
-		Frinkiac.process(message, prefix, color, host, saved, last);
+		message.getChannel().sendMessage(Frinkiac.process(message, prefix, color, host, saved, last).build()).queue();
 	}
 }

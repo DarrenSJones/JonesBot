@@ -39,20 +39,17 @@ public class Frinkiac {
 		return s;
 	}
 
-	public static void process(Message message, String prefix, Color color, String host, List<OFrinkiacSaved> saved, HashMap<String, String[]> last) {
+	public static EmbedBuilder process(Message message, String prefix, Color color, String host, List<OFrinkiacSaved> saved, HashMap<String, String[]> last) {
 
 		boolean flagDetail = false;
 
 		if (Pattern.compile(prefix + "saved\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
-			message.getChannel().sendMessage(Frinkiac.buildEmbedSaved(color, host, saved).build()).queue();
-			return;
+			return Frinkiac.buildEmbedSaved(color, host, saved);
 		} else if (Pattern.compile(prefix + "regex\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
-			message.getChannel().sendMessage(Frinkiac.buildEmbedRegex(color, host, saved).build()).queue();
-			return;
+			return Frinkiac.buildEmbedRegex(color, host, saved);
 		} else if (Pattern.compile(prefix + "l(ast)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
 			String[] l = last.get(message.getTextChannel().getId());
-			message.getChannel().sendMessage(Frinkiac.buildEmbed(false, true, color, host, "[Last] " + l[0], l[1], null).build()).queue();
-			return;
+			return Frinkiac.buildEmbed(false, true, color, host, "[Last] " + l[0], l[1], null);
 		} else if (Pattern.compile(prefix + "d(etail)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
 			flagDetail = true;
 		}
@@ -87,12 +84,9 @@ public class Frinkiac {
 
 		if (StringUtils.isNotBlank(response)) {
 			DataHandler.setLast(last, message.getTextChannel().getId(), title, response);
-			message.getChannel().sendMessage(Frinkiac.buildEmbed(true, flagDetail, color, host, title, response, caption).build()).queue();
+			return Frinkiac.buildEmbed(true, flagDetail, color, host, title, response, caption);
 		} else {
-			EmbedBuilder eb = new EmbedBuilder();
-			eb.setTitle(title, host);
-			eb.setDescription("Response not found, try another search.");
-			message.getChannel().sendMessage(eb.build()).queue();
+			return new EmbedBuilder().setTitle(title, host).setDescription("Response not found, try another search.");
 		}
 	}
 
