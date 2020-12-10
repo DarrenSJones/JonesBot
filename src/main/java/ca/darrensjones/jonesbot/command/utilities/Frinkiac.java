@@ -153,12 +153,12 @@ public class Frinkiac {
 		String response = "";
 		try {
 			String resp = RequestUtils.getResponseBody(request);
-			if (request.contains("/api/search?q=") && !resp.equals("[]")) { // Query Search needs an extra request
+			if (request.contains("/api/search?q=") && StringUtils.isNotBlank(resp) && !resp.equals("[]")) { // Query Search needs an extra request
 				JSONObject json = (JSONObject) ((JSONArray) new JSONParser().parse(resp)).get(0);
 				request = Frinkiac.buildRequestUrlKeyTimestamp(host, json.get("Episode").toString(), json.get("Timestamp").toString());
 				resp = RequestUtils.getResponseBody(request);
 			}
-			if (StringUtils.isNotBlank(resp) && !resp.equals("Not Found\n")) response = resp;
+			if (StringUtils.isNotBlank(resp) && !resp.equals("[]") && !resp.equals("Not Found\n")) response = resp;
 
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());
