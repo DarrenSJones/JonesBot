@@ -23,7 +23,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-09
+ * @version 1.0.0 2020-12-10
  * @since 1.0.0 2020-11-26
  */
 public class CommandWeather extends AbstractCommand {
@@ -64,14 +64,17 @@ public class CommandWeather extends AbstractCommand {
 
 	@Override
 	public void execute(Message message) {
+		message.getChannel().sendMessage(process(bot, message.getContentDisplay()).build()).queue();
+	}
 
+	public static EmbedBuilder process(Bot bot, String content) {
 		EmbedBuilder eb = new EmbedBuilder();
 
-		boolean is5Day = Pattern.compile(bot.config.BOT_PREFIX + "5day\\s?").matcher(message.getContentDisplay().toLowerCase()).find();
+		boolean is5Day = Pattern.compile(bot.config.BOT_PREFIX + "5day\\s?").matcher(content.toLowerCase()).find();
 
 		String forecastType = "weather";
 		if (is5Day) forecastType = "forecast";
-		String city = message.getContentDisplay().replaceAll(bot.config.BOT_PREFIX + "\\w+(\\s+)?", "").trim().replaceAll("\\s", "%20");
+		String city = content.replaceAll(bot.config.BOT_PREFIX + "\\w+(\\s+)?", "").trim().replaceAll("\\s", "%20");
 		if (StringUtils.isBlank(city)) city = bot.config.WEATHER_DEFAULT_CITY;
 		String request = String.format("%s/data/2.5/%s?units=metric&appid=%s&q=%s", bot.config.WEATHER_HOST, forecastType, bot.config.WEATHER_TOKEN, city);
 
@@ -84,13 +87,12 @@ public class CommandWeather extends AbstractCommand {
 			Reporter.fatal(e.getMessage());
 		}
 
-		message.getChannel().sendMessage(eb.build()).queue();
+		return eb;
 	}
 
-	public EmbedBuilder buildEmbedCurrent(String responseBody) {
+	public static EmbedBuilder buildEmbedCurrent(String responseBody) {
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setTitle("Current Weather");
-		eb.setFooter("OpenWeatherMap");
 		try {
 			JSONObject json = (JSONObject) new JSONParser().parse(responseBody);
 			String desc = ((JSONObject) ((JSONArray) json.get("weather")).get(0)).get("main").toString();
@@ -124,7 +126,7 @@ public class CommandWeather extends AbstractCommand {
 		return eb;
 	}
 
-	public EmbedBuilder buildEmbed5Day(String responseBody) {
+	public static EmbedBuilder buildEmbed5Day(String responseBody) {
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setTitle("5 Day Forecast");
 

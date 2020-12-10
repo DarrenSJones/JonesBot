@@ -1,140 +1,154 @@
 package ca.darrensjones.jonesbot.test.command;
 
+import java.io.File;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import ca.darrensjones.jonesbot.command.CommandWeather;
 import ca.darrensjones.jonesbot.testcore.BotTest;
-import ca.darrensjones.jonesbot.testcore.TestUtils;
+import ca.darrensjones.jonesbot.testcore.Mock;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-28
+ * @version 1.0.0 2020-12-10
  * @since 1.0.0 2020-11-28
  */
 public class TCommandWeather {
 
-	private static final CommandWeather w = new CommandWeather(BotTest.get());
-
 	@Test
-	public void buildEmbedCurrent() {
+	public void process() {
+
+		Mock.reset();
+		String path = "src/test/resources/mock/weather/";
 
 		/* Current High */
-		MessageEmbed high = w.buildEmbedCurrent(TestUtils.readFile("src/test/resources/mock/weather/WeatherCurrentHigh.json")).build();
-		Assert.assertEquals(high.getTitle(), "Current Weather");
-		Assert.assertEquals(high.getDescription(), "This is the name of a town that is very long");
-		Assert.assertEquals(high.getThumbnail().getUrl(), "http://openweathermap.org/img/w/04d.png");
-		Assert.assertEquals(high.getFields().size(), 6);
-		Assert.assertEquals(high.getFields().get(0).getName(), "Clouds");
-		Assert.assertEquals(high.getFields().get(0).getValue(), "1000°C, Feels Like 1000°C");
-		Assert.assertEquals(high.getFields().get(1).getName(), "Wind: 100 kph N");
-		Assert.assertEquals(high.getFields().get(1).getValue(), "High: 1000°C Low: 1000°C");
-		Assert.assertEquals(high.getFields().get(2).getName(), EmbedBuilder.ZERO_WIDTH_SPACE);
-		Assert.assertEquals(high.getFields().get(2).getValue(), EmbedBuilder.ZERO_WIDTH_SPACE);
-		Assert.assertEquals(high.getFields().get(3).getName(), "Sunrise");
-		Assert.assertEquals(high.getFields().get(3).getValue(), "06:45:40");
-		Assert.assertEquals(high.getFields().get(4).getName(), "Sunset");
-		Assert.assertEquals(high.getFields().get(4).getValue(), "18:56:21");
-		Assert.assertEquals(high.getFields().get(5).getName(), EmbedBuilder.ZERO_WIDTH_SPACE);
-		Assert.assertEquals(high.getFields().get(5).getValue(), EmbedBuilder.ZERO_WIDTH_SPACE);
+		Mock.setExpectation("GET", "/data/2.5/weather?units=metric&appid=12345678901234567890123456789012&q=Regina,Saskatchewan,CA", 200,
+				new File(path + "current_high.json"));
+		MessageEmbed hc = CommandWeather.process(BotTest.get(), "!w").build();
+		Assert.assertEquals(hc.getTitle(), "Current Weather");
+		Assert.assertEquals(hc.getDescription(), "This is the name of a town that is very long");
+		Assert.assertEquals(hc.getThumbnail().getUrl(), "http://openweathermap.org/img/w/04d.png");
+		Assert.assertEquals(hc.getFields().size(), 6);
+		Assert.assertEquals(hc.getFields().get(0).getName(), "Clouds");
+		Assert.assertEquals(hc.getFields().get(0).getValue(), "1000°C, Feels Like 1000°C");
+		Assert.assertEquals(hc.getFields().get(1).getName(), "Wind: 100 kph N");
+		Assert.assertEquals(hc.getFields().get(1).getValue(), "High: 1000°C Low: 1000°C");
+		Assert.assertEquals(hc.getFields().get(2).getName(), EmbedBuilder.ZERO_WIDTH_SPACE);
+		Assert.assertEquals(hc.getFields().get(2).getValue(), EmbedBuilder.ZERO_WIDTH_SPACE);
+		Assert.assertEquals(hc.getFields().get(3).getName(), "Sunrise");
+		Assert.assertEquals(hc.getFields().get(3).getValue(), "06:45:40");
+		Assert.assertEquals(hc.getFields().get(4).getName(), "Sunset");
+		Assert.assertEquals(hc.getFields().get(4).getValue(), "18:56:21");
+		Assert.assertEquals(hc.getFields().get(5).getName(), EmbedBuilder.ZERO_WIDTH_SPACE);
+		Assert.assertEquals(hc.getFields().get(5).getValue(), EmbedBuilder.ZERO_WIDTH_SPACE);
 
 		/* Current Low */
-		MessageEmbed low = w.buildEmbedCurrent(TestUtils.readFile("src/test/resources/mock/weather/WeatherCurrentLow.json")).build();
-		Assert.assertEquals(low.getTitle(), "Current Weather");
-		Assert.assertEquals(low.getDescription(), "AZ");
-		Assert.assertEquals(low.getThumbnail().getUrl(), "http://openweathermap.org/img/w/04d.png");
-		Assert.assertEquals(low.getFields().size(), 6);
-		Assert.assertEquals(low.getFields().get(0).getName(), "Clouds");
-		Assert.assertEquals(low.getFields().get(0).getValue(), "-1000°C, Feels Like -1000°C");
-		Assert.assertEquals(low.getFields().get(1).getName(), "Wind: 0 kph S");
-		Assert.assertEquals(low.getFields().get(1).getValue(), "High: -1000°C Low: -1000°C");
-		Assert.assertEquals(low.getFields().get(2).getName(), EmbedBuilder.ZERO_WIDTH_SPACE);
-		Assert.assertEquals(low.getFields().get(2).getValue(), EmbedBuilder.ZERO_WIDTH_SPACE);
-		Assert.assertEquals(low.getFields().get(3).getName(), "Sunrise");
-		Assert.assertEquals(low.getFields().get(3).getValue(), "06:45:40");
-		Assert.assertEquals(low.getFields().get(4).getName(), "Sunset");
-		Assert.assertEquals(low.getFields().get(4).getValue(), "18:56:21");
-		Assert.assertEquals(low.getFields().get(5).getName(), EmbedBuilder.ZERO_WIDTH_SPACE);
-		Assert.assertEquals(low.getFields().get(5).getValue(), EmbedBuilder.ZERO_WIDTH_SPACE);
-	}
-
-	@Test(dependsOnMethods = "buildEmbedCurrent", alwaysRun = true)
-	public void buildEmbed5Day() {
+		Mock.setExpectation("GET", "/data/2.5/weather?units=metric&appid=12345678901234567890123456789012&q=New York", 200,
+				new File(path + "current_low.json"));
+		MessageEmbed lc = CommandWeather.process(BotTest.get(), "!w New York").build();
+		Assert.assertEquals(lc.getTitle(), "Current Weather");
+		Assert.assertEquals(lc.getDescription(), "AZ");
+		Assert.assertEquals(lc.getThumbnail().getUrl(), "http://openweathermap.org/img/w/04d.png");
+		Assert.assertEquals(lc.getFields().size(), 6);
+		Assert.assertEquals(lc.getFields().get(0).getName(), "Clouds");
+		Assert.assertEquals(lc.getFields().get(0).getValue(), "-1000°C, Feels Like -1000°C");
+		Assert.assertEquals(lc.getFields().get(1).getName(), "Wind: 0 kph S");
+		Assert.assertEquals(lc.getFields().get(1).getValue(), "High: -1000°C Low: -1000°C");
+		Assert.assertEquals(lc.getFields().get(2).getName(), EmbedBuilder.ZERO_WIDTH_SPACE);
+		Assert.assertEquals(lc.getFields().get(2).getValue(), EmbedBuilder.ZERO_WIDTH_SPACE);
+		Assert.assertEquals(lc.getFields().get(3).getName(), "Sunrise");
+		Assert.assertEquals(lc.getFields().get(3).getValue(), "06:45:40");
+		Assert.assertEquals(lc.getFields().get(4).getName(), "Sunset");
+		Assert.assertEquals(lc.getFields().get(4).getValue(), "18:56:21");
+		Assert.assertEquals(lc.getFields().get(5).getName(), EmbedBuilder.ZERO_WIDTH_SPACE);
+		Assert.assertEquals(lc.getFields().get(5).getValue(), EmbedBuilder.ZERO_WIDTH_SPACE);
 
 		/* 5 Day High */
-		MessageEmbed high = w.buildEmbed5Day(TestUtils.readFile("src/test/resources/mock/weather/Weather5DayHigh.json")).build();
-		Assert.assertEquals(high.getTitle(), "5 Day Forecast");
-		Assert.assertEquals(high.getDescription(), "city5DayHighEmbed");
-		Assert.assertEquals(high.getThumbnail().getUrl(), "http://openweathermap.org/img/w/02d.png");
-		Assert.assertEquals(high.getFields().size(), 15);
-		Assert.assertEquals(high.getFields().get(0).getName(), "Saturday Sep. 26\n12 PM");
-		Assert.assertEquals(high.getFields().get(0).getValue(), "\u200B");
-		Assert.assertEquals(high.getFields().get(1).getName(), "Clouds");
-		Assert.assertEquals(high.getFields().get(1).getValue(), "1000°C, Feels Like 1000°C");
-		Assert.assertEquals(high.getFields().get(2).getName(), "Wind: 1000 kph NE");
-		Assert.assertEquals(high.getFields().get(2).getValue(), "High: 1000°C Low: 1000°C");
-		Assert.assertEquals(high.getFields().get(3).getName(), "Sunday Sep. 27\n12 PM");
-		Assert.assertEquals(high.getFields().get(3).getValue(), "\u200B");
-		Assert.assertEquals(high.getFields().get(4).getName(), "Clouds");
-		Assert.assertEquals(high.getFields().get(4).getValue(), "1000°C, Feels Like 1000°C");
-		Assert.assertEquals(high.getFields().get(5).getName(), "Wind: 1000 kph SE");
-		Assert.assertEquals(high.getFields().get(5).getValue(), "High: 1000°C Low: 1000°C");
-		Assert.assertEquals(high.getFields().get(6).getName(), "Monday Sep. 28\n12 PM");
-		Assert.assertEquals(high.getFields().get(6).getValue(), "\u200B");
-		Assert.assertEquals(high.getFields().get(7).getName(), "Clouds");
-		Assert.assertEquals(high.getFields().get(7).getValue(), "1000°C, Feels Like 1000°C");
-		Assert.assertEquals(high.getFields().get(8).getName(), "Wind: 1000 kph SW");
-		Assert.assertEquals(high.getFields().get(8).getValue(), "High: 1000°C Low: 1000°C");
-		Assert.assertEquals(high.getFields().get(9).getName(), "Tuesday Sep. 29\n12 PM");
-		Assert.assertEquals(high.getFields().get(9).getValue(), "\u200B");
-		Assert.assertEquals(high.getFields().get(10).getName(), "Clouds");
-		Assert.assertEquals(high.getFields().get(10).getValue(), "1000°C, Feels Like 1000°C");
-		Assert.assertEquals(high.getFields().get(11).getName(), "Wind: 1000 kph NW");
-		Assert.assertEquals(high.getFields().get(11).getValue(), "High: 1000°C Low: 1000°C");
-		Assert.assertEquals(high.getFields().get(12).getName(), "Wednesday Sep. 30\n12 PM");
-		Assert.assertEquals(high.getFields().get(12).getValue(), "\u200B");
-		Assert.assertEquals(high.getFields().get(13).getName(), "Clouds");
-		Assert.assertEquals(high.getFields().get(13).getValue(), "1000°C, Feels Like 1000°C");
-		Assert.assertEquals(high.getFields().get(14).getName(), "Wind: 1000 kph N");
-		Assert.assertEquals(high.getFields().get(14).getValue(), "High: 1000°C Low: 1000°C");
+		Mock.setExpectation("GET", "/data/2.5/forecast?units=metric&appid=12345678901234567890123456789012&q=Regina,Saskatchewan,CA", 200,
+				new File(path + "forecast_high.json"));
+		MessageEmbed h5 = CommandWeather.process(BotTest.get(), "!w !5day").build();
+		Assert.assertEquals(h5.getTitle(), "5 Day Forecast");
+		Assert.assertEquals(h5.getDescription(), "city5DayHighEmbed");
+		Assert.assertEquals(h5.getThumbnail().getUrl(), "http://openweathermap.org/img/w/02d.png");
+		Assert.assertEquals(h5.getFields().size(), 15);
+		Assert.assertEquals(h5.getFields().get(0).getName(), "Saturday Sep. 26\n12 PM");
+		Assert.assertEquals(h5.getFields().get(0).getValue(), "\u200B");
+		Assert.assertEquals(h5.getFields().get(1).getName(), "Clouds");
+		Assert.assertEquals(h5.getFields().get(1).getValue(), "1000°C, Feels Like 1000°C");
+		Assert.assertEquals(h5.getFields().get(2).getName(), "Wind: 1000 kph NE");
+		Assert.assertEquals(h5.getFields().get(2).getValue(), "High: 1000°C Low: 1000°C");
+		Assert.assertEquals(h5.getFields().get(3).getName(), "Sunday Sep. 27\n12 PM");
+		Assert.assertEquals(h5.getFields().get(3).getValue(), "\u200B");
+		Assert.assertEquals(h5.getFields().get(4).getName(), "Clouds");
+		Assert.assertEquals(h5.getFields().get(4).getValue(), "1000°C, Feels Like 1000°C");
+		Assert.assertEquals(h5.getFields().get(5).getName(), "Wind: 1000 kph SE");
+		Assert.assertEquals(h5.getFields().get(5).getValue(), "High: 1000°C Low: 1000°C");
+		Assert.assertEquals(h5.getFields().get(6).getName(), "Monday Sep. 28\n12 PM");
+		Assert.assertEquals(h5.getFields().get(6).getValue(), "\u200B");
+		Assert.assertEquals(h5.getFields().get(7).getName(), "Clouds");
+		Assert.assertEquals(h5.getFields().get(7).getValue(), "1000°C, Feels Like 1000°C");
+		Assert.assertEquals(h5.getFields().get(8).getName(), "Wind: 1000 kph SW");
+		Assert.assertEquals(h5.getFields().get(8).getValue(), "High: 1000°C Low: 1000°C");
+		Assert.assertEquals(h5.getFields().get(9).getName(), "Tuesday Sep. 29\n12 PM");
+		Assert.assertEquals(h5.getFields().get(9).getValue(), "\u200B");
+		Assert.assertEquals(h5.getFields().get(10).getName(), "Clouds");
+		Assert.assertEquals(h5.getFields().get(10).getValue(), "1000°C, Feels Like 1000°C");
+		Assert.assertEquals(h5.getFields().get(11).getName(), "Wind: 1000 kph NW");
+		Assert.assertEquals(h5.getFields().get(11).getValue(), "High: 1000°C Low: 1000°C");
+		Assert.assertEquals(h5.getFields().get(12).getName(), "Wednesday Sep. 30\n12 PM");
+		Assert.assertEquals(h5.getFields().get(12).getValue(), "\u200B");
+		Assert.assertEquals(h5.getFields().get(13).getName(), "Clouds");
+		Assert.assertEquals(h5.getFields().get(13).getValue(), "1000°C, Feels Like 1000°C");
+		Assert.assertEquals(h5.getFields().get(14).getName(), "Wind: 1000 kph N");
+		Assert.assertEquals(h5.getFields().get(14).getValue(), "High: 1000°C Low: 1000°C");
 
-		/* 5 Day Low */
-		MessageEmbed low = w.buildEmbed5Day(TestUtils.readFile("src/test/resources/mock/weather/Weather5DayLow.json")).build();
-		Assert.assertEquals(low.getTitle(), "5 Day Forecast");
-		Assert.assertEquals(low.getDescription(), "city5DayHighEmbed");
-		Assert.assertEquals(low.getThumbnail().getUrl(), "http://openweathermap.org/img/w/02d.png");
-		Assert.assertEquals(low.getFields().size(), 15);
-		Assert.assertEquals(low.getFields().get(0).getName(), "Saturday Sep. 26\n12 PM");
-		Assert.assertEquals(low.getFields().get(0).getValue(), "\u200B");
-		Assert.assertEquals(low.getFields().get(1).getName(), "Clouds");
-		Assert.assertEquals(low.getFields().get(1).getValue(), "-1000°C, Feels Like -1000°C");
-		Assert.assertEquals(low.getFields().get(2).getName(), "Wind: 0 kph NE");
-		Assert.assertEquals(low.getFields().get(2).getValue(), "High: -1000°C Low: -1000°C");
-		Assert.assertEquals(low.getFields().get(3).getName(), "Sunday Sep. 27\n12 PM");
-		Assert.assertEquals(low.getFields().get(3).getValue(), "\u200B");
-		Assert.assertEquals(low.getFields().get(4).getName(), "Clouds");
-		Assert.assertEquals(low.getFields().get(4).getValue(), "-1000°C, Feels Like -1000°C");
-		Assert.assertEquals(low.getFields().get(5).getName(), "Wind: 0 kph SE");
-		Assert.assertEquals(low.getFields().get(5).getValue(), "High: -1000°C Low: -1000°C");
-		Assert.assertEquals(low.getFields().get(6).getName(), "Monday Sep. 28\n12 PM");
-		Assert.assertEquals(low.getFields().get(6).getValue(), "\u200B");
-		Assert.assertEquals(low.getFields().get(7).getName(), "Clouds");
-		Assert.assertEquals(low.getFields().get(7).getValue(), "-1000°C, Feels Like -1000°C");
-		Assert.assertEquals(low.getFields().get(8).getName(), "Wind: 0 kph SW");
-		Assert.assertEquals(low.getFields().get(8).getValue(), "High: -1000°C Low: -1000°C");
-		Assert.assertEquals(low.getFields().get(9).getName(), "Tuesday Sep. 29\n12 PM");
-		Assert.assertEquals(low.getFields().get(9).getValue(), "\u200B");
-		Assert.assertEquals(low.getFields().get(10).getName(), "Clouds");
-		Assert.assertEquals(low.getFields().get(10).getValue(), "-1000°C, Feels Like -1000°C");
-		Assert.assertEquals(low.getFields().get(11).getName(), "Wind: 0 kph NW");
-		Assert.assertEquals(low.getFields().get(11).getValue(), "High: -1000°C Low: -1000°C");
-		Assert.assertEquals(low.getFields().get(12).getName(), "Wednesday Sep. 30\n12 PM");
-		Assert.assertEquals(low.getFields().get(12).getValue(), "\u200B");
-		Assert.assertEquals(low.getFields().get(13).getName(), "Clouds");
-		Assert.assertEquals(low.getFields().get(13).getValue(), "-1000°C, Feels Like -1000°C");
-		Assert.assertEquals(low.getFields().get(14).getName(), "Wind: 0 kph N");
-		Assert.assertEquals(low.getFields().get(14).getValue(), "High: -1000°C Low: -1000°C");
+		/* 5 Day High */
+		Mock.setExpectation("GET", "/data/2.5/forecast?units=metric&appid=12345678901234567890123456789012&q=New York", 200,
+				new File(path + "forecast_low.json"));
+		MessageEmbed l5 = CommandWeather.process(BotTest.get(), "!w !5day New York").build();
+		Assert.assertEquals(l5.getTitle(), "5 Day Forecast");
+		Assert.assertEquals(l5.getDescription(), "city5DayHighEmbed");
+		Assert.assertEquals(l5.getThumbnail().getUrl(), "http://openweathermap.org/img/w/02d.png");
+		Assert.assertEquals(l5.getFields().size(), 15);
+		Assert.assertEquals(l5.getFields().get(0).getName(), "Saturday Sep. 26\n12 PM");
+		Assert.assertEquals(l5.getFields().get(0).getValue(), "\u200B");
+		Assert.assertEquals(l5.getFields().get(1).getName(), "Clouds");
+		Assert.assertEquals(l5.getFields().get(1).getValue(), "-1000°C, Feels Like -1000°C");
+		Assert.assertEquals(l5.getFields().get(2).getName(), "Wind: 0 kph NE");
+		Assert.assertEquals(l5.getFields().get(2).getValue(), "High: -1000°C Low: -1000°C");
+		Assert.assertEquals(l5.getFields().get(3).getName(), "Sunday Sep. 27\n12 PM");
+		Assert.assertEquals(l5.getFields().get(3).getValue(), "\u200B");
+		Assert.assertEquals(l5.getFields().get(4).getName(), "Clouds");
+		Assert.assertEquals(l5.getFields().get(4).getValue(), "-1000°C, Feels Like -1000°C");
+		Assert.assertEquals(l5.getFields().get(5).getName(), "Wind: 0 kph SE");
+		Assert.assertEquals(l5.getFields().get(5).getValue(), "High: -1000°C Low: -1000°C");
+		Assert.assertEquals(l5.getFields().get(6).getName(), "Monday Sep. 28\n12 PM");
+		Assert.assertEquals(l5.getFields().get(6).getValue(), "\u200B");
+		Assert.assertEquals(l5.getFields().get(7).getName(), "Clouds");
+		Assert.assertEquals(l5.getFields().get(7).getValue(), "-1000°C, Feels Like -1000°C");
+		Assert.assertEquals(l5.getFields().get(8).getName(), "Wind: 0 kph SW");
+		Assert.assertEquals(l5.getFields().get(8).getValue(), "High: -1000°C Low: -1000°C");
+		Assert.assertEquals(l5.getFields().get(9).getName(), "Tuesday Sep. 29\n12 PM");
+		Assert.assertEquals(l5.getFields().get(9).getValue(), "\u200B");
+		Assert.assertEquals(l5.getFields().get(10).getName(), "Clouds");
+		Assert.assertEquals(l5.getFields().get(10).getValue(), "-1000°C, Feels Like -1000°C");
+		Assert.assertEquals(l5.getFields().get(11).getName(), "Wind: 0 kph NW");
+		Assert.assertEquals(l5.getFields().get(11).getValue(), "High: -1000°C Low: -1000°C");
+		Assert.assertEquals(l5.getFields().get(12).getName(), "Wednesday Sep. 30\n12 PM");
+		Assert.assertEquals(l5.getFields().get(12).getValue(), "\u200B");
+		Assert.assertEquals(l5.getFields().get(13).getName(), "Clouds");
+		Assert.assertEquals(l5.getFields().get(13).getValue(), "-1000°C, Feels Like -1000°C");
+		Assert.assertEquals(l5.getFields().get(14).getName(), "Wind: 0 kph N");
+		Assert.assertEquals(l5.getFields().get(14).getValue(), "High: -1000°C Low: -1000°C");
+
+		/* City Not Found */
+		Mock.setExpectation("GET", "/data/2.5/weather?units=metric&appid=12345678901234567890123456789012&q=FakeTownName", 404,
+				new File(path + "city_not_found.json"));
+		MessageEmbed cnf = CommandWeather.process(BotTest.get(), "!w FakeTownName").build();
+		Assert.assertEquals(cnf.getTitle(), "Current Weather");
+		Assert.assertEquals(cnf.getDescription(), "EmbedBuilder Error!");
 	}
 }
