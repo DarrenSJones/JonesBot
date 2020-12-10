@@ -68,105 +68,93 @@ public class CommandWeather extends AbstractCommand {
 	}
 
 	public static EmbedBuilder process(Bot bot, String content) {
-		EmbedBuilder eb = new EmbedBuilder();
 
-		boolean is5Day = Pattern.compile(bot.config.BOT_PREFIX + "5day\\s?").matcher(content.toLowerCase()).find();
+		boolean is5Day;
+		String city;
+		String request;
 
-		String forecastType = "weather";
-		if (is5Day) forecastType = "forecast";
-		String city = content.replaceAll(bot.config.BOT_PREFIX + "\\w+(\\s+)?", "").trim().replaceAll("\\s", "%20");
+		city = content.replaceAll(bot.config.BOT_PREFIX + "\\w+(\\s+)?", "").trim().replaceAll("\\s", "%20");
 		if (StringUtils.isBlank(city)) city = bot.config.WEATHER_DEFAULT_CITY;
-		String request = String.format("%s/data/2.5/%s?units=metric&appid=%s&q=%s", bot.config.WEATHER_HOST, forecastType, bot.config.WEATHER_TOKEN, city);
 
+		if (Pattern.compile(bot.config.BOT_PREFIX + "5day\\s?").matcher(content.toLowerCase()).find()) {
+			is5Day = true;
+			request = String.format("%s/data/2.5/forecast?units=metric&appid=%s&q=%s", bot.config.WEATHER_HOST, bot.config.WEATHER_TOKEN, city);
+		} else {
+			is5Day = false;
+			request = String.format("%s/data/2.5/weather?units=metric&appid=%s&q=%s", bot.config.WEATHER_HOST, bot.config.WEATHER_TOKEN, city);
+		}
+
+		EmbedBuilder eb = new EmbedBuilder();
 		try {
 			String response = RequestUtils.getResponseBody(request);
 
-			if (is5Day) eb = buildEmbed5Day(response);
-			else eb = buildEmbedCurrent(response);
-		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
-		}
+			if (is5Day) { // Forecast
+				eb.setTitle("5 Day Forecast");
 
-		return eb;
-	}
+				JSONObject resp = (JSONObject) new JSONParser().parse(response);
+				eb.setDescription(((JSONObject) resp.get("city")).get("name").toString());
 
-	public static EmbedBuilder buildEmbedCurrent(String responseBody) {
-		EmbedBuilder eb = new EmbedBuilder();
-		eb.setTitle("Current Weather");
-		try {
-			JSONObject json = (JSONObject) new JSONParser().parse(responseBody);
-			String desc = ((JSONObject) ((JSONArray) json.get("weather")).get(0)).get("main").toString();
-			String icon = "http://openweathermap.org/img/w/" + ((JSONObject) ((JSONArray) json.get("weather")).get(0)).get("icon").toString() + ".png";
-			long date = Long.parseLong(json.get("dt").toString() + "000");
-			String temp = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("temp").toString())));
-			String tempFeel = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("feels_like").toString())));
-			String tempMax = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("temp_max").toString())));
-			String tempMin = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("temp_min").toString())));
-			String windSpeed = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("wind")).get("speed").toString())));
-			String windDirection = windDirection(Float.parseFloat(((JSONObject) json.get("wind")).get("deg").toString()));
-			String city = json.get("name").toString();
-			String sunrise = MyDateUtils.longStringToZDT(((JSONObject) json.get("sys")).get("sunrise").toString() + "000").toLocalTime().toString();
-			String sunset = MyDateUtils.longStringToZDT(((JSONObject) json.get("sys")).get("sunset").toString() + "000").toLocalTime().toString();
+				// 5 Day responses have 40 entries, every 3 hours for 5 days
+				JSONArray array = (JSONArray) resp.get("list");
+				for (int i = 0; i < array.size(); i++) {
+					JSONObject json = (JSONObject) array.get(i);
+					ZonedDateTime date = MyDateUtils.longStringToZDT(json.get("dt").toString() + "000");
 
-			eb.setDescription(city);
-			eb.setThumbnail(icon);
-			eb.addField(desc, String.format("%s°C, Feels Like %s°C", temp, tempFeel), true);
-			eb.addField(String.format("Wind: %s kph %s", windSpeed, windDirection), String.format("High: %s°C Low: %s°C", tempMax, tempMin), true);
-			eb.addBlankField(true);
-			eb.addField("Sunrise", sunrise, true);
-			eb.addField("Sunset", sunset, true);
-			eb.addBlankField(true);
-			eb.setTimestamp(Instant.ofEpochMilli(date));
+					if (date.getHour() == 12) {
+						String desc = ((JSONObject) ((JSONArray) json.get("weather")).get(0)).get("main").toString();
+						String icon = "http://openweathermap.org/img/w/" + ((JSONObject) ((JSONArray) json.get("weather")).get(0)).get("icon").toString()
+								+ ".png";
+						String temp = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("temp").toString())));
+						String tempFeel = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("feels_like").toString())));
+						String tempMax = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("temp_max").toString())));
+						String tempMin = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("temp_min").toString())));
+						String windSpeed = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("wind")).get("speed").toString())));
+						String windDirection = windDirection(Float.parseFloat(((JSONObject) json.get("wind")).get("deg").toString()));
 
-		} catch (Exception e) {
-			eb.setDescription("EmbedBuilder Error!");
-			Reporter.fatal(e.getMessage());
-		}
+						String s = String.format("%s %s. %s\n%s", date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()),
+								date.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()).substring(0, 3), date.getDayOfMonth(),
+								DateTimeFormatter.ofPattern("hh a").format(date).toUpperCase().replaceAll("(0|\\.)", ""));
 
-		return eb;
-	}
+						eb.addField(s, "\u200B", true);
+						eb.addField(desc, String.format("%s°C, Feels Like %s°C", temp, tempFeel), true);
+						eb.addField(String.format("Wind: %s kph %s", windSpeed, windDirection), String.format("High: %s°C Low: %s°C", tempMax, tempMin), true);
+						eb.setThumbnail(icon);
 
-	public static EmbedBuilder buildEmbed5Day(String responseBody) {
-		EmbedBuilder eb = new EmbedBuilder();
-		eb.setTitle("5 Day Forecast");
-
-		try {
-			JSONObject resp = (JSONObject) new JSONParser().parse(responseBody);
-
-			eb.setDescription(((JSONObject) resp.get("city")).get("name").toString());
-
-			// 5 Day responses have 40 entries, every 3 hours for 5 days
-			JSONArray array = (JSONArray) resp.get("list");
-			for (int i = 0; i < array.size(); i++) {
-				JSONObject json = (JSONObject) array.get(i);
-				ZonedDateTime date = MyDateUtils.longStringToZDT(json.get("dt").toString() + "000");
-
-				if (date.getHour() == 12) {
-					String desc = ((JSONObject) ((JSONArray) json.get("weather")).get(0)).get("main").toString();
-					String icon = "http://openweathermap.org/img/w/" + ((JSONObject) ((JSONArray) json.get("weather")).get(0)).get("icon").toString() + ".png";
-					String temp = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("temp").toString())));
-					String tempFeel = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("feels_like").toString())));
-					String tempMax = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("temp_max").toString())));
-					String tempMin = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("temp_min").toString())));
-					String windSpeed = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("wind")).get("speed").toString())));
-					String windDirection = windDirection(Float.parseFloat(((JSONObject) json.get("wind")).get("deg").toString()));
-
-					String s = String.format("%s %s. %s\n%s", date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()),
-							date.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()).substring(0, 3), date.getDayOfMonth(),
-							DateTimeFormatter.ofPattern("hh a").format(date).toUpperCase().replaceAll("(0|\\.)", ""));
-
-					eb.addField(s, "\u200B", true);
-					eb.addField(desc, String.format("%s°C, Feels Like %s°C", temp, tempFeel), true);
-					eb.addField(String.format("Wind: %s kph %s", windSpeed, windDirection), String.format("High: %s°C Low: %s°C", tempMax, tempMin), true);
-					eb.setThumbnail(icon);
-
-					i += 7;
+						i += 7;
+					}
 				}
+
+			} else { // Current
+				eb.setTitle("Current Weather");
+
+				JSONObject json = (JSONObject) new JSONParser().parse(response);
+				String desc = ((JSONObject) ((JSONArray) json.get("weather")).get(0)).get("main").toString();
+				String icon = "http://openweathermap.org/img/w/" + ((JSONObject) ((JSONArray) json.get("weather")).get(0)).get("icon").toString() + ".png";
+				long date = Long.parseLong(json.get("dt").toString() + "000");
+				String temp = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("temp").toString())));
+				String tempFeel = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("feels_like").toString())));
+				String tempMax = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("temp_max").toString())));
+				String tempMin = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("temp_min").toString())));
+				String windSpeed = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("wind")).get("speed").toString())));
+				String windDirection = windDirection(Float.parseFloat(((JSONObject) json.get("wind")).get("deg").toString()));
+				city = json.get("name").toString();
+				String sunrise = MyDateUtils.longStringToZDT(((JSONObject) json.get("sys")).get("sunrise").toString() + "000").toLocalTime().toString();
+				String sunset = MyDateUtils.longStringToZDT(((JSONObject) json.get("sys")).get("sunset").toString() + "000").toLocalTime().toString();
+
+				eb.setDescription(city);
+				eb.setThumbnail(icon);
+				eb.addField(desc, String.format("%s°C, Feels Like %s°C", temp, tempFeel), true);
+				eb.addField(String.format("Wind: %s kph %s", windSpeed, windDirection), String.format("High: %s°C Low: %s°C", tempMax, tempMin), true);
+				eb.addBlankField(true);
+				eb.addField("Sunrise", sunrise, true);
+				eb.addField("Sunset", sunset, true);
+				eb.addBlankField(true);
+				eb.setTimestamp(Instant.ofEpochMilli(date));
 			}
 
 		} catch (Exception e) {
-			eb.setDescription("EmbedBuilder Error!");
 			Reporter.fatal(e.getMessage());
+			eb.setDescription("EmbedBuilder Error!");
 		}
 
 		return eb;
