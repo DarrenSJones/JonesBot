@@ -14,7 +14,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-09
+ * @version 1.0.0 2020-12-13
  * @since 1.0.0 2020-12-09
  */
 public class TFrinkiac {
@@ -35,7 +35,7 @@ public class TFrinkiac {
 	public void buildEmbed() {
 
 		// Image and Detail
-		String response1 = TestUtils.readFile("src/test/resources/mock/frinkiac/frinkiac_blank.json");
+		String response1 = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_blank.json");
 		MessageEmbed me1 = Frinkiac.buildEmbed(true, true, new Color(123, 123, 123), "http://host.dom", "Title", response1, "testencode").build();
 		Assert.assertEquals(me1.getImage().getUrl(), "http://host.dom/meme/S00E00/0.jpg?b64lines=dGVzdGVuY29kZQ==");
 		Assert.assertEquals(me1.getTitle(), "Title");
@@ -46,7 +46,7 @@ public class TFrinkiac {
 		Assert.assertEquals(me1.getFields().get(0).getValue(), "\u200Bx");
 
 		// Image, no Detail
-		String response2 = TestUtils.readFile("src/test/resources/mock/frinkiac/frinkiac_blank.json");
+		String response2 = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_blank.json");
 		MessageEmbed me2 = Frinkiac.buildEmbed(true, false, new Color(123, 123, 123), "http://host.dom", "Title", response2, "testencode").build();
 		Assert.assertEquals(me2.getImage().getUrl(), "http://host.dom/meme/S00E00/0.jpg?b64lines=dGVzdGVuY29kZQ==");
 		Assert.assertEquals(me2.getTitle(), null);
@@ -55,7 +55,7 @@ public class TFrinkiac {
 		Assert.assertEquals(me2.getFields().size(), 0);
 
 		// Detail, no Image
-		String response3 = TestUtils.readFile("src/test/resources/mock/frinkiac/frinkiac_blank.json");
+		String response3 = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_blank.json");
 		MessageEmbed me3 = Frinkiac.buildEmbed(false, true, new Color(123, 123, 123), "http://host.dom", "Title", response3, "testencode").build();
 		Assert.assertEquals(me3.getImage(), null);
 		Assert.assertEquals(me3.getTitle(), "Title");
@@ -66,7 +66,7 @@ public class TFrinkiac {
 		Assert.assertEquals(me3.getFields().get(0).getValue(), "\u200Bx");
 
 		// No Image, no Detail - Should never happen
-		String response4 = TestUtils.readFile("src/test/resources/mock/frinkiac/frinkiac_blank.json");
+		String response4 = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_blank.json");
 		MessageEmbed me4 = Frinkiac.buildEmbed(false, false, new Color(123, 123, 123), "http://host.dom", "Title", response4, "testencode").build();
 		Assert.assertEquals(me4.getImage(), null);
 		Assert.assertEquals(me4.getTitle(), null);
@@ -75,7 +75,7 @@ public class TFrinkiac {
 		Assert.assertEquals(me4.getFields().size(), 0);
 
 		// No Subtitles
-		String response5 = TestUtils.readFile("src/test/resources/mock/frinkiac/frinkac_blank_no_subtitles.json");
+		String response5 = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_blank_no_subtitles.json");
 		MessageEmbed me5 = Frinkiac.buildEmbed(true, true, new Color(123, 123, 123), "http://host.dom", "Title", response5, "testencode").build();
 		Assert.assertEquals(me5.getImage().getUrl(), "http://host.dom/meme/S00E00/0.jpg?b64lines=dGVzdGVuY29kZQ==");
 		Assert.assertEquals(me5.getTitle(), "Title");
@@ -86,7 +86,7 @@ public class TFrinkiac {
 		Assert.assertEquals(me5.getFields().get(0).getValue(), "\u200B");
 
 		// Large Response
-		String response6 = TestUtils.readFile("src/test/resources/mock/frinkiac/frinkac_large.json");
+		String response6 = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_large.json");
 		MessageEmbed me6 = Frinkiac.buildEmbed(true, true, new Color(123, 123, 123), "http://host.dom", "Title", response6, "testencode").build();
 		Assert.assertEquals(me6.getImage().getUrl(), "http://host.dom/meme/S99E99/9999999.jpg?b64lines=dGVzdGVuY29kZQ==");
 		Assert.assertEquals(me6.getTitle(), "Title");
@@ -104,7 +104,7 @@ public class TFrinkiac {
 						+ "\nabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl");
 
 		// Special Characters
-		String response7 = TestUtils.readFile("src/test/resources/mock/frinkiac/frinkac_special.json");
+		String response7 = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_special.json");
 		MessageEmbed me7 = Frinkiac.buildEmbed(true, true, new Color(123, 123, 123), "http://host.dom", "Title", response7, "testencode").build();
 		Assert.assertEquals(me7.getImage().getUrl(), "http://host.dom/meme/Movie/0.jpg?b64lines=dGVzdGVuY29kZQ==");
 		Assert.assertEquals(me7.getTitle(), "Title");

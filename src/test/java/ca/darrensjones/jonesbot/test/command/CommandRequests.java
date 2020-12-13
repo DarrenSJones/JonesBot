@@ -14,7 +14,7 @@ import ca.darrensjones.jonesbot.testcore.TestUtils;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-09
+ * @version 1.0.0 2020-12-13
  * @since 1.0.0 2020-11-26
  */
 public class CommandRequests {
@@ -35,13 +35,13 @@ public class CommandRequests {
 		Mock.reset();
 		String host = b.config.SIMPSONS_HOST;
 
-		String random = "src/test/resources/mock/frinkiac/frinkiac_blank.json";
+		String random = "src/test/resources/mock/frinkiac/timestamp_blank.json";
 		Mock.setExpectation("GET", "/api/random", 200, new File(random));
 		Assert.assertEquals(Frinkiac.getResponse(host, host + "/api/random"), TestUtils.readFile(random));
 
-		String timestamp1 = "src/test/resources/mock/frinkiac/frinkiac_blank.json";
-		String timestamp2 = "src/test/resources/mock/frinkiac/frinkiac_large.json";
-		String timestamp3 = "src/test/resources/mock/frinkiac/frinkiac_not_found.json";
+		String timestamp1 = "src/test/resources/mock/frinkiac/timestamp_blank.json";
+		String timestamp2 = "src/test/resources/mock/frinkiac/timestamp_large.json";
+		String timestamp3 = "src/test/resources/mock/frinkiac/timestamp_not_found.json";
 		Mock.setExpectation("GET", "/api/caption?e=S00E00&t=0", 200, new File(timestamp1));
 		Mock.setExpectation("GET", "/api/caption?e=S99E99&t=9999999", 200, new File(timestamp2));
 		Mock.setExpectation("GET", "/api/caption?e=S00E00&t=1", 200, new File(timestamp3));
@@ -49,9 +49,9 @@ public class CommandRequests {
 		Assert.assertEquals(Frinkiac.getResponse(host, host + "/api/caption?e=S99E99&t=9999999"), TestUtils.readFile(timestamp2));
 		Assert.assertEquals(Frinkiac.getResponse(host, host + "/api/caption?e=S00E00&t=1"), TestUtils.readFile(timestamp3));
 
-		String query1 = "src/test/resources/mock/frinkiac/frinkiac_query.json";
-		String query2 = "src/test/resources/mock/frinkiac/frinkiac_query_large.json";
-		String query3 = "src/test/resources/mock/frinkiac/frinkiac_query_blank.json";
+		String query1 = "src/test/resources/mock/frinkiac/query.json";
+		String query2 = "src/test/resources/mock/frinkiac/query_large.json";
+		String query3 = "src/test/resources/mock/frinkiac/query_not_found.json";
 		Mock.setExpectation("GET", "/api/search?q=test1", 200, new File(query1));
 		Mock.setExpectation("GET", "/api/search?q=test2", 200, new File(query2));
 		Mock.setExpectation("GET", "/api/search?q=test3", 200, new File(query3));
