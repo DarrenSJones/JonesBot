@@ -23,7 +23,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-10
+ * @version 1.0.0 2020-12-13
  * @since 1.0.0 2020-11-26
  */
 public class CommandWeather extends AbstractCommand {
@@ -89,10 +89,14 @@ public class CommandWeather extends AbstractCommand {
 			String response = RequestUtils.getResponseBody(request);
 
 			if (is5Day) { // Forecast
-				eb.setTitle("5 Day Forecast");
+				eb.setTitle("5 Day Forecast", String.format("%s/find?q=%s", bot.config.WEATHER_HOST, city).replace("api.", ""));
 
 				JSONObject resp = (JSONObject) new JSONParser().parse(response);
-				eb.setDescription(((JSONObject) resp.get("city")).get("name").toString());
+				String id = ((JSONObject) resp.get("city")).get("id").toString();
+				String name = ((JSONObject) resp.get("city")).get("name").toString();
+
+				eb.setTitle("5 Day Forecast", String.format("%s/city/%s", bot.config.WEATHER_HOST, id).replace("api.", ""));
+				eb.setDescription(name);
 
 				// 5 Day responses have 40 entries, every 3 hours for 5 days
 				JSONArray array = (JSONArray) resp.get("list");
@@ -125,7 +129,7 @@ public class CommandWeather extends AbstractCommand {
 				}
 
 			} else { // Current
-				eb.setTitle("Current Weather");
+				eb.setTitle("Current Weather", String.format("%s/find?q=%s", bot.config.WEATHER_HOST, city).replace("api.", ""));
 
 				JSONObject json = (JSONObject) new JSONParser().parse(response);
 				String desc = ((JSONObject) ((JSONArray) json.get("weather")).get(0)).get("main").toString();
@@ -137,11 +141,13 @@ public class CommandWeather extends AbstractCommand {
 				String tempMin = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("main")).get("temp_min").toString())));
 				String windSpeed = Integer.toString(Math.round(Float.parseFloat(((JSONObject) json.get("wind")).get("speed").toString())));
 				String windDirection = windDirection(Float.parseFloat(((JSONObject) json.get("wind")).get("deg").toString()));
-				city = json.get("name").toString();
+				String id = json.get("id").toString();
+				String name = json.get("name").toString();
 				String sunrise = MyDateUtils.longStringToZDT(((JSONObject) json.get("sys")).get("sunrise").toString() + "000").toLocalTime().toString();
 				String sunset = MyDateUtils.longStringToZDT(((JSONObject) json.get("sys")).get("sunset").toString() + "000").toLocalTime().toString();
 
-				eb.setDescription(city);
+				eb.setTitle("Current Weather", String.format("%s/city/%s", bot.config.WEATHER_HOST, id).replace("api.", ""));
+				eb.setDescription(name);
 				eb.setThumbnail(icon);
 				eb.addField(desc, String.format("%s°C, Feels Like %s°C", temp, tempFeel), true);
 				eb.addField(String.format("Wind: %s kph %s", windSpeed, windDirection), String.format("High: %s°C Low: %s°C", tempMax, tempMin), true);
@@ -151,6 +157,9 @@ public class CommandWeather extends AbstractCommand {
 				eb.addBlankField(true);
 				eb.setTimestamp(Instant.ofEpochMilli(date));
 			}
+
+		} catch (NullPointerException e) {
+			eb.setDescription("City Not Found: " + city);
 
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());

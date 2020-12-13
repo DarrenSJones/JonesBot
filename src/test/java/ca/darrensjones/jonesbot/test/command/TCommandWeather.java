@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-10
+ * @version 1.0.0 2020-12-13
  * @since 1.0.0 2020-11-28
  */
 public class TCommandWeather {
@@ -29,6 +29,7 @@ public class TCommandWeather {
 				new File(path + "current_high.json"));
 		MessageEmbed hc = CommandWeather.process(BotTest.get(), "!w").build();
 		Assert.assertEquals(hc.getTitle(), "Current Weather");
+		Assert.assertEquals(hc.getUrl(), "http://localhost:1080/city/6119109");
 		Assert.assertEquals(hc.getDescription(), "This is the name of a town that is very long");
 		Assert.assertEquals(hc.getThumbnail().getUrl(), "http://openweathermap.org/img/w/04d.png");
 		Assert.assertEquals(hc.getFields().size(), 6);
@@ -50,6 +51,7 @@ public class TCommandWeather {
 				new File(path + "current_low.json"));
 		MessageEmbed lc = CommandWeather.process(BotTest.get(), "!w New York").build();
 		Assert.assertEquals(lc.getTitle(), "Current Weather");
+		Assert.assertEquals(lc.getUrl(), "http://localhost:1080/city/6119109");
 		Assert.assertEquals(lc.getDescription(), "AZ");
 		Assert.assertEquals(lc.getThumbnail().getUrl(), "http://openweathermap.org/img/w/04d.png");
 		Assert.assertEquals(lc.getFields().size(), 6);
@@ -71,6 +73,7 @@ public class TCommandWeather {
 				new File(path + "forecast_high.json"));
 		MessageEmbed h5 = CommandWeather.process(BotTest.get(), "!w !5day").build();
 		Assert.assertEquals(h5.getTitle(), "5 Day Forecast");
+		Assert.assertEquals(h5.getUrl(), "http://localhost:1080/city/6119109");
 		Assert.assertEquals(h5.getDescription(), "city5DayHighEmbed");
 		Assert.assertEquals(h5.getThumbnail().getUrl(), "http://openweathermap.org/img/w/02d.png");
 		Assert.assertEquals(h5.getFields().size(), 15);
@@ -110,6 +113,7 @@ public class TCommandWeather {
 				new File(path + "forecast_low.json"));
 		MessageEmbed l5 = CommandWeather.process(BotTest.get(), "!w !5day New York").build();
 		Assert.assertEquals(l5.getTitle(), "5 Day Forecast");
+		Assert.assertEquals(l5.getUrl(), "http://localhost:1080/city/6119109");
 		Assert.assertEquals(l5.getDescription(), "city5DayHighEmbed");
 		Assert.assertEquals(l5.getThumbnail().getUrl(), "http://openweathermap.org/img/w/02d.png");
 		Assert.assertEquals(l5.getFields().size(), 15);
@@ -144,11 +148,20 @@ public class TCommandWeather {
 		Assert.assertEquals(l5.getFields().get(14).getName(), "Wind: 0 kph N");
 		Assert.assertEquals(l5.getFields().get(14).getValue(), "High: -1000°C Low: -1000°C");
 
-		/* City Not Found */
+		/* City Not Found Current */
 		Mock.setExpectation("GET", "/data/2.5/weather?units=metric&appid=12345678901234567890123456789012&q=FakeTownName", 404,
 				new File(path + "city_not_found.json"));
-		MessageEmbed cnf = CommandWeather.process(BotTest.get(), "!w FakeTownName").build();
-		Assert.assertEquals(cnf.getTitle(), "Current Weather");
-		Assert.assertEquals(cnf.getDescription(), "EmbedBuilder Error!");
+		MessageEmbed cnfc = CommandWeather.process(BotTest.get(), "!w FakeTownName").build();
+		Assert.assertEquals(cnfc.getTitle(), "Current Weather");
+		Assert.assertEquals(cnfc.getUrl(), "http://localhost:1080/find?q=FakeTownName");
+		Assert.assertEquals(cnfc.getDescription(), "City Not Found: FakeTownName");
+
+		/* City Not Found Forecast */
+		Mock.setExpectation("GET", "/data/2.5/forecast?units=metric&appid=12345678901234567890123456789012&q=FakeTownName", 404,
+				new File(path + "city_not_found.json"));
+		MessageEmbed cnff = CommandWeather.process(BotTest.get(), "!w !5day FakeTownName").build();
+		Assert.assertEquals(cnff.getTitle(), "5 Day Forecast");
+		Assert.assertEquals(cnff.getUrl(), "http://localhost:1080/find?q=FakeTownName");
+		Assert.assertEquals(cnff.getDescription(), "City Not Found: FakeTownName");
 	}
 }
