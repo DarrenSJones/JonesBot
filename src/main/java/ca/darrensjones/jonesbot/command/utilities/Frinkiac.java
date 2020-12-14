@@ -20,7 +20,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-09
+ * @version 1.0.0 2020-12-13
  * @since 1.0.0 2020-12-08
  */
 public class Frinkiac {
@@ -40,21 +40,26 @@ public class Frinkiac {
 	}
 
 	public static EmbedBuilder process(Message message, String prefix, Color color, String host, List<OFrinkiacSaved> saved, HashMap<String, String[]> last) {
+		return process(message.getContentDisplay(), message.getTextChannel().getId(), prefix, color, host, saved, last);
+	}
+
+	public static EmbedBuilder process(String textChannelId, String content, String prefix, Color color, String host, List<OFrinkiacSaved> saved,
+			HashMap<String, String[]> last) {
 
 		boolean flagDetail = false;
 
-		if (Pattern.compile(prefix + "saved\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
+		if (Pattern.compile(prefix + "saved\\s?").matcher(content.toLowerCase()).find()) {
 			return Frinkiac.buildEmbedSaved(color, host, saved);
-		} else if (Pattern.compile(prefix + "regex\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
+		} else if (Pattern.compile(prefix + "regex\\s?").matcher(content.toLowerCase()).find()) {
 			return Frinkiac.buildEmbedRegex(color, host, saved);
-		} else if (Pattern.compile(prefix + "l(ast)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
-			String[] l = last.get(message.getTextChannel().getId());
+		} else if (Pattern.compile(prefix + "l(ast)?\\s?").matcher(content.toLowerCase()).find()) {
+			String[] l = last.get(textChannelId);
 			return Frinkiac.buildEmbed(false, true, color, host, "[Last] " + l[0], l[1], null);
-		} else if (Pattern.compile(prefix + "d(etail)?\\s?").matcher(message.getContentDisplay().toLowerCase()).find()) {
+		} else if (Pattern.compile(prefix + "d(etail)?\\s?").matcher(content.toLowerCase()).find()) {
 			flagDetail = true;
 		}
 
-		String query = message.getContentDisplay().replaceAll(prefix + "\\w+(\\s+)?", "").trim(); // Removes command and subcommands
+		String query = content.replaceAll(prefix + "\\w+(\\s+)?", "").trim(); // Removes command and subcommands
 		String caption = null;
 		String title, request;
 		String response = "";
@@ -83,7 +88,7 @@ public class Frinkiac {
 		response = getResponse(host, request);
 
 		if (StringUtils.isNotBlank(response)) {
-			DataHandler.setLast(last, message.getTextChannel().getId(), title, response);
+			DataHandler.setLast(last, textChannelId, title, response);
 			return Frinkiac.buildEmbed(true, flagDetail, color, host, title, response, caption);
 		} else {
 			return new EmbedBuilder().setTitle(title, host).setDescription("Response not found, try another search.");

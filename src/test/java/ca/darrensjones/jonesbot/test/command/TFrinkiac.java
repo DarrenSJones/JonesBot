@@ -2,11 +2,13 @@ package ca.darrensjones.jonesbot.test.command;
 
 import java.awt.Color;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.utilities.Frinkiac;
 import ca.darrensjones.jonesbot.db.controller.CFrinkiacSaved;
 import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
@@ -23,6 +25,81 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 public class TFrinkiac {
 
 	@Test
+	public void process() {
+		Mock.reset();
+		Bot bot = BotTest.get();
+
+		String path = "src/test/resources/mock/frinkiac/";
+		String prefix = bot.config.BOT_PREFIX;
+		Color color = new Color(123, 123, 123);
+		String host = bot.config.SIMPSONS_HOST;
+		List<OFrinkiacSaved> saved = bot.dataHandler.simpsonsSaved;
+		HashMap<String, String[]> last = bot.dataHandler.simpsonsLast;
+
+		// Valid Timestamp
+		Mock.setExpectation("GET", "/api/caption?e=S06E04&t=741423", 200, new File(path + "timestamp_bort.json"));
+		MessageEmbed m1 = Frinkiac.process("1", "!s !d S06E04 741423\ntestencode", prefix, color, host, saved, last).build();
+		Assert.assertEquals(m1.getImage().getUrl(), "http://localhost:1080/meme/S06E04/741423.jpg?b64lines=dGVzdGVuY29kZQ==");
+		Assert.assertEquals(m1.getTitle(), "Timestamp: \"S06E04 741423\"");
+		Assert.assertEquals(m1.getUrl(), "http://localhost:1080/caption/S06E04/741423");
+		Assert.assertEquals(m1.getDescription(), "\"Itchy & Scratchy Land\"");
+		Assert.assertEquals(m1.getFields().size(), 1);
+		Assert.assertEquals(m1.getFields().get(0).getName(), "Season 6 / Episode 4 (12:21)");
+		Assert.assertEquals(m1.getFields().get(0).getValue(), "\u200BMommy, buy me a license plate!\nNo. Come along, Bort.\nAre you talking to me?");
+
+		// Valid Query
+		Mock.setExpectation("GET", "/api/search?q=bort", 200, new File(path + "query_bort.json"));
+		MessageEmbed m2 = Frinkiac.process("1", "!s !d bort\ntestencode", prefix, color, host, saved, last).build();
+		Assert.assertEquals(m2.getImage().getUrl(), "http://localhost:1080/meme/S06E04/741423.jpg?b64lines=dGVzdGVuY29kZQ==");
+		Assert.assertEquals(m2.getTitle(), "Search: \"bort\"");
+		Assert.assertEquals(m2.getUrl(), "http://localhost:1080/caption/S06E04/741423");
+		Assert.assertEquals(m2.getDescription(), "\"Itchy & Scratchy Land\"");
+		Assert.assertEquals(m2.getFields().size(), 1);
+		Assert.assertEquals(m2.getFields().get(0).getName(), "Season 6 / Episode 4 (12:21)");
+		Assert.assertEquals(m2.getFields().get(0).getValue(), "\u200BMommy, buy me a license plate!\nNo. Come along, Bort.\nAre you talking to me?");
+
+		// Valid Query Saved
+		Mock.setExpectation("GET", "/api/caption?e=S03E22&t=937738", 200, new File(path + "timestamp_trash.json"));
+		MessageEmbed m3 = Frinkiac.process("1", "!s !d trash\ntraaash", prefix, color, host, saved, last).build();
+		Assert.assertEquals(m3.getImage().getUrl(), "http://localhost:1080/meme/S03E22/937738.jpg?b64lines=dHJhYWFzaA==");
+		Assert.assertEquals(m3.getTitle(), "Saved: \"Trash\"");
+		Assert.assertEquals(m3.getUrl(), "http://localhost:1080/caption/S03E22/937738");
+		Assert.assertEquals(m3.getDescription(), "\"The Otto Show\"");
+		Assert.assertEquals(m3.getFields().size(), 1);
+		Assert.assertEquals(m3.getFields().get(0).getName(), "Season 3 / Episode 22 (15:37)");
+		Assert.assertEquals(m3.getFields().get(0).getValue(), "\u200BSomebody up there likes me.\n( Otto groaning)");
+
+		// Timestamp Not Found
+		Mock.setExpectation("GET", "/api/caption?e=S06E04&t=123456", 200, new File(path + "timestamp_not_found.json"));
+		MessageEmbed m4 = Frinkiac.process("1", "!s !d S06E04 123456\ntestencode", prefix, color, host, saved, last).build();
+		Assert.assertEquals(m4.getImage(), null);
+		Assert.assertEquals(m4.getTitle(), "Error: Timestamp: \"S06E04 123456\"");
+		Assert.assertEquals(m4.getUrl(), "http://localhost:1080");
+		Assert.assertEquals(m4.getDescription(), "Error parsing response, please contact your administrator.");
+		Assert.assertEquals(m4.getFields().size(), 0);
+
+		// Query Not Found
+		Mock.setExpectation("GET", "/api/search?q=fakequery", 200, new File(path + "query_not_found.json"));
+		MessageEmbed m5 = Frinkiac.process("1", "!s !d fakequery\ntestencode", prefix, color, host, saved, last).build();
+		Assert.assertEquals(m5.getImage(), null);
+		Assert.assertEquals(m5.getTitle(), "Search: \"fakequery\"");
+		Assert.assertEquals(m5.getUrl(), "http://localhost:1080");
+		Assert.assertEquals(m5.getDescription(), "Response not found, try another search.");
+		Assert.assertEquals(m5.getFields().size(), 0);
+
+		// Special Characters
+		Mock.setExpectation("GET", "/api/caption?e=Movie&t=999999", 200, new File(path + "timestamp_special_characters.json"));
+		MessageEmbed m6 = Frinkiac.process("1", "!s !d Movie 999999", prefix, color, host, saved, last).build();
+		Assert.assertEquals(m6.getImage().getUrl(), "http://localhost:1080/meme/Movie/999999.jpg");
+		Assert.assertEquals(m6.getTitle(), "Timestamp: \"Movie 999999\"");
+		Assert.assertEquals(m6.getUrl(), "http://localhost:1080/caption/Movie/999999");
+		Assert.assertEquals(m6.getDescription(), "\".,:'-?!#$%&\\�()\"");
+		Assert.assertEquals(m6.getFields().size(), 1);
+		Assert.assertEquals(m6.getFields().get(0).getName(), "Season 0 / Episode 0 (16:39)");
+		Assert.assertEquals(m6.getFields().get(0).getValue(), "​.,:'-?!$%�[]?��");
+	}
+
+	@Test(dependsOnMethods = "process", alwaysRun = true)
 	public void getHelp() {
 		Assert.assertEquals(Frinkiac.getHelp("!"),
 				"Blank commands will display a random image." + "\nEntering a quote will return an image associated with that quote."
@@ -36,86 +113,43 @@ public class TFrinkiac {
 
 	@Test(dependsOnMethods = "getHelp", alwaysRun = true)
 	public void buildEmbed() {
+		String response = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_bort.json");
 
 		// Image and Detail
-		String response1 = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_blank.json");
-		MessageEmbed me1 = Frinkiac.buildEmbed(true, true, new Color(123, 123, 123), "http://host.dom", "Title", response1, "testencode").build();
-		Assert.assertEquals(me1.getImage().getUrl(), "http://host.dom/meme/S00E00/0.jpg?b64lines=dGVzdGVuY29kZQ==");
-		Assert.assertEquals(me1.getTitle(), "Title");
-		Assert.assertEquals(me1.getUrl(), "http://host.dom/caption/S00E00/0");
-		Assert.assertEquals(me1.getDescription(), "\"x\"");
-		Assert.assertEquals(me1.getFields().size(), 1);
-		Assert.assertEquals(me1.getFields().get(0).getName(), "Season 0 / Episode 0 (00:00)");
-		Assert.assertEquals(me1.getFields().get(0).getValue(), "\u200Bx");
+		MessageEmbed m1 = Frinkiac.buildEmbed(true, true, new Color(123, 123, 123), "http://localhost:1080", "Title", response, "testencode").build();
+		Assert.assertEquals(m1.getImage().getUrl(), "http://localhost:1080/meme/S06E04/741423.jpg?b64lines=dGVzdGVuY29kZQ==");
+		Assert.assertEquals(m1.getTitle(), "Title");
+		Assert.assertEquals(m1.getUrl(), "http://localhost:1080/caption/S06E04/741423");
+		Assert.assertEquals(m1.getDescription(), "\"Itchy & Scratchy Land\"");
+		Assert.assertEquals(m1.getFields().size(), 1);
+		Assert.assertEquals(m1.getFields().get(0).getName(), "Season 6 / Episode 4 (12:21)");
+		Assert.assertEquals(m1.getFields().get(0).getValue(), "\u200BMommy, buy me a license plate!\nNo. Come along, Bort.\nAre you talking to me?");
 
-		// Image, no Detail
-		String response2 = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_blank.json");
-		MessageEmbed me2 = Frinkiac.buildEmbed(true, false, new Color(123, 123, 123), "http://host.dom", "Title", response2, "testencode").build();
-		Assert.assertEquals(me2.getImage().getUrl(), "http://host.dom/meme/S00E00/0.jpg?b64lines=dGVzdGVuY29kZQ==");
-		Assert.assertEquals(me2.getTitle(), null);
-		Assert.assertEquals(me2.getUrl(), null);
-		Assert.assertEquals(me2.getDescription(), null);
-		Assert.assertEquals(me2.getFields().size(), 0);
+		// Image, No Detail
+		MessageEmbed m2 = Frinkiac.buildEmbed(true, false, new Color(123, 123, 123), "http://localhost:1080", "Title", response, "testencode").build();
+		Assert.assertEquals(m2.getImage().getUrl(), "http://localhost:1080/meme/S06E04/741423.jpg?b64lines=dGVzdGVuY29kZQ==");
+		Assert.assertEquals(m2.getTitle(), null);
+		Assert.assertEquals(m2.getUrl(), null);
+		Assert.assertEquals(m2.getDescription(), null);
+		Assert.assertEquals(m2.getFields().size(), 0);
 
-		// Detail, no Image
-		String response3 = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_blank.json");
-		MessageEmbed me3 = Frinkiac.buildEmbed(false, true, new Color(123, 123, 123), "http://host.dom", "Title", response3, "testencode").build();
-		Assert.assertEquals(me3.getImage(), null);
-		Assert.assertEquals(me3.getTitle(), "Title");
-		Assert.assertEquals(me3.getUrl(), "http://host.dom/caption/S00E00/0");
-		Assert.assertEquals(me3.getDescription(), "\"x\"");
-		Assert.assertEquals(me3.getFields().size(), 1);
-		Assert.assertEquals(me3.getFields().get(0).getName(), "Season 0 / Episode 0 (00:00)");
-		Assert.assertEquals(me3.getFields().get(0).getValue(), "\u200Bx");
+		// Detail, No Image
+		MessageEmbed m3 = Frinkiac.buildEmbed(false, true, new Color(123, 123, 123), "http://localhost:1080", "Title", response, "testencode").build();
+		Assert.assertEquals(m3.getImage(), null);
+		Assert.assertEquals(m3.getTitle(), "Title");
+		Assert.assertEquals(m3.getUrl(), "http://localhost:1080/caption/S06E04/741423");
+		Assert.assertEquals(m3.getDescription(), "\"Itchy & Scratchy Land\"");
+		Assert.assertEquals(m3.getFields().size(), 1);
+		Assert.assertEquals(m3.getFields().get(0).getName(), "Season 6 / Episode 4 (12:21)");
+		Assert.assertEquals(m3.getFields().get(0).getValue(), "\u200BMommy, buy me a license plate!\nNo. Come along, Bort.\nAre you talking to me?");
 
-		// No Image, no Detail - Should never happen
-		String response4 = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_blank.json");
-		MessageEmbed me4 = Frinkiac.buildEmbed(false, false, new Color(123, 123, 123), "http://host.dom", "Title", response4, "testencode").build();
-		Assert.assertEquals(me4.getImage(), null);
-		Assert.assertEquals(me4.getTitle(), null);
-		Assert.assertEquals(me4.getUrl(), null);
-		Assert.assertEquals(me4.getDescription(), null);
-		Assert.assertEquals(me4.getFields().size(), 0);
-
-		// No Subtitles
-		String response5 = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_blank_no_subtitles.json");
-		MessageEmbed me5 = Frinkiac.buildEmbed(true, true, new Color(123, 123, 123), "http://host.dom", "Title", response5, "testencode").build();
-		Assert.assertEquals(me5.getImage().getUrl(), "http://host.dom/meme/S00E00/0.jpg?b64lines=dGVzdGVuY29kZQ==");
-		Assert.assertEquals(me5.getTitle(), "Title");
-		Assert.assertEquals(me5.getUrl(), "http://host.dom/caption/S00E00/0");
-		Assert.assertEquals(me5.getDescription(), "\"x\"");
-		Assert.assertEquals(me5.getFields().size(), 1);
-		Assert.assertEquals(me5.getFields().get(0).getName(), "Season 0 / Episode 0 (00:00)");
-		Assert.assertEquals(me5.getFields().get(0).getValue(), "\u200B");
-
-		// Large Response
-		String response6 = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_large.json");
-		MessageEmbed me6 = Frinkiac.buildEmbed(true, true, new Color(123, 123, 123), "http://host.dom", "Title", response6, "testencode").build();
-		Assert.assertEquals(me6.getImage().getUrl(), "http://host.dom/meme/S99E99/9999999.jpg?b64lines=dGVzdGVuY29kZQ==");
-		Assert.assertEquals(me6.getTitle(), "Title");
-		Assert.assertEquals(me6.getUrl(), "http://host.dom/caption/S99E99/9999999");
-		Assert.assertEquals(me6.getDescription(), "\"abcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabc\"");
-		Assert.assertEquals(me6.getFields().size(), 1);
-		Assert.assertEquals(me6.getFields().get(0).getName(), "Season 99 / Episode 99 (166:39)");
-		Assert.assertEquals(me6.getFields().get(0).getValue(),
-				"\u200Babcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl"
-						+ "\nabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl"
-						+ "\nabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl"
-						+ "\nabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl"
-						+ "\nabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl"
-						+ "\nabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl"
-						+ "\nabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijklmnopqretuvwxyzabcdefghijkl");
-
-		// Special Characters
-		String response7 = TestUtils.readFile("src/test/resources/mock/frinkiac/timestamp_special.json");
-		MessageEmbed me7 = Frinkiac.buildEmbed(true, true, new Color(123, 123, 123), "http://host.dom", "Title", response7, "testencode").build();
-		Assert.assertEquals(me7.getImage().getUrl(), "http://host.dom/meme/Movie/0.jpg?b64lines=dGVzdGVuY29kZQ==");
-		Assert.assertEquals(me7.getTitle(), "Title");
-		Assert.assertEquals(me7.getUrl(), "http://host.dom/caption/Movie/0");
-		Assert.assertEquals(me7.getDescription(), "\".,:'-?!#$%&\\ö()\"");
-		Assert.assertEquals(me7.getFields().size(), 1);
-		Assert.assertEquals(me7.getFields().get(0).getName(), "Season 0 / Episode 0 (00:00)");
-		Assert.assertEquals(me7.getFields().get(0).getValue(), "\u200B.,:'-?!$%ö[]♪áé");
+		// No Image or Detail (should never be used)
+		MessageEmbed m4 = Frinkiac.buildEmbed(false, false, new Color(123, 123, 123), "http://localhost:1080", "Title", response, "testencode").build();
+		Assert.assertEquals(m4.getImage(), null);
+		Assert.assertEquals(m4.getTitle(), null);
+		Assert.assertEquals(m4.getUrl(), null);
+		Assert.assertEquals(m4.getDescription(), null);
+		Assert.assertEquals(m4.getFields().size(), 0);
 	}
 
 	@Test(dependsOnMethods = "buildEmbed", alwaysRun = true)
