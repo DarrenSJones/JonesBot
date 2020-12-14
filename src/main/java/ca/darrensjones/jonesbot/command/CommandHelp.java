@@ -46,7 +46,7 @@ public class CommandHelp extends AbstractCommand {
 
 	@Override
 	public void execute(Message message) {
-		String help = String.format("Commands are not case-sensitive. Try \"{command} %shelp\" for more information.", bot.config.BOT_PREFIX);
+		String help = String.format("Commands are not case-sensitive. Try \"**{command} %shelp**\" for more information.", bot.config.BOT_PREFIX);
 		for (AbstractCommand c : bot.commandHandler.getCommands()) {
 			if (c.visibility().isPublic()) {
 				help += String.format("%n**%s%s**: %s", bot.config.BOT_PREFIX, c.getTriggers()[0], c.getDescription());
