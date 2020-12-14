@@ -40,7 +40,7 @@ public class Frinkiac {
 	}
 
 	public static EmbedBuilder process(Message message, String prefix, Color color, String host, List<OFrinkiacSaved> saved, HashMap<String, String[]> last) {
-		return process(message.getContentDisplay(), message.getTextChannel().getId(), prefix, color, host, saved, last);
+		return process(message.getTextChannel().getId(), message.getContentDisplay(), prefix, color, host, saved, last);
 	}
 
 	public static EmbedBuilder process(String textChannelId, String content, String prefix, Color color, String host, List<OFrinkiacSaved> saved,
