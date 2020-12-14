@@ -29,12 +29,25 @@ public class CVersion {
 	public static List<OVersion> getAll() {
 		List<OVersion> list = new ArrayList<OVersion>();
 		try {
-			ResultSet rs = BotDB.get().select("SELECT major, minor, patch, date, changes FROM version");
+			ResultSet rs = BotDB.get().select("SELECT major, minor, patch, date, changes FROM version ORDER BY major, minor, patch");
 			while (rs.next()) list.add(setRecord(rs));
 			rs.getStatement().close();
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());
 		}
 		return list;
+	}
+
+	public static OVersion getVersion(String major, String minor, String patch) {
+		OVersion o = null;
+		try {
+			ResultSet rs = BotDB.get().select("SELECT major, minor, patch, date, changes FROM version WHERE major = " + major + " AND minor = " + minor
+					+ " AND patch = " + patch + " ORDER BY major, minor, patch");
+			while (rs.next()) o = setRecord(rs);
+			rs.getStatement().close();
+		} catch (Exception e) {
+			Reporter.fatal(e.getMessage());
+		}
+		return o;
 	}
 }
