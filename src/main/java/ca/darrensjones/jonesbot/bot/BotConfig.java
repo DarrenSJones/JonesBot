@@ -38,10 +38,3 @@ public class BotConfig {
 		this.WEATHER_DEFAULT_CITY = weatherDefaultCity;
 	}
 }
-/*-
-Schedule
-Command: Frinkiac
-Command: MoaS
-Command: Morbotron
-Command: Schedule
-*/
