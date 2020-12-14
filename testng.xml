@@ -8,6 +8,7 @@
 			<class name="ca.darrensjones.jonesbot.test.db.Tables" />
 			<class name="ca.darrensjones.jonesbot.test.db.controller.TCFrinkiacSaved" />
 			<class name="ca.darrensjones.jonesbot.test.db.controller.TCReaction" />
+			<class name="ca.darrensjones.jonesbot.test.db.controller.TCVersion" />
 		</classes>
 	</test>
 
