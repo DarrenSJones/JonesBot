@@ -11,7 +11,7 @@ import ca.darrensjones.jonesbot.testcore.BotTest;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-09
+ * @version 1.0.0 2020-12-14
  * @since 1.0.0 2020-11-24
  */
 public class CommandBasics {
@@ -20,7 +20,7 @@ public class CommandBasics {
 
 	@Test
 	public void getCommandsList() {
-		Assert.assertEquals(h.getCommands().size(), 11);
+		Assert.assertEquals(h.getCommands().size(), 12);
 		Assert.assertEquals(h.getCommands().get(0).getName(), "CatFact");
 		Assert.assertEquals(h.getCommands().get(1).getName(), "Cowbell");
 		Assert.assertEquals(h.getCommands().get(2).getName(), "Futurama");
@@ -31,7 +31,8 @@ public class CommandBasics {
 		Assert.assertEquals(h.getCommands().get(7).getName(), "Reload");
 		Assert.assertEquals(h.getCommands().get(8).getName(), "Rick&Morty");
 		Assert.assertEquals(h.getCommands().get(9).getName(), "Simpsons");
-		Assert.assertEquals(h.getCommands().get(10).getName(), "Weather");
+		Assert.assertEquals(h.getCommands().get(10).getName(), "Version");
+		Assert.assertEquals(h.getCommands().get(11).getName(), "Weather");
 	}
 
 	@Test(dependsOnMethods = "getCommandsList", alwaysRun = true)
@@ -135,6 +136,16 @@ public class CommandBasics {
 	}
 
 	@Test(dependsOnMethods = "basicsSimpsons", alwaysRun = true)
+	public void basicsVersion() {
+		AbstractCommand c = h.getCommand("version");
+		Assert.assertEquals(c.getName(), "Version");
+		Assert.assertEquals(c.getDescription(), "JonesBot Version Information");
+		Assert.assertEquals(c.getTriggers(), new String[] { "version", "v" });
+		Assert.assertEquals(c.getHelp(), "**!version** Displays the current version with changes.");
+		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
+	}
+
+	@Test(dependsOnMethods = "basicsVersion", alwaysRun = true)
 	public void basicsWeather() {
 		AbstractCommand c = h.getCommand("weather");
 		Assert.assertEquals(c.getName(), "Weather");
