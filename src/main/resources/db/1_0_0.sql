@@ -22,21 +22,6 @@ VALUES
 	('WEATHER_TOKEN',			'openweathermap-token-here');
 
 
-DROP TABLE IF EXISTS "version";
-
-CREATE TABLE "version" (
-	"major"		INT				NOT NULL,
-	"minor"		INT				NOT NULL,
-	"patch"		INT				NOT NULL,
-	"date"		DATE			NOT NULL,
-	"changes"	VARCHAR(1024)	NOT NULL);
-
-INSERT INTO version
-	(major, minor, patch, date, changes)
-VALUES
-	(1, 0, 0, '2020-12-14', 'First version! Contains everything in the old Bot except the schedule.');
-
-
 DROP TABLE IF EXISTS "reaction";
 
 CREATE TABLE "reaction" (

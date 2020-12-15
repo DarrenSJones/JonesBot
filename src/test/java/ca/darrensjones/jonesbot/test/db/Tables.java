@@ -29,11 +29,10 @@ public class Tables {
 			Reporter.fatal(e.getMessage());
 		}
 
-		Assert.assertEquals(tables.size(), 4);
+		Assert.assertEquals(tables.size(), 3);
 		Assert.assertEquals(tables.get(0), "bot_config");
 		Assert.assertEquals(tables.get(1), "frinkiac_saved");
 		Assert.assertEquals(tables.get(2), "reaction");
-		Assert.assertEquals(tables.get(3), "version");
 	}
 
 	@Test(dependsOnMethods = "allTables", alwaysRun = true)
@@ -64,17 +63,6 @@ public class Tables {
 		Assert.assertEquals(columns.get(1), "shortcode");
 		Assert.assertEquals(columns.get(2), "unicode");
 		Assert.assertEquals(columns.get(3), "regex");
-	}
-
-	@Test(dependsOnMethods = "reaction", alwaysRun = true)
-	public void version() {
-		List<String> columns = getColumnNames("version");
-		Assert.assertEquals(columns.size(), 5);
-		Assert.assertEquals(columns.get(0), "major");
-		Assert.assertEquals(columns.get(1), "minor");
-		Assert.assertEquals(columns.get(2), "patch");
-		Assert.assertEquals(columns.get(3), "date");
-		Assert.assertEquals(columns.get(4), "changes");
 	}
 
 	/**
