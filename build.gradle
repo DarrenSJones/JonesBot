@@ -1,4 +1,14 @@
+plugins {
+	id "application"
+}
 apply plugin: "java"
+ext {
+	javaMainClass = "ca.darrensjones.jonesbot.main.Main"
+}
+
+application {
+	mainClassName = javaMainClass
+}
  
 sourceCompatibility = JavaVersion.VERSION_14
 targetCompatibility = JavaVersion.VERSION_14
