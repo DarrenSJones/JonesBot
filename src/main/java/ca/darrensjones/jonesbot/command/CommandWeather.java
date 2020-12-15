@@ -102,7 +102,7 @@ public class CommandWeather extends AbstractCommand {
 				JSONArray array = (JSONArray) resp.get("list");
 				for (int i = 0; i < array.size(); i++) {
 					JSONObject json = (JSONObject) array.get(i);
-					ZonedDateTime date = MyDateUtils.longStringToZDT(json.get("dt").toString() + "000");
+					ZonedDateTime date = MyDateUtils.longToZDT(json.get("dt").toString() + "000");
 
 					if (date.getHour() == 12) {
 						String desc = ((JSONObject) ((JSONArray) json.get("weather")).get(0)).get("main").toString();
@@ -143,8 +143,8 @@ public class CommandWeather extends AbstractCommand {
 				String windDirection = windDirection(Float.parseFloat(((JSONObject) json.get("wind")).get("deg").toString()));
 				String id = json.get("id").toString();
 				String name = json.get("name").toString();
-				String sunrise = MyDateUtils.longStringToZDT(((JSONObject) json.get("sys")).get("sunrise").toString() + "000").toLocalTime().toString();
-				String sunset = MyDateUtils.longStringToZDT(((JSONObject) json.get("sys")).get("sunset").toString() + "000").toLocalTime().toString();
+				String sunrise = MyDateUtils.longToZDT(((JSONObject) json.get("sys")).get("sunrise").toString() + "000").toLocalTime().toString();
+				String sunset = MyDateUtils.longToZDT(((JSONObject) json.get("sys")).get("sunset").toString() + "000").toLocalTime().toString();
 
 				eb.setTitle("Current Weather", String.format("%s/city/%s", bot.config.WEATHER_HOST, id).replace("api.", ""));
 				eb.setDescription(name);
