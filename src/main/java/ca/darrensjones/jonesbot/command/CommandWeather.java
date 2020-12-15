@@ -23,7 +23,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-13
+ * @version 1.0.1 2020-12-15
  * @since 1.0.0 2020-11-26
  */
 public class CommandWeather extends AbstractCommand {

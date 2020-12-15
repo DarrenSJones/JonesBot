@@ -2,12 +2,11 @@ package ca.darrensjones.jonesbot.bot;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-08
+ * @version 1.0.1 2020-12-15
  * @since 1.0.0 2020-11-18
  */
 public class BotConfig {
 
-	public final boolean TEST;
 	public final String BOT_VERSION;
 	public final String BOT_TOKEN;
 	public final String BOT_OWNER_ID;
@@ -22,9 +21,8 @@ public class BotConfig {
 	public final String WEATHER_HOST;
 	public final String WEATHER_DEFAULT_CITY;
 
-	public BotConfig(boolean test, String botVersion, String botToken, String botOwnerId, String prefix, String catFactHost, String simpsonsHost,
-			String futuramaHost, String rickMortyHost, String weatherToken, String weatherHost, String weatherDefaultCity) {
-		this.TEST = test;
+	public BotConfig(String botVersion, String botToken, String botOwnerId, String prefix, String catFactHost, String simpsonsHost, String futuramaHost,
+			String rickMortyHost, String weatherToken, String weatherHost, String weatherDefaultCity) {
 		this.BOT_VERSION = botVersion;
 		this.BOT_TOKEN = botToken;
 		this.BOT_OWNER_ID = botOwnerId;
