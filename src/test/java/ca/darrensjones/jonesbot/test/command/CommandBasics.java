@@ -11,7 +11,7 @@ import ca.darrensjones.jonesbot.testcore.BotTest;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-14
+ * @version 1.0.1 2020-12-15
  * @since 1.0.0 2020-11-24
  */
 public class CommandBasics {
@@ -21,18 +21,18 @@ public class CommandBasics {
 	@Test
 	public void getCommandsList() {
 		Assert.assertEquals(h.getCommands().size(), 12);
-		Assert.assertEquals(h.getCommands().get(0).getName(), "CatFact");
-		Assert.assertEquals(h.getCommands().get(1).getName(), "Cowbell");
-		Assert.assertEquals(h.getCommands().get(2).getName(), "Futurama");
-		Assert.assertEquals(h.getCommands().get(3).getName(), "Help");
-		Assert.assertEquals(h.getCommands().get(4).getName(), "Owner");
-		Assert.assertEquals(h.getCommands().get(5).getName(), "Ping");
-		Assert.assertEquals(h.getCommands().get(6).getName(), "Reaction");
-		Assert.assertEquals(h.getCommands().get(7).getName(), "Reload");
-		Assert.assertEquals(h.getCommands().get(8).getName(), "Rick&Morty");
-		Assert.assertEquals(h.getCommands().get(9).getName(), "Simpsons");
-		Assert.assertEquals(h.getCommands().get(10).getName(), "Version");
-		Assert.assertEquals(h.getCommands().get(11).getName(), "Weather");
+		Assert.assertNotNull(h.getCommand("CatFact"));
+		Assert.assertNotNull(h.getCommand("Cowbell"));
+		Assert.assertNotNull(h.getCommand("Futurama"));
+		Assert.assertNotNull(h.getCommand("Help"));
+		Assert.assertNotNull(h.getCommand("Owner"));
+		Assert.assertNotNull(h.getCommand("Ping"));
+		Assert.assertNotNull(h.getCommand("Reaction"));
+		Assert.assertNotNull(h.getCommand("Reload"));
+		Assert.assertNotNull(h.getCommand("Rick&Morty"));
+		Assert.assertNotNull(h.getCommand("Simpsons"));
+		Assert.assertNotNull(h.getCommand("Version"));
+		Assert.assertNotNull(h.getCommand("Weather"));
 	}
 
 	@Test(dependsOnMethods = "getCommandsList", alwaysRun = true)
