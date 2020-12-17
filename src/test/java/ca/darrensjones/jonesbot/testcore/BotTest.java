@@ -5,7 +5,7 @@ import ca.darrensjones.jonesbot.db.BotDB;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-21
+ * @version 1.0.1 2020-12-17
  * @since 1.0.0 2020-11-21
  */
 public class BotTest {
@@ -13,8 +13,7 @@ public class BotTest {
 	private static Bot bot;
 
 	public static void createBot() {
-		BotDB.test();
-		BotDB.init();
+		BotDB.init("localhost:1433", "jonesbottest", "jonesbot", "jonesbot");
 		bot = new Bot(true);
 	}
 

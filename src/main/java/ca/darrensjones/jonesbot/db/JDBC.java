@@ -10,7 +10,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-18
+ * @version 1.0.1 2020-12-17
  * @since 1.0.0 2020-11-18
  */
 public class JDBC {
@@ -21,28 +21,26 @@ public class JDBC {
 	private final String database;
 	private Connection c;
 
-	public JDBC(String driver, String userName, String password, String database) {
+	public JDBC(String driver, String database, String userName, String password) {
 		this.driver = driver;
+		this.database = database;
 		this.userName = userName;
 		this.password = password;
-		this.database = database;
 	}
 
-	private Connection createConnection() {
-		String url = String.format("jdbc:sqlserver://%s;databaseName=%s;integratedSecurity=true;loginTimeout=30;", driver, database);
+	private void createConnection() {
+		String url = String.format("jdbc:sqlserver://%s;databaseName=%s;integratedSecurity=true;loginTimeout=10;", driver, database);
 		Reporter.info(String.format("Creating JDBC Connection:[%s] UserName:[%s] Password:[%s]", url, userName, password));
 		try {
-			Connection connection = DriverManager.getConnection(url, userName, password);
-			Reporter.info(String.format("JDBC Connection created:[%s]", connection.getCatalog()));
-			return connection;
+			c = DriverManager.getConnection(url, userName, password);
+			Reporter.info(String.format("JDBC Connection created:[%s]", c.getCatalog()));
 		} catch (SQLException e) {
-			Reporter.fatal(e.getMessage());
+			Reporter.fatal("Failed to create JDBC Connection.\n" + e.getMessage());
 		}
-		return null;
 	}
 
 	public Connection getConnection() {
-		if (c == null) c = createConnection();
+		if (c == null) createConnection();
 		return c;
 	}
 

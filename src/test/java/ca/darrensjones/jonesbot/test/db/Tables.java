@@ -13,7 +13,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-14
+ * @version 1.0.1 2020-12-17
  * @since 1.0.0 2020-11-21
  */
 public class Tables {
@@ -22,7 +22,7 @@ public class Tables {
 	public void allTables() {
 		List<String> tables = new ArrayList<String>();
 		try {
-			ResultSet rs = BotDB.get().select("SELECT * FROM " + BotDB.getDefaultDB() + ".sys.tables ORDER BY name");
+			ResultSet rs = BotDB.get().select("SELECT * FROM " + "jonesbottest" + ".sys.tables ORDER BY name");
 			while (rs.next()) tables.add(rs.getString(1));
 			rs.getStatement().close();
 		} catch (Exception e) {

@@ -6,7 +6,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-19
+ * @version 1.0.1 2020-12-17
  * @since 1.0.0 2020-11-18
  */
 public class Main {
@@ -17,7 +17,7 @@ public class Main {
 		Reporter.info("");
 		Reporter.info("Bot initializating...");
 
-		BotDB.init();
+		BotDB.init("localhost:1433", "jonesbot", "jonesbot", "jonesbot");
 		bot = new Bot();
 
 		Reporter.info(String.format("Bot Initialized! Logged in as: [%s]", bot.jda.getSelfUser().toString()));
