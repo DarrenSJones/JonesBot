@@ -13,16 +13,16 @@ import net.dv8tion.jda.api.JDABuilder;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-14
+ * @version 1.0.1 2020-12-18
  * @since 1.0.0 2020-11-18
  */
 public class Bot {
 
-	public final BotConfig config;
 	public JDA jda;
-	public AutoResponseHandler autoResponseHandler;
-	public CommandHandler commandHandler;
-	public DataHandler dataHandler;
+	public final BotConfig config;
+	public final AutoResponseHandler autoResponseHandler;
+	public final CommandHandler commandHandler;
+	public final DataHandler dataHandler;
 
 	public Bot() {
 		this(false);
@@ -33,17 +33,17 @@ public class Bot {
 		this.autoResponseHandler = new AutoResponseHandler();
 		this.commandHandler = new CommandHandler(this);
 		this.dataHandler = new DataHandler();
-		if (!test) resetJDA();
+		if (!test) setJDA();
 	}
 
-	public void resetJDA() {
+	public void setJDA() {
 		try {
 			JDABuilder builder = JDABuilder.createDefault(config.BOT_TOKEN).addEventListeners(new EventListener(this));
 			jda = builder.build();
 			jda.awaitReady();
-			Reporter.info("JDA Reset and Ready.");
+			Reporter.info("JDA set and ready.");
 		} catch (InterruptedException | LoginException e) {
-			Reporter.fatal(e.getMessage());
+			Reporter.fatal("Failed to set JDA.\n" + e.getMessage());
 		}
 	}
 }

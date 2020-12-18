@@ -6,20 +6,18 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.1 2020-12-17
+ * @version 1.0.1 2020-12-18
  * @since 1.0.0 2020-11-18
  */
 public class Main {
-
-	private static Bot bot;
 
 	public static void main(String[] args) {
 		Reporter.info("");
 		Reporter.info("Bot initializating...");
 
 		BotDB.init("localhost:1433", "jonesbot", "jonesbot", "jonesbot");
-		bot = new Bot();
+		Bot bot = new Bot();
 
-		Reporter.info(String.format("Bot Initialized! Logged in as: [%s]", bot.jda.getSelfUser().toString()));
+		Reporter.info(String.format("Bot Initialized! Logged in as:[%s]", bot.jda.getSelfUser().toString()));
 	}
 }
