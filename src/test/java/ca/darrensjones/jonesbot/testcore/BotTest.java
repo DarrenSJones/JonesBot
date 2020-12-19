@@ -5,7 +5,7 @@ import ca.darrensjones.jonesbot.db.BotDB;
 
 /**
  * @author Darren Jones
- * @version 1.0.1 2020-12-17
+ * @version 1.0.1 2020-12-19
  * @since 1.0.0 2020-11-21
  */
 public class BotTest {
@@ -14,7 +14,7 @@ public class BotTest {
 
 	public static void createBot() {
 		BotDB.init("localhost:1433", "jonesbottest", "jonesbot", "jonesbot");
-		bot = new Bot(true);
+		bot = new Bot(true); // Doesn't create JDA instance
 	}
 
 	public static Bot get() {
