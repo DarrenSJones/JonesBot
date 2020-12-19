@@ -19,56 +19,47 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-09
+ * @version 1.0.1 2020-12-19
  * @since 1.0.0 2020-11-25
  */
 public class Mock {
 
-	private static ClientAndServer clientAndServer;
+	private static ClientAndServer server;
 	private static MockServerClient client;
 
-	public static ClientAndServer getClientAndServer() {
-		return clientAndServer;
-	}
+	private static final String host = "localhost";
+	private static final int port = 1080;
 
 	public static void reset() {
-		if (clientAndServer == null) {
-			clientAndServer = new ClientAndServer(1080);
+		if (server == null) {
+			server = new ClientAndServer(port);
 			ConfigurationProperties.disableSystemOut(true); // Bot uses it's own output
-			Reporter.debug("Mock Server reset");
+			Reporter.debug(String.format("Mock Server reset. host:[%s] port:[%s]", host, port));
 		}
 
-		client = new MockServerClient("localhost", 1080);
-		Reporter.debug("Mock Client reset");
+		client = new MockServerClient(host, port);
+		Reporter.debug(String.format("Mock Client reset. host:[%s] port:[%s]", host, port));
 	}
 
 	public static void setExpectation(String requestMethod, String requestPath, int responseStatusCode, File file) {
-		String path;
+		String path = requestPath;
 		List<Parameter> parameters = new ArrayList<Parameter>();
-
-		if (requestPath.contains("?")) {
+		if (path.contains("?")) {
 			path = requestPath.split("\\?")[0];
 			String query = requestPath.split("\\?")[1];
 			if (StringUtils.isNotBlank(query)) {
-				for (String pair : query.split("&")) parameters.add(Parameter.param(pair.split("=")[0], pair.split("=")[1]));
-			} else {
-				parameters = null;
+				for (String pair : query.split("&")) {
+					parameters.add(Parameter.param(pair.split("=")[0], pair.split("=")[1]));
+				}
 			}
-		} else {
-			path = requestPath;
-			parameters = null;
 		}
 
 		try {
-			String response = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
-			setExpectation(requestMethod, path, parameters, responseStatusCode, response);
+			String responseBody = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
+			client.when(HttpRequest.request().withMethod(requestMethod).withPath(requestPath).withQueryStringParameters(parameters), Times.unlimited())
+					.respond(HttpResponse.response().withStatusCode(responseStatusCode).withBody(responseBody));
 		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
+			Reporter.fatal("SetExpectation Exception.\n" + e.getMessage());
 		}
-	}
-
-	public static void setExpectation(String requestMethod, String requestPath, List<Parameter> parameters, int responseStatusCode, String response) {
-		client.when(HttpRequest.request().withMethod(requestMethod).withPath(requestPath).withQueryStringParameters(parameters), Times.unlimited())
-				.respond(HttpResponse.response().withStatusCode(responseStatusCode).withBody(response));
 	}
 }
