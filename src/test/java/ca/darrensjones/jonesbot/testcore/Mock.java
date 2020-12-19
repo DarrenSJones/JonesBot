@@ -41,22 +41,22 @@ public class Mock {
 		Reporter.debug(String.format("Mock Client reset. host:[%s] port:[%s]", host, port));
 	}
 
-	public static void setExpectation(String requestMethod, String requestPath, int responseStatusCode, File file) {
-		String path = requestPath;
-		List<Parameter> parameters = new ArrayList<Parameter>();
-		if (path.contains("?")) {
-			path = requestPath.split("\\?")[0];
-			String query = requestPath.split("\\?")[1];
+	public static void setExpectation(String method, String path, int responseStatusCode, File file) {
+		String requestPath = path;
+		List<Parameter> requestParameters = new ArrayList<Parameter>();
+		if (requestPath.contains("?")) {
+			requestPath = path.split("\\?")[0];
+			String query = path.split("\\?")[1];
 			if (StringUtils.isNotBlank(query)) {
 				for (String pair : query.split("&")) {
-					parameters.add(Parameter.param(pair.split("=")[0], pair.split("=")[1]));
+					requestParameters.add(Parameter.param(pair.split("=")[0], pair.split("=")[1]));
 				}
 			}
 		}
 
 		try {
 			String responseBody = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
-			client.when(HttpRequest.request().withMethod(requestMethod).withPath(requestPath).withQueryStringParameters(parameters), Times.unlimited())
+			client.when(HttpRequest.request().withMethod(method).withPath(requestPath).withQueryStringParameters(requestParameters), Times.unlimited())
 					.respond(HttpResponse.response().withStatusCode(responseStatusCode).withBody(responseBody));
 		} catch (Exception e) {
 			Reporter.fatal("SetExpectation Exception.\n" + e.getMessage());
