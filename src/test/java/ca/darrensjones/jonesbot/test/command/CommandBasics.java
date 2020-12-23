@@ -20,7 +20,7 @@ public class CommandBasics {
 
 	@Test
 	public void getCommandsList() {
-		Assert.assertEquals(h.getCommands().size(), 13);
+		Assert.assertEquals(h.getCommands().size(), 14);
 		Assert.assertNotNull(h.getCommand("CatFact"));
 		Assert.assertNotNull(h.getCommand("ChangeLog"));
 		Assert.assertNotNull(h.getCommand("Cowbell"));
@@ -32,6 +32,7 @@ public class CommandBasics {
 		Assert.assertNotNull(h.getCommand("Reload"));
 		Assert.assertNotNull(h.getCommand("Rick&Morty"));
 		Assert.assertNotNull(h.getCommand("Simpsons"));
+		Assert.assertNotNull(h.getCommand("ToDo"));
 		Assert.assertNotNull(h.getCommand("Version"));
 		Assert.assertNotNull(h.getCommand("Weather"));
 	}
@@ -147,6 +148,16 @@ public class CommandBasics {
 	}
 
 	@Test(dependsOnMethods = "basicsSimpsons", alwaysRun = true)
+	public void basicsToDo() {
+		AbstractCommand c = h.getCommand("todo");
+		Assert.assertEquals(c.getName(), "To Do");
+		Assert.assertEquals(c.getDescription(), "JonesBot To Do List");
+		Assert.assertEquals(c.getTriggers(), new String[] { "todo" });
+		Assert.assertEquals(c.getHelp(), "**!todo** Displays the current to do list.");
+		Assert.assertEquals(c.visibility(), CommandVisibility.HIDDEN);
+	}
+
+	@Test(dependsOnMethods = "basicsToDo", alwaysRun = true)
 	public void basicsVersion() {
 		AbstractCommand c = h.getCommand("version");
 		Assert.assertEquals(c.getName(), "Version");

@@ -1,0 +1,5 @@
+New Command: Roll
+New Command: Poll
+A simple schedule for simple events
+A countdown using the same base as the schedule
+Games eventually?
