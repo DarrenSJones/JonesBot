@@ -24,6 +24,7 @@
 			<class name="ca.darrensjones.jonesbot.test.command.CommandRequests" />
 			<class name="ca.darrensjones.jonesbot.test.command.TCommandWeather" />
 			<class name="ca.darrensjones.jonesbot.test.command.TFrinkiac" />
+			<class name="ca.darrensjones.jonesbot.test.command.TVersion" />
 		</classes>
 	</test>
 
