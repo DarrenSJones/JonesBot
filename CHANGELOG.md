@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Version now shows a list of all versions, the date they released, and a small summary.
 
 ### Fixed
-- Naming and links in the change log
+- Naming and links in the change log.
 
 ## [1.0.1][1.0.1] - 2020-12-19 - General Cleanup
 ### Added
@@ -25,7 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Commands are now added to the bot automatically as they're added to the commands package.
 - On DB setup, default version is now "0.0.0".
 - Simplified the main method, mock server/responses, and JDBC connection creation.
-- Renamed private methods that were misleading or wordy
+- Renamed private methods that were misleading or wordy.
 
 ### Removed
 - DB Table "version" and associated tests.
@@ -38,7 +38,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - AutoResponse for Reactions.
 - Custom Reporter for Console and Trace logging.
 
-[Unreleased]: https://github.com/DarrenSJones/JonesBot/compare/v1.0.1...dev
+[Unreleased]: https://github.com/DarrenSJones/JonesBot/compare/v1.0.2...dev
 [1.0.2]: https://github.com/DarrenSJones/JonesBot/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/DarrenSJones/JonesBot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/DarrenSJones/JonesBot/releases/tag/v1.0.0

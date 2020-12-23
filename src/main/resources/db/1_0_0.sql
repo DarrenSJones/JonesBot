@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS "reaction";
 CREATE TABLE "reaction" (
 	"id"		INT IDENTITY(1, 1)	NOT NULL	PRIMARY KEY,
 	"shortcode"	VARCHAR(20)			NOT NULL,
-	"unicode"	NVARCHAR(10)		NOT NULL,
+	"unicode"	NVARCHAR(64)		NOT NULL,
 	"regex"		VARCHAR(255)		NOT NULL);
 
 
