@@ -5,14 +5,13 @@ import java.awt.Color;
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
-//import ca.darrensjones.jonesbot.db.controller.CVersion;
-//import ca.darrensjones.jonesbot.db.model.OVersion;
+import ca.darrensjones.jonesbot.command.utilities.Version;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-14
+ * @version 1.0.2 2020-12-22
  * @since 1.0.0 2020-12-14
  */
 public class CommandVersion extends AbstractCommand {
@@ -43,17 +42,17 @@ public class CommandVersion extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return "**" + bot.config.BOT_PREFIX + "version** Displays the current version with changes.";
+		return "**" + bot.config.BOT_PREFIX + "version** Displays current version information.";
 	}
 
 	@Override
 	public void execute(Message message) {
 		String current = bot.config.BOT_VERSION;
-//		String[] v = current.split("\\.");
-//		OVersion version = CVersion.getVersion(v[0], v[1], v[2]);
+		String description = "";
+		for (String l : Version.getVersionEntry(false)) description += "\n" + l;
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.setTitle("Current Version: " + current);
-//		eb.setDescription(version.date.toString() + ": " + version.changes);
+		eb.setTitle(String.format("Current Version: %s", current));
+		eb.setDescription(description);
 		eb.setColor(new Color(0, 153, 255));
 		message.getChannel().sendMessage(eb.build()).queue();
 	}
