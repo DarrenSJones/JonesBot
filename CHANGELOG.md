@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased][Unreleased]
+### Added
+- New Command: Roll.
+
+### Fixed
+- Expanded SQL column for reaction/unicode to support custom emoji.
 
 ## [1.0.2][1.0.2] - 2020-12-22 - Change Log and To Do changes
 ### Added

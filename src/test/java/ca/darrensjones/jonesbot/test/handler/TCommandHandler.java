@@ -67,6 +67,7 @@ public class TCommandHandler {
 		Assert.assertNotNull(c.getCommand("h"));
 		Assert.assertNotNull(c.getCommand("ping"));
 		Assert.assertNotNull(c.getCommand("p"));
+		Assert.assertNotNull(c.getCommand("r"));
 		Assert.assertNotNull(c.getCommand("reaction"));
 		Assert.assertNotNull(c.getCommand("reactions"));
 
@@ -75,7 +76,6 @@ public class TCommandHandler {
 		Assert.assertNull(c.getCommand("pin"));
 		Assert.assertNull(c.getCommand("pings"));
 		Assert.assertNull(c.getCommand("pong"));
-		Assert.assertNull(c.getCommand("r"));
 		Assert.assertNull(c.getCommand("re"));
 		Assert.assertNull(c.getCommand("reactio"));
 		Assert.assertNull(c.getCommand("reactionss"));

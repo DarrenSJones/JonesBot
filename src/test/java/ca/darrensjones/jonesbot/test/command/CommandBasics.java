@@ -20,7 +20,7 @@ public class CommandBasics {
 
 	@Test
 	public void getCommandsList() {
-		Assert.assertEquals(h.getCommands().size(), 14);
+		Assert.assertEquals(h.getCommands().size(), 15);
 		Assert.assertNotNull(h.getCommand("CatFact"));
 		Assert.assertNotNull(h.getCommand("ChangeLog"));
 		Assert.assertNotNull(h.getCommand("Cowbell"));
@@ -31,6 +31,7 @@ public class CommandBasics {
 		Assert.assertNotNull(h.getCommand("Reaction"));
 		Assert.assertNotNull(h.getCommand("Reload"));
 		Assert.assertNotNull(h.getCommand("Rick&Morty"));
+		Assert.assertNotNull(h.getCommand("Roll"));
 		Assert.assertNotNull(h.getCommand("Simpsons"));
 		Assert.assertNotNull(h.getCommand("ToDo"));
 		Assert.assertNotNull(h.getCommand("Version"));
@@ -138,6 +139,16 @@ public class CommandBasics {
 	}
 
 	@Test(dependsOnMethods = "basicsRickMorty", alwaysRun = true)
+	public void basicsRoll() {
+		AbstractCommand c = h.getCommand("roll");
+		Assert.assertEquals(c.getName(), "Roll");
+		Assert.assertEquals(c.getDescription(), "Roll some dice!");
+		Assert.assertEquals(c.getTriggers(), new String[] { "roll", "r" });
+		Assert.assertEquals(c.getHelp(), "**!roll** Rolls a 6-sided die.");
+		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
+	}
+
+	@Test(dependsOnMethods = "basicsRoll", alwaysRun = true)
 	public void basicsSimpsons() {
 		AbstractCommand c = h.getCommand("simpsons");
 		Assert.assertEquals(c.getName(), "Simpsons");
