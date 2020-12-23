@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased][Unreleased]
+
+## [1.0.2][1.0.2] - 2020-12-22 - Change Log and To Do changes
 ### Added
 - Command to return change log links separate from the version list.
 - To Do list to show, in general, what's being worked on.
