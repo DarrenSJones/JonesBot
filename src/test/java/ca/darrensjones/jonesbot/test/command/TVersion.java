@@ -16,10 +16,15 @@ public class TVersion {
 
 	@Test
 	public void getVersionList() {
-		List<String> versions = Version.getVersions();
-		Assert.assertEquals(versions.get(0), "1.0.0");
-		Assert.assertEquals(versions.get(1), "1.0.1");
-		Assert.assertEquals(versions.get(versions.size() - 1), "Unreleased");
+		List<String> versionsAsc = Version.getVersions(true);
+		Assert.assertEquals(versionsAsc.get(0), "1.0.0");
+		Assert.assertEquals(versionsAsc.get(1), "1.0.1");
+		Assert.assertEquals(versionsAsc.get(versionsAsc.size() - 1), "Unreleased");
+
+		List<String> versionsDesc = Version.getVersions(false);
+		Assert.assertEquals(versionsDesc.get(0), "Unreleased");
+		Assert.assertEquals(versionsDesc.get(versionsDesc.size() - 2), "1.0.1");
+		Assert.assertEquals(versionsDesc.get(versionsDesc.size() - 1), "1.0.0");
 	}
 
 	@Test(dependsOnMethods = "getVersionList", alwaysRun = true)

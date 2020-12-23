@@ -16,12 +16,19 @@ import ca.darrensjones.jonesbot.log.Reporter;
  */
 public class Version {
 
-	public static List<String> getVersions() {
+	public static List<String> getVersions(boolean ascending) {
 		List<String> versions = new ArrayList<String>();
 		String[] changesByVersion = readChangelog().split("\n## ");
-		for (int i = changesByVersion.length - 1; i > 0; i--) {
-			String entry = changesByVersion[i].split("\n### ")[0];
-			versions.add(entry.substring(1).split("]")[0]);
+		if (ascending) {
+			for (int i = changesByVersion.length - 1; i > 0; i--) {
+				String entry = changesByVersion[i].split("\n### ")[0];
+				versions.add(entry.substring(1).split("]")[0]);
+			}
+		} else {
+			for (int i = 1; i < changesByVersion.length; i++) {
+				String entry = changesByVersion[i].split("\n### ")[0];
+				versions.add(entry.substring(1).split("]")[0]);
+			}
 		}
 		return versions;
 	}
