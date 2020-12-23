@@ -11,7 +11,7 @@ import ca.darrensjones.jonesbot.testcore.BotTest;
 
 /**
  * @author Darren Jones
- * @version 1.0.1 2020-12-15
+ * @version 1.0.2 2020-12-22
  * @since 1.0.0 2020-11-24
  */
 public class CommandBasics {
@@ -20,8 +20,9 @@ public class CommandBasics {
 
 	@Test
 	public void getCommandsList() {
-		Assert.assertEquals(h.getCommands().size(), 12);
+		Assert.assertEquals(h.getCommands().size(), 13);
 		Assert.assertNotNull(h.getCommand("CatFact"));
+		Assert.assertNotNull(h.getCommand("ChangeLog"));
 		Assert.assertNotNull(h.getCommand("Cowbell"));
 		Assert.assertNotNull(h.getCommand("Futurama"));
 		Assert.assertNotNull(h.getCommand("Help"));
@@ -45,7 +46,17 @@ public class CommandBasics {
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
-	@Test(dependsOnMethods = "basicsCatFact", alwaysRun = true)
+	@Test(dependsOnMethods = "getCommandsList", alwaysRun = true)
+	public void basicsChangelog() {
+		AbstractCommand c = h.getCommand("changeLog");
+		Assert.assertEquals(c.getName(), "Change Log");
+		Assert.assertEquals(c.getDescription(), "JonesBot Change Log Information");
+		Assert.assertEquals(c.getTriggers(), new String[] { "changelog" });
+		Assert.assertEquals(c.getHelp(), "**!changelog** Displays change log link list.");
+		Assert.assertEquals(c.visibility(), CommandVisibility.HIDDEN);
+	}
+
+	@Test(dependsOnMethods = "basicsChangelog", alwaysRun = true)
 	public void basicsCowbell() {
 		AbstractCommand c = h.getCommand("cowbell");
 		Assert.assertEquals(c.getName(), "Cowbell");
@@ -141,7 +152,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Version");
 		Assert.assertEquals(c.getDescription(), "JonesBot Version Information");
 		Assert.assertEquals(c.getTriggers(), new String[] { "version", "v" });
-		Assert.assertEquals(c.getHelp(), "**!version** Displays the current version with changes.");
+		Assert.assertEquals(c.getHelp(), "**!version** Displays current version information.");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
