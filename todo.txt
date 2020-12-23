@@ -1,5 +1,7 @@
+Custom Emoji reactions
 New Command: Roll
 New Command: Poll
+New Command: Urban Dictionary lookup
 A simple schedule for simple events
-A countdown using the same base as the schedule
+A countdown using the same base as schedule
 Games eventually?
