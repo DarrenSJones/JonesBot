@@ -9,22 +9,23 @@ public class BotConfig {
 
 	public final String BOT_VERSION;
 	public final String BOT_TOKEN;
+	public final String BOT_GITHUB_REPO;
 	public final String BOT_OWNER_ID;
 	public final String BOT_PREFIX;
-	public final String CATFACT_HOST;
 
+	public final String CATFACT_HOST;
 	public final String SIMPSONS_HOST;
 	public final String FUTURAMA_HOST;
 	public final String RICKMORTY_HOST;
-
 	public final String WEATHER_TOKEN;
 	public final String WEATHER_HOST;
 	public final String WEATHER_DEFAULT_CITY;
 
-	public BotConfig(String botVersion, String botToken, String botOwnerId, String prefix, String catFactHost, String simpsonsHost, String futuramaHost,
-			String rickMortyHost, String weatherToken, String weatherHost, String weatherDefaultCity) {
+	public BotConfig(String botVersion, String botToken, String botGitHubRepo, String botOwnerId, String prefix, String catFactHost, String simpsonsHost,
+			String futuramaHost, String rickMortyHost, String weatherToken, String weatherHost, String weatherDefaultCity) {
 		this.BOT_VERSION = botVersion;
 		this.BOT_TOKEN = botToken;
+		this.BOT_GITHUB_REPO = botGitHubRepo;
 		this.BOT_OWNER_ID = botOwnerId;
 		this.BOT_PREFIX = prefix;
 		this.CATFACT_HOST = catFactHost;

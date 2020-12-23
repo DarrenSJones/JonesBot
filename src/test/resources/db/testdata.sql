@@ -3,6 +3,7 @@ USE jonesbottest
 -- Config
 UPDATE bot_config SET item_value = '0.0.0'															WHERE item_key = 'BOT_VERSION';
 UPDATE bot_config SET item_value = '12345678901234567890123456789012345678901234567890123456789'	WHERE item_key = 'BOT_TOKEN';
+UPDATE bot_config SET item_value = 'http://localhost:1080'											WHERE item_key = 'BOT_GITHUB_REPO';
 UPDATE bot_config SET item_value = '123456789012345678'												WHERE item_key = 'BOT_OWNER_ID';
 UPDATE bot_config SET item_value = '!'																WHERE item_key = 'BOT_PREFIX';
 UPDATE bot_config SET item_value = 'http://localhost:1080'											WHERE item_key = 'CATFACT_HOST';

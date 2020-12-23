@@ -11,6 +11,7 @@ INSERT INTO bot_config
 VALUES
 	('BOT_VERSION',				'0.0.0'),
 	('BOT_TOKEN',				'discord-bot-token-here'),
+	('BOT_GITHUB_REPO',			'github-repo-path-here'),
 	('BOT_OWNER_ID',			'discord-bot-owner-id-here'),
 	('BOT_PREFIX',				'!'),
 	('CATFACT_HOST',			'https://catfact.ninja'),
