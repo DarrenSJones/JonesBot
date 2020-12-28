@@ -90,11 +90,11 @@ public class CommandRoll extends AbstractCommand {
 		return output;
 	}
 
-	public int roll(int max) {
+	public int roll(int max) throws IllegalArgumentException {
 		return roll(max, 1);
 	}
 
-	public int roll(int max, int min) {
+	public int roll(int max, int min) throws IllegalArgumentException {
 		return rand.nextInt(max - (min - 1)) + min;
 	}
 }
