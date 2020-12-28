@@ -3,9 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased][Unreleased]
+## [1.1.0][1.1.0] - 2020-12-28 - Roll Command
 ### Added
 - New Command: Roll.
+- New Test Set: Roll.
+- Added ReactionHandler for later use, currently logs reactions to trace.
 
 ### Fixed
 - Expanded SQL column for reaction/unicode to support custom emoji.
@@ -43,7 +45,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - AutoResponse for Reactions.
 - Custom Reporter for Console and Trace logging.
 
-[Unreleased]: https://github.com/DarrenSJones/JonesBot/compare/v1.0.2...dev
+[Unreleased]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.0...dev
+[1.1.0]: https://github.com/DarrenSJones/JonesBot/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/DarrenSJones/JonesBot/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/DarrenSJones/JonesBot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/DarrenSJones/JonesBot/releases/tag/v1.0.0
