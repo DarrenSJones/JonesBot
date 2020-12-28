@@ -61,31 +61,35 @@ public class CommandRoll extends AbstractCommand {
 		String output = "";
 		String diceMatch = "\\d+(d|D)\\d+";
 		String maxMatch = "\\s+\\d+$";
-		if (Pattern.compile(diceMatch).matcher(content).find()) {
-			Matcher m = Pattern.compile(diceMatch).matcher(content);
-			int total = 0;
-			while (m.find()) {
-				String s = m.group();
-				int amount = Integer.parseInt(s.split("(d|D)")[0]);
-				int sides = Integer.parseInt(s.split("(d|D)")[1]);
-				List<Integer> t = new ArrayList<Integer>();
-				for (int i = 0; i < amount; i++) {
-					int r = roll(sides);
-					t.add(r);
-					total += r;
+		try {
+			if (Pattern.compile(diceMatch).matcher(content).find()) {
+				Matcher m = Pattern.compile(diceMatch).matcher(content);
+				int total = 0;
+				while (m.find()) {
+					String s = m.group();
+					int amount = Integer.parseInt(s.split("(d|D)")[0]);
+					int sides = Integer.parseInt(s.split("(d|D)")[1]);
+					List<Integer> t = new ArrayList<Integer>();
+					for (int i = 0; i < amount; i++) {
+						int r = roll(sides);
+						t.add(r);
+						total += r;
+					}
+					output += String.format(" %sd%s:%s", amount, sides, t.toString());
 				}
-				output += String.format(" %sd%s:%s", amount, sides, t.toString());
-			}
-			output = String.format("Roll Total:[%s]%s", total, output);
-		} else if (Pattern.compile(maxMatch).matcher(content).find()) {
-			Matcher m = Pattern.compile(maxMatch).matcher(content);
-			if (m.find()) {
-				int max = Integer.parseInt(m.group().trim());
+				output = String.format("Roll Total:[%s]%s", total, output);
+			} else if (Pattern.compile(maxMatch).matcher(content).find()) {
+				Matcher m = Pattern.compile(maxMatch).matcher(content);
+				if (m.find()) {
+					int max = Integer.parseInt(m.group().trim());
+					output = String.format("Roll 1d%s:[%s]", max, roll(max));
+				}
+			} else {
+				int max = 6;
 				output = String.format("Roll 1d%s:[%s]", max, roll(max));
 			}
-		} else {
-			int max = 6;
-			output = String.format("Roll 1d%s:[%s]", max, roll(max));
+		} catch (IllegalArgumentException e) {
+			output = "Roll: Maximum must be greater than Minimum.";
 		}
 		return output;
 	}
