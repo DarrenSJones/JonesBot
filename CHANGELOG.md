@@ -3,7 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [1.1.0][1.1.0] - 2020-12-28 - Roll Command
+## [Unreleased][Unreleased]
+### Fixed
+- Test failures when "Unreleased" isn't in the change log.
+
+## [1.1.0][1.1.0] - 2020-12-28 - Added Roll Command
 ### Added
 - New Command: Roll.
 - New Test Set: Roll.

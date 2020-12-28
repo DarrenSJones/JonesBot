@@ -1,4 +1,3 @@
-New Command: Roll
 New Command: Poll
 New Command: Urban Dictionary lookup
 A simple schedule for simple events

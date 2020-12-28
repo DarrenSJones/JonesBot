@@ -9,7 +9,7 @@ import ca.darrensjones.jonesbot.command.utilities.Version;
 
 /**
  * @author Darren Jones
- * @version 1.1.0 2020-12-28
+ * @version 1.1.1 2020-12-28
  * @since 1.0.2 2020-12-22
  */
 public class TVersion {
