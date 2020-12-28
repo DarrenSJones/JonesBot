@@ -29,9 +29,9 @@ public class TRoll {
 
 		// Parameter - Dice
 		Assert.assertEquals(command.process("!roll 1d1"), "Roll Total:[1] 1d1:[1]");
+		Assert.assertEquals(command.process("!roll 9d1"), "Roll Total:[9] 9d1:[1, 1, 1, 1, 1, 1, 1, 1, 1]");
 		Assert.assertTrue(command.process("!roll 1d1").matches("^Roll Total:\\[[1]\\] [1]d[1]:\\[[1]\\]$"));
 		Assert.assertTrue(command.process("!roll 2d1").matches("^Roll Total:\\[[2]\\] [2]d[1]:\\[[1], [1]\\]$"));
-		Assert.assertEquals(command.process("!roll 9d1"), "Roll Total:[9] 9d1:[1, 1, 1, 1, 1, 1, 1, 1, 1]");
 		Assert.assertTrue(command.process("!roll 9d1").matches("^Roll Total:\\[[9]\\] [9]d[1]:\\[[1], [1], [1], [1], [1], [1], [1], [1], [1]\\]$"));
 		Assert.assertTrue(command.process("!roll 1d9").matches("^Roll Total:\\[[1-9]\\] [1]d[9]:\\[[1-9]\\]$"));
 		Assert.assertTrue(command.process("!roll 9d9").matches("^Roll Total:\\[[1-8]?[0-9]\\] [9]d[9]:\\[\\d, \\d, \\d, \\d, \\d, \\d, \\d, \\d, \\d\\]$"));
@@ -56,8 +56,10 @@ public class TRoll {
 		Assert.assertTrue(Integer.toString(command.roll(99)).matches("^[0-9]?[0-9]?$"));
 		Assert.assertTrue(Integer.toString(command.roll(100)).matches("^1?[0-9]?[0-9]?$"));
 
+		// Exception is thrown if Max < Min
+		Assert.assertNotNull(command.roll(1, 0));
 		try {
-			command.roll(0);
+			command.roll(0, 1);
 			Assert.assertTrue(false);
 		} catch (IllegalArgumentException e) {
 			Assert.assertTrue(true);
