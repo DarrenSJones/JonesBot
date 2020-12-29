@@ -17,8 +17,4 @@ public class OReaction extends AbstractModel {
 		if (unicode.startsWith(":") && unicode.endsWith(":")) return true;
 		return false;
 	}
-
-	public String toEmbed() {
-		return String.format("shortcode:[%s] unicode:[%s] regex:[%s]", shortcode, unicode, regex);
-	}
 }

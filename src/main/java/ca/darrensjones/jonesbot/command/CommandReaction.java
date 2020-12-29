@@ -1,19 +1,18 @@
 package ca.darrensjones.jonesbot.command;
 
 import java.awt.Color;
-import java.util.List;
 
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
-import ca.darrensjones.jonesbot.db.controller.CReaction;
 import ca.darrensjones.jonesbot.db.model.OReaction;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-09
+ * @version 1.1.1 2020-12-29
  * @since 1.0.0 2020-11-23
  */
 public class CommandReaction extends AbstractCommand {
@@ -49,9 +48,20 @@ public class CommandReaction extends AbstractCommand {
 
 	@Override
 	public void execute(Message message) {
-		List<OReaction> list = CReaction.getAll();
 		String description = "Contact your Admin for additions:";
-		for (OReaction r : list) description += String.format("\n%s", r.toEmbed());
+		for (OReaction reaction : bot.dataHandler.autoResponseReactions) {
+			String output = reaction.unicode;
+			String regex = reaction.regex;
+			if (reaction.isCustom()) {
+				for (Emote emote : bot.jda.getGuildById(message.getGuild().getId()).getEmotes()) {
+					if (emote.getName().equals(reaction.unicode.replaceAll(":", ""))) {
+						output = String.format("<%s%s>", reaction.unicode, emote.getId());
+						break;
+					}
+				}
+			}
+			description += String.format("\n%s regex:[%s]", output, regex);
+		}
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setTitle("Reaction List");
 		eb.setDescription(description);
