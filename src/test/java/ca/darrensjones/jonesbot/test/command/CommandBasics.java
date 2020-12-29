@@ -122,9 +122,9 @@ public class CommandBasics {
 	public void basicsReload() {
 		AbstractCommand c = h.getCommand("reload");
 		Assert.assertEquals(c.getName(), "Reload");
-		Assert.assertEquals(c.getDescription(), "Reloads all lists from the SQL Database");
+		Assert.assertEquals(c.getDescription(), "Reloads all Commands and data from the SQL Database");
 		Assert.assertEquals(c.getTriggers(), new String[] { "reload" });
-		Assert.assertEquals(c.getHelp(), "**!reload** Reloads all lists from the SQL Database");
+		Assert.assertEquals(c.getHelp(), "**!reload** Reloads all Commands and data from the SQL Database");
 		Assert.assertEquals(c.visibility(), CommandVisibility.OWNER);
 	}
 
