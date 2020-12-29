@@ -14,7 +14,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
  * @version 1.1.1 2020-12-29
  * @since 1.0.0 2020-11-18
  */
-public class CReaction {
+public class CAutoResponseReaction {
 
 	private static OAutoResponseReaction setRecord(ResultSet rs) throws SQLException {
 		OAutoResponseReaction record = new OAutoResponseReaction();

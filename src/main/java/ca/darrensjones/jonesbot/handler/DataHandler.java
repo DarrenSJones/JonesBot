@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import ca.darrensjones.jonesbot.db.controller.CFrinkiacSaved;
-import ca.darrensjones.jonesbot.db.controller.CReaction;
+import ca.darrensjones.jonesbot.db.controller.CAutoResponseReaction;
 import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
 import ca.darrensjones.jonesbot.db.model.OAutoResponseReaction;
 
@@ -37,7 +37,7 @@ public class DataHandler {
 	}
 
 	public void reloadSQL() {
-		autoResponseReactions = CReaction.getAll();
+		autoResponseReactions = CAutoResponseReaction.getAll();
 
 		simpsonsSaved = CFrinkiacSaved.getById("1");
 		futuramaSaved = CFrinkiacSaved.getById("2");

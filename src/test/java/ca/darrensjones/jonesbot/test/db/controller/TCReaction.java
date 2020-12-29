@@ -5,7 +5,7 @@ import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import ca.darrensjones.jonesbot.db.controller.CReaction;
+import ca.darrensjones.jonesbot.db.controller.CAutoResponseReaction;
 import ca.darrensjones.jonesbot.db.model.OAutoResponseReaction;
 
 /**
@@ -17,7 +17,7 @@ public class TCReaction {
 
 	@Test
 	public void getAll() {
-		List<OAutoResponseReaction> l = CReaction.getAll();
+		List<OAutoResponseReaction> l = CAutoResponseReaction.getAll();
 		Assert.assertEquals(l.size(), 6);
 
 		Assert.assertEquals(l.get(0).id, 1);
