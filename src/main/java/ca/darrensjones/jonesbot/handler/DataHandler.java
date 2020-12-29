@@ -30,6 +30,7 @@ public class DataHandler {
 
 	public DataHandler() {
 		reloadSQL();
+
 		simpsonsLast = new HashMap<String, String[]>();
 		futuramaLast = new HashMap<String, String[]>();
 		rickMortyLast = new HashMap<String, String[]>();
@@ -43,6 +44,7 @@ public class DataHandler {
 		rickMortySaved = CFrinkiacSaved.getById("3");
 	}
 
+	/** Used by Frinkiac to store the most recent response for each channel, overwriting if one exists. */
 	public static void setLast(HashMap<String, String[]> last, String messageChannel, String title, String response) {
 		last.remove(messageChannel);
 		last.put(messageChannel, new String[] { title, response });
