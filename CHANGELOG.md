@@ -3,9 +3,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased][Unreleased]
+## [1.1.1][1.1.1] - 2020-12-29 - AutoResponse Reorganization
+### Added
+- DiscordUtils to manage common JDA-related tasks, including getCustomEmoji and getUser.
+
+### Changed
+- AutoResponse Reaction list moved into the Data Handler with other SQL lists, and renamed.
+- AutoResponse Reaction Command list has been cleaned up.
+- Cleaned up Reaction listeners and ReactionHandler.
+
 ### Fixed
 - Test failures when "Unreleased" isn't in the change log.
+- AutoResponse Reactions won't post a custom reaction if doesn't exist in the current guild.
 
 ## [1.1.0][1.1.0] - 2020-12-28 - Added Roll Command
 ### Added
@@ -13,7 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - New Test Set: Roll.
 - Added ReactionHandler for later use, currently logs reactions to trace.
 
-### Fixed
+### Changed
 - Expanded SQL column for reaction/unicode to support custom emoji.
 
 ## [1.0.2][1.0.2] - 2020-12-22 - Change Log and To Do changes
@@ -49,7 +58,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - AutoResponse for Reactions.
 - Custom Reporter for Console and Trace logging.
 
-[Unreleased]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.0...dev
+[Unreleased]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.1...dev
+[1.1.1]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/DarrenSJones/JonesBot/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/DarrenSJones/JonesBot/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/DarrenSJones/JonesBot/compare/v1.0.0...v1.0.1
