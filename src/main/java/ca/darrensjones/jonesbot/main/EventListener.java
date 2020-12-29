@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 /**
  * @author Darren Jones
- * @version 1.1.0 2020-12-28
+ * @version 1.1.1 2020-12-29
  * @since 1.0.0 2020-11-18
  */
 public class EventListener extends ListenerAdapter {
@@ -30,11 +30,11 @@ public class EventListener extends ListenerAdapter {
 
 	@Override
 	public void onMessageReactionAdd(MessageReactionAddEvent event) {
-		bot.reactionHandler.process(event, event.getUserId(), true);
+		bot.reactionHandler.process(event, true);
 	}
 
 	@Override
 	public void onMessageReactionRemove(MessageReactionRemoveEvent event) {
-		bot.reactionHandler.process(event, event.getUserId(), false);
+		bot.reactionHandler.process(event, false);
 	}
 }
