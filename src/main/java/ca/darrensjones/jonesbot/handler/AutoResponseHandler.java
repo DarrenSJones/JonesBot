@@ -9,7 +9,7 @@ import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.db.model.OReaction;
 import ca.darrensjones.jonesbot.log.LogUtils;
 import ca.darrensjones.jonesbot.log.Reporter;
-import net.dv8tion.jda.api.entities.Emote;
+import ca.darrensjones.jonesbot.utilities.DiscordUtils;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
@@ -30,14 +30,7 @@ public class AutoResponseHandler {
 			Reporter.info("Start Reaction. " + LogUtils.logMessage(message));
 			for (OReaction reaction : getReactions(message.getContentDisplay())) {
 				String output = reaction.unicode;
-				if (reaction.isCustom()) {
-					for (Emote emote : bot.jda.getGuildById(message.getGuild().getId()).getEmotes()) {
-						if (emote.getName().equals(reaction.unicode.replaceAll(":", ""))) {
-							output = reaction.unicode + emote.getId();
-							break;
-						}
-					}
-				}
+				if (reaction.isCustom()) output = DiscordUtils.getCustomEmoji(bot.jda, message.getGuild().getId(), reaction.unicode);
 				Reporter.info(String.format("Reaction Match. id:[%s] output:[%s] regex:[%s]", reaction.id, output, reaction.regex), true);
 				message.addReaction(output).queue();
 			}

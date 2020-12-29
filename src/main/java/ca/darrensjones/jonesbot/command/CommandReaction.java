@@ -6,8 +6,8 @@ import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
 import ca.darrensjones.jonesbot.db.model.OReaction;
+import ca.darrensjones.jonesbot.utilities.DiscordUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
@@ -51,16 +51,8 @@ public class CommandReaction extends AbstractCommand {
 		String description = "Contact your Admin for additions:";
 		for (OReaction reaction : bot.dataHandler.autoResponseReactions) {
 			String output = reaction.unicode;
-			String regex = reaction.regex;
-			if (reaction.isCustom()) {
-				for (Emote emote : bot.jda.getGuildById(message.getGuild().getId()).getEmotes()) {
-					if (emote.getName().equals(reaction.unicode.replaceAll(":", ""))) {
-						output = String.format("<%s%s>", reaction.unicode, emote.getId());
-						break;
-					}
-				}
-			}
-			description += String.format("\n%s regex:[%s]", output, regex);
+			if (reaction.isCustom()) output = String.format("<%s>", DiscordUtils.getCustomEmoji(bot.jda, message.getGuild().getId(), reaction.unicode));
+			description += String.format("\n%s regex:[%s]", output, reaction.regex);
 		}
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setTitle("Reaction List");
