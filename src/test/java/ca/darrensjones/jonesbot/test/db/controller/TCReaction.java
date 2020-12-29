@@ -18,7 +18,7 @@ public class TCReaction {
 	@Test
 	public void getAll() {
 		List<OReaction> l = CReaction.getAll();
-		Assert.assertEquals(l.size(), 5);
+		Assert.assertEquals(l.size(), 6);
 
 		Assert.assertEquals(l.get(0).id, 1);
 		Assert.assertEquals(l.get(0).shortcode, ":lacrosse:");
@@ -49,5 +49,11 @@ public class TCReaction {
 		Assert.assertEquals(l.get(4).unicode, "🇨🇦");
 		Assert.assertEquals(l.get(4).regex, "canada");
 		Assert.assertFalse(l.get(4).isCustom());
+
+		Assert.assertEquals(l.get(5).id, 6);
+		Assert.assertEquals(l.get(5).shortcode, ":tipsfedora:");
+		Assert.assertEquals(l.get(5).unicode, ":tipsfedora:");
+		Assert.assertEquals(l.get(5).regex, "m'?lady");
+		Assert.assertTrue(l.get(5).isCustom());
 	}
 }

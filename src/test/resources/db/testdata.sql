@@ -15,11 +15,12 @@ UPDATE bot_config SET item_value = 'http://localhost:1080'											WHERE item_
 UPDATE bot_config SET item_value = '12345678901234567890123456789012'								WHERE item_key = 'WEATHER_TOKEN';
 
 -- Reactions
-INSERT INTO reaction VALUES (':lacrosse:',	N'🥍',		'lacrosse');
-INSERT INTO reaction VALUES (':tophat:',	N'🎩',		'top hat');
-INSERT INTO reaction VALUES (':sandwich:',	N'🥪',		'sandwich(es)?');
-INSERT INTO reaction VALUES (':man_mage:',	N'🧙‍♂️',		'(mages?|wizards?)');
-INSERT INTO reaction VALUES (':flag_ca:',	N'🇨🇦',		'canada');
+INSERT INTO reaction VALUES (':lacrosse:',		N'🥍',			'lacrosse');
+INSERT INTO reaction VALUES (':tophat:',		N'🎩',			'top hat');
+INSERT INTO reaction VALUES (':sandwich:',		N'🥪',			'sandwich(es)?');
+INSERT INTO reaction VALUES (':man_mage:',		N'🧙‍♂️',			'(mages?|wizards?)');
+INSERT INTO reaction VALUES (':flag_ca:',		N'🇨🇦',			'canada');
+INSERT INTO reaction VALUES (':tipsfedora:',	':tipsfedora:',	'm''?lady');
 
 --Frinkiac Saved
 INSERT INTO frinkiac_saved VALUES (1,	'Trash',			'S03E22',	'937738',	'trash');
