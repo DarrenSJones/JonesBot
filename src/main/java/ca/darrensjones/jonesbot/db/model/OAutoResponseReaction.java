@@ -7,7 +7,7 @@ import ca.darrensjones.jonesbot.db.AbstractModel;
  * @version 1.1.1 2020-12-29
  * @since 1.0.0 2020-11-18
  */
-public class OReaction extends AbstractModel {
+public class OAutoResponseReaction extends AbstractModel {
 	public int id;
 	public String shortcode;
 	public String unicode;

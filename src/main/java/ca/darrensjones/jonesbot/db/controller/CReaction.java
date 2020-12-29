@@ -6,18 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.darrensjones.jonesbot.db.BotDB;
-import ca.darrensjones.jonesbot.db.model.OReaction;
+import ca.darrensjones.jonesbot.db.model.OAutoResponseReaction;
 import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-19
+ * @version 1.1.1 2020-12-29
  * @since 1.0.0 2020-11-18
  */
 public class CReaction {
 
-	private static OReaction setRecord(ResultSet rs) throws SQLException {
-		OReaction record = new OReaction();
+	private static OAutoResponseReaction setRecord(ResultSet rs) throws SQLException {
+		OAutoResponseReaction record = new OAutoResponseReaction();
 		record.id = rs.getInt("id");
 		record.shortcode = rs.getString("shortcode");
 		record.unicode = rs.getString("unicode");
@@ -25,8 +25,8 @@ public class CReaction {
 		return record;
 	}
 
-	public static List<OReaction> getAll() {
-		List<OReaction> list = new ArrayList<OReaction>();
+	public static List<OAutoResponseReaction> getAll() {
+		List<OAutoResponseReaction> list = new ArrayList<OAutoResponseReaction>();
 		try {
 			ResultSet rs = BotDB.get().select("SELECT id, shortcode, unicode, regex FROM reaction");
 			while (rs.next()) list.add(setRecord(rs));

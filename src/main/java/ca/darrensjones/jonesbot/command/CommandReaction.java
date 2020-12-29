@@ -5,7 +5,7 @@ import java.awt.Color;
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
-import ca.darrensjones.jonesbot.db.model.OReaction;
+import ca.darrensjones.jonesbot.db.model.OAutoResponseReaction;
 import ca.darrensjones.jonesbot.utilities.DiscordUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -49,7 +49,7 @@ public class CommandReaction extends AbstractCommand {
 	@Override
 	public void execute(Message message) {
 		String description = "Contact your Admin for additions:";
-		for (OReaction reaction : bot.dataHandler.autoResponseReactions) {
+		for (OAutoResponseReaction reaction : bot.dataHandler.autoResponseReactions) {
 			String output = reaction.unicode;
 			if (reaction.isCustom()) output = String.format("<%s>", DiscordUtils.getCustomEmoji(bot.jda, message.getGuild().getId(), reaction.unicode));
 			description += String.format("\n%s regex:[%s]", output, reaction.regex);

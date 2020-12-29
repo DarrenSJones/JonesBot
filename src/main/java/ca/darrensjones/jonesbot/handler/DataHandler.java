@@ -6,7 +6,7 @@ import java.util.List;
 import ca.darrensjones.jonesbot.db.controller.CFrinkiacSaved;
 import ca.darrensjones.jonesbot.db.controller.CReaction;
 import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
-import ca.darrensjones.jonesbot.db.model.OReaction;
+import ca.darrensjones.jonesbot.db.model.OAutoResponseReaction;
 
 /**
  * @author Darren Jones
@@ -16,7 +16,7 @@ import ca.darrensjones.jonesbot.db.model.OReaction;
 public class DataHandler {
 
 	// Auto-Response
-	public List<OReaction> autoResponseReactions;
+	public List<OAutoResponseReaction> autoResponseReactions;
 
 	// Saved Key/Timestamp from the DB
 	public List<OFrinkiacSaved> simpsonsSaved;

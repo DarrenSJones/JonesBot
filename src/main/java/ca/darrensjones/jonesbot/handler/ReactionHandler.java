@@ -23,12 +23,10 @@ public class ReactionHandler {
 		User user = DiscordUtils.getUser(bot.jda, userId);
 		if (user.isBot()) return;
 
-		if (add) {
-			Reporter.info(String.format("Reaction Added! Guild:[%s] Channel:[%s] Message:[%s] User:[%s] Emote:[%s]", event.getGuild().getName(),
-					event.getChannel().getName(), event.getMessageId(), user.getName(), event.getReactionEmote().getEmoji()), false);
-		} else {
-			Reporter.info(String.format("Reaction Removed! Guild:[%s] Channel:[%s] Message:[%s] User:[%s] Emote:[%s]", event.getGuild().getName(),
-					event.getChannel().getName(), event.getMessageId(), user.getName(), event.getReactionEmote().getEmoji()), false);
-		}
+		String action = "Removed";
+		if (add) action = "Added";
+
+		Reporter.info(String.format("Reaction %s! Guild:[%s] Channel:[%s] Message:[%s] User:[%s] Emote:[%s]", action, event.getGuild().getName(),
+				event.getChannel().getName(), event.getMessageId(), user.getName(), event.getReactionEmote().getEmoji()), false);
 	}
 }
