@@ -2,12 +2,13 @@ package ca.darrensjones.jonesbot.handler;
 
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.log.Reporter;
+import ca.darrensjones.jonesbot.utilities.DiscordUtils;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
 
 /**
  * @author Darren Jones
- * @version 1.1.0 2020-12-28
+ * @version 1.1.1 2020-12-29
  * @since 1.1.0 2020-12-27
  */
 public class ReactionHandler {
@@ -19,7 +20,7 @@ public class ReactionHandler {
 	}
 
 	public void process(GenericMessageReactionEvent event, String userId, boolean add) {
-		User user = bot.jda.retrieveUserById(userId).complete(); // Remove Reaction doesn't return User information
+		User user = DiscordUtils.getUser(bot.jda, userId);
 		if (user.isBot()) return;
 
 		if (add) {

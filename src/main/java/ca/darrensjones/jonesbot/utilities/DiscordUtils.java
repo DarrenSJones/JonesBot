@@ -2,6 +2,7 @@ package ca.darrensjones.jonesbot.utilities;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.User;
 
 /**
  * @author Darren Jones
@@ -18,5 +19,9 @@ public class DiscordUtils {
 			}
 		}
 		return emoji;
+	}
+
+	public static User getUser(JDA jda, String userId) {
+		return jda.retrieveUserById(userId).complete();
 	}
 }
