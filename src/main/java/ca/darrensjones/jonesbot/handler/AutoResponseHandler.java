@@ -27,7 +27,7 @@ public class AutoResponseHandler {
 
 	public void process(Message message) {
 		if (hasReaction(message.getContentDisplay())) {
-			Reporter.info("Start Reaction. " + LogUtils.getMessageInfo(message));
+			Reporter.info("Start Reaction. " + LogUtils.logMessage(message));
 			for (OReaction reaction : getReactions(message.getContentDisplay())) {
 				if (reaction.isCustom()) {
 					for (Emote emote : bot.jda.getGuildById(message.getGuild().getId()).getEmotes()) {

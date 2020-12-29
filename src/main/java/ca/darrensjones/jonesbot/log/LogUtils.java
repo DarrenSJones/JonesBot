@@ -9,7 +9,7 @@ import net.dv8tion.jda.api.entities.Message;
  */
 public class LogUtils {
 
-	public static String getMessageInfo(Message message) {
+	public static String logMessage(Message message) {
 		String author = "";
 		String guild = "";
 		String channel = "";

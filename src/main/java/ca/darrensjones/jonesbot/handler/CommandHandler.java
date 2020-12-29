@@ -30,7 +30,7 @@ public class CommandHandler {
 	}
 
 	public void process(Message message) {
-		Reporter.info("Start CommandHandler. " + LogUtils.getMessageInfo(message));
+		Reporter.info("Start CommandHandler. " + LogUtils.logMessage(message));
 
 		String content = message.getContentDisplay();
 		AbstractCommand c = getCommand(content.split("\\s+")[0].substring(bot.config.BOT_PREFIX.length()));
