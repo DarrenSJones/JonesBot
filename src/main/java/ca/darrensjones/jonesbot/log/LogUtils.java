@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.1 2020-12-18
+ * @version 1.1.1 2020-12-29
  * @since 1.0.0 2020-11-18
  */
 public class LogUtils {
@@ -38,7 +38,7 @@ public class LogUtils {
 			break;
 
 		default:
-			Reporter.warn(String.format("getMessageInfo ChannelType Invalid:[%s]", message.getChannelType().toString()));
+			Reporter.warn(String.format("logMessage ChannelType Invalid:[%s]", message.getChannelType().toString()));
 		}
 
 		return String.format("Author:[%s] Guild:[%s] Channel:[%s] Content:[%s]", author, guild, channel, content);
