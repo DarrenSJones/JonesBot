@@ -29,18 +29,17 @@ public class AutoResponseHandler {
 		if (hasReaction(message.getContentDisplay())) {
 			Reporter.info("Start Reaction. " + LogUtils.logMessage(message));
 			for (OReaction reaction : getReactions(message.getContentDisplay())) {
+				String output = reaction.unicode;
 				if (reaction.isCustom()) {
 					for (Emote emote : bot.jda.getGuildById(message.getGuild().getId()).getEmotes()) {
 						if (emote.getName().equals(reaction.unicode.replaceAll(":", ""))) {
-							Reporter.info("Reaction Match. " + reaction.toLog(), true);
-							message.addReaction(reaction.unicode + emote.getId()).queue();
+							output = reaction.unicode + emote.getId();
 							break;
 						}
 					}
-				} else {
-					Reporter.info("Reaction Match. " + reaction.toLog(), true);
-					message.addReaction(reaction.unicode).queue();
 				}
+				Reporter.info(String.format("Reaction Match. id:[%s] output:[%s] regex:[%s]", reaction.id, output, reaction.regex), true);
+				message.addReaction(output).queue();
 			}
 			Reporter.info("End Reaction.");
 		}

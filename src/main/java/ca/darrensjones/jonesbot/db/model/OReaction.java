@@ -18,10 +18,6 @@ public class OReaction extends AbstractModel {
 		return false;
 	}
 
-	public String toLog() {
-		return String.format("id:[%s] shortcode:[%s] unicode:[%s] regex:[%s]", id, shortcode, unicode, regex);
-	}
-
 	public String toEmbed() {
 		return String.format("shortcode:[%s] unicode:[%s] regex:[%s]", shortcode, unicode, regex);
 	}
