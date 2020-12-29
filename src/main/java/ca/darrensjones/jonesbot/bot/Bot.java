@@ -14,7 +14,7 @@ import net.dv8tion.jda.api.JDABuilder;
 
 /**
  * @author Darren Jones
- * @version 1.1.0 2020-12-28
+ * @version 1.1.1 2020-12-29
  * @since 1.0.0 2020-11-18
  */
 public class Bot {
@@ -32,7 +32,7 @@ public class Bot {
 
 	public Bot(boolean test) {
 		this.config = CConfig.getConfig();
-		this.autoResponseHandler = new AutoResponseHandler();
+		this.autoResponseHandler = new AutoResponseHandler(this);
 		this.commandHandler = new CommandHandler(this);
 		this.dataHandler = new DataHandler();
 		this.reactionHandler = new ReactionHandler(this);
