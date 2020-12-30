@@ -20,7 +20,7 @@ public class CommandBasics {
 
 	@Test
 	public void commands() {
-		Assert.assertEquals(h.commands.size(), 15);
+		Assert.assertEquals(h.commands.size(), 16);
 		Assert.assertNotNull(h.getCommand("CatFact"));
 		Assert.assertNotNull(h.getCommand("ChangeLog"));
 		Assert.assertNotNull(h.getCommand("Cowbell"));
@@ -79,6 +79,16 @@ public class CommandBasics {
 	}
 
 	@Test(dependsOnMethods = "basicsFuturama", alwaysRun = true)
+	public void basicsGame() {
+		AbstractCommand c = h.getCommand("game");
+		Assert.assertEquals(c.getName(), "Game");
+		Assert.assertEquals(c.getDescription(), "Starts a new game!");
+		Assert.assertEquals(c.getTriggers(), new String[] { "game" });
+		Assert.assertEquals(c.getHelp(), "**!game** Starts a new game!");
+		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
+	}
+
+	@Test(dependsOnMethods = "basicsGame", alwaysRun = true)
 	public void basicsHelp() {
 		AbstractCommand c = h.getCommand("help");
 		Assert.assertEquals(c.getName(), "Help");
