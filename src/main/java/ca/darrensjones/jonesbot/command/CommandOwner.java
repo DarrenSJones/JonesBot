@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-09
+ * @version 1.2.0 2020-12-29
  * @since 1.0.0 2020-11-24
  */
 public class CommandOwner extends AbstractCommand {
@@ -49,7 +49,7 @@ public class CommandOwner extends AbstractCommand {
 		if (!message.getAuthor().getId().equals(bot.config.BOT_OWNER_ID)) return;
 
 		String help = String.format("Commands are not case-sensitive. Try \"{command} %shelp\" for more information.", bot.config.BOT_PREFIX);
-		for (AbstractCommand c : bot.commandHandler.getCommands()) {
+		for (AbstractCommand c : bot.commandHandler.commands) {
 			if (c.visibility().isOwner()) {
 				help += String.format("%n**%s%s**: %s", bot.config.BOT_PREFIX, c.getTriggers()[0], c.getDescription());
 			}

@@ -16,13 +16,13 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.1 2020-12-15
+ * @version 1.2.0 2020-12-29
  * @since 1.0.0 2020-11-22
  */
 public class CommandHandler {
 
 	private final Bot bot;
-	private static List<AbstractCommand> commands;
+	public List<AbstractCommand> commands;
 
 	public CommandHandler(Bot bot) {
 		this.bot = bot;
@@ -57,10 +57,6 @@ public class CommandHandler {
 	public boolean isCommand(String content) {
 		if (content.startsWith(bot.config.BOT_PREFIX)) return true;
 		else return false;
-	}
-
-	public List<AbstractCommand> getCommands() {
-		return commands;
 	}
 
 	public AbstractCommand getCommand(String commandName) {

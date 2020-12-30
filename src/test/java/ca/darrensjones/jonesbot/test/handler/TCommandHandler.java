@@ -8,7 +8,7 @@ import ca.darrensjones.jonesbot.testcore.BotTest;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-25
+ * @version 1.2.0 2020-11-29
  * @since 1.0.0 2020-11-23
  */
 public class TCommandHandler {
@@ -53,13 +53,6 @@ public class TCommandHandler {
 	}
 
 	@Test(dependsOnMethods = "isCommand", alwaysRun = true)
-	public void getCommands() {
-
-		/* Full list is validated in CommandBasics */
-		Assert.assertNotNull(c.getCommands());
-	}
-
-	@Test(dependsOnMethods = "getCommands", alwaysRun = true)
 	public void getCommand() {
 
 		/* Valid Commands */

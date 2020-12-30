@@ -11,7 +11,7 @@ import ca.darrensjones.jonesbot.testcore.BotTest;
 
 /**
  * @author Darren Jones
- * @version 1.1.1 2020-12-29
+ * @version 1.2.0 2020-12-29
  * @since 1.0.0 2020-11-24
  */
 public class CommandBasics {
@@ -19,8 +19,8 @@ public class CommandBasics {
 	private static final CommandHandler h = BotTest.get().commandHandler;
 
 	@Test
-	public void getCommandsList() {
-		Assert.assertEquals(h.getCommands().size(), 15);
+	public void commands() {
+		Assert.assertEquals(h.commands.size(), 15);
 		Assert.assertNotNull(h.getCommand("CatFact"));
 		Assert.assertNotNull(h.getCommand("ChangeLog"));
 		Assert.assertNotNull(h.getCommand("Cowbell"));
@@ -38,7 +38,7 @@ public class CommandBasics {
 		Assert.assertNotNull(h.getCommand("Weather"));
 	}
 
-	@Test(dependsOnMethods = "getCommandsList", alwaysRun = true)
+	@Test(dependsOnMethods = "commands", alwaysRun = true)
 	public void basicsCatFact() {
 		AbstractCommand c = h.getCommand("catfact");
 		Assert.assertEquals(c.getName(), "CatFact");
@@ -48,7 +48,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
-	@Test(dependsOnMethods = "getCommandsList", alwaysRun = true)
+	@Test(dependsOnMethods = "basicsCatFact", alwaysRun = true)
 	public void basicsChangelog() {
 		AbstractCommand c = h.getCommand("changeLog");
 		Assert.assertEquals(c.getName(), "Change Log");
