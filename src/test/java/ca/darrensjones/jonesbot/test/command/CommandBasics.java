@@ -1,5 +1,8 @@
 package ca.darrensjones.jonesbot.test.command;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -39,6 +42,17 @@ public class CommandBasics {
 	}
 
 	@Test(dependsOnMethods = "commands", alwaysRun = true)
+	public void validateTriggers() {
+		List<String> triggers = new ArrayList<String>();
+		for (AbstractCommand command : h.commands) {
+			for (String trigger : command.getTriggers()) {
+				Assert.assertFalse(triggers.contains(trigger)); // Fails if duplicate command triggers exist
+				triggers.add(trigger);
+			}
+		}
+	}
+
+	@Test(dependsOnMethods = "validateTriggers", alwaysRun = true)
 	public void basicsCatFact() {
 		AbstractCommand c = h.getCommand("!catfact");
 		Assert.assertEquals(c.getName(), "CatFact");
