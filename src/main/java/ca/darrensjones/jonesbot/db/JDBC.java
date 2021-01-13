@@ -10,16 +10,16 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.1 2020-12-17
+ * @version 1.1.2 2020-01-13
  * @since 1.0.0 2020-11-18
  */
 public class JDBC {
 
 	private final String driver;
+	private final String database;
 	private final String userName;
 	private final String password;
-	private final String database;
-	private Connection c;
+	private Connection connection;
 
 	public JDBC(String driver, String database, String userName, String password) {
 		this.driver = driver;
@@ -32,16 +32,16 @@ public class JDBC {
 		String url = String.format("jdbc:sqlserver://%s;databaseName=%s;integratedSecurity=true;loginTimeout=10;", driver, database);
 		Reporter.info(String.format("Creating JDBC Connection:[%s] UserName:[%s] Password:[%s]", url, userName, password));
 		try {
-			c = DriverManager.getConnection(url, userName, password);
-			Reporter.info(String.format("JDBC Connection created:[%s]", c.getCatalog()));
+			connection = DriverManager.getConnection(url, userName, password);
+			Reporter.info(String.format("JDBC Connection created:[%s]", connection.getCatalog()));
 		} catch (SQLException e) {
 			Reporter.fatal("Failed to create JDBC Connection.\n" + e.getMessage());
 		}
 	}
 
 	public Connection getConnection() {
-		if (c == null) createConnection();
-		return c;
+		if (connection == null) createConnection();
+		return connection;
 	}
 
 	public ResultSet select(String sql) throws SQLException {
