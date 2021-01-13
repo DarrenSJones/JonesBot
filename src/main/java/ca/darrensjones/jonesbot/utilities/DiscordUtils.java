@@ -2,11 +2,13 @@ package ca.darrensjones.jonesbot.utilities;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 /**
  * @author Darren Jones
- * @version 1.1.1 2020-12-29
+ * @version 1.1.2 2021-01-13
  * @since 1.1.1 2020-12-29
  */
 public class DiscordUtils {
@@ -21,7 +23,20 @@ public class DiscordUtils {
 		return emoji;
 	}
 
+	public static Message getMessage(JDA jda, String textChannelId, String messageId) {
+		return jda.getTextChannelById(textChannelId).retrieveMessageById(messageId).complete();
+	}
+
 	public static User getUser(JDA jda, String userId) {
 		return jda.retrieveUserById(userId).complete();
+	}
+
+	public static boolean isBot(JDA jda, String userId) {
+		if (jda.retrieveUserById(userId).complete().isBot()) return false;
+		return true;
+	}
+
+	public static Message getMessage(TextChannel textChannel, String messageId) {
+		return textChannel.retrieveMessageById(messageId).complete();
 	}
 }

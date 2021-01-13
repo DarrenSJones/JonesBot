@@ -31,14 +31,14 @@ public class EventListener extends ListenerAdapter {
 
 	@Override
 	public void onMessageReactionAdd(MessageReactionAddEvent event) {
-		if (DiscordUtils.getUser(bot.jda, event.getUserId()).isBot()) return;
+		if (DiscordUtils.isBot(bot.jda, event.getUserId())) return;
 
 		bot.reactionHandler.process(event, true);
 	}
 
 	@Override
 	public void onMessageReactionRemove(MessageReactionRemoveEvent event) {
-		if (DiscordUtils.getUser(bot.jda, event.getUserId()).isBot()) return;
+		if (DiscordUtils.isBot(bot.jda, event.getUserId())) return;
 
 		bot.reactionHandler.process(event, false);
 	}
