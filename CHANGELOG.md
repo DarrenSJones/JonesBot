@@ -3,9 +3,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased][Unreleased]
+## [1.1.2][1.1.2] - 2021-01-13 - Internal Logging Cleanup
+### Added
+- Foundations for future Games, including the Handler and Models.
+
 ### Changed
 - ReadMe formatting to be more readable in GitHub.
+- Console and debug logging cleaned up to be more descriptive.
+
+### Fixed
+- Standardized how commands are found in the command list.
+- Standardized how Users and Messages are found via JDA.
 
 ## [1.1.1][1.1.1] - 2020-12-29 - AutoResponse Reorganization
 ### Added
@@ -17,7 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Cleaned up Reaction listeners and ReactionHandler.
 
 ### Fixed
-- Test failures when "Unreleased" isn't in the change log.
+- Tests no longer fail when "Unreleased" isn't in the change log.
 - AutoResponse Reactions won't post a custom reaction if doesn't exist in the current guild.
 
 ## [1.1.0][1.1.0] - 2020-12-28 - Added Roll Command
@@ -38,7 +46,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Version now shows a list of all versions, the date they released, and a small summary.
 
 ### Fixed
-- Naming and links in the change log.
+- Naming and links in the change log are now correct.
 
 ## [1.0.1][1.0.1] - 2020-12-19 - General Cleanup
 ### Added
