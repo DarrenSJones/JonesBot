@@ -11,7 +11,7 @@ import ca.darrensjones.jonesbot.testcore.BotTest;
 
 /**
  * @author Darren Jones
- * @version 1.1.2 2020-12-29
+ * @version 1.1.2 2021-01-13
  * @since 1.0.0 2020-11-24
  */
 public class CommandBasics {
@@ -21,26 +21,26 @@ public class CommandBasics {
 	@Test
 	public void commands() {
 		Assert.assertEquals(h.commands.size(), 16);
-		Assert.assertNotNull(h.getCommand("CatFact"));
-		Assert.assertNotNull(h.getCommand("ChangeLog"));
-		Assert.assertNotNull(h.getCommand("Cowbell"));
-		Assert.assertNotNull(h.getCommand("Futurama"));
-		Assert.assertNotNull(h.getCommand("Help"));
-		Assert.assertNotNull(h.getCommand("Owner"));
-		Assert.assertNotNull(h.getCommand("Ping"));
-		Assert.assertNotNull(h.getCommand("Reaction"));
-		Assert.assertNotNull(h.getCommand("Reload"));
-		Assert.assertNotNull(h.getCommand("Rick&Morty"));
-		Assert.assertNotNull(h.getCommand("Roll"));
-		Assert.assertNotNull(h.getCommand("Simpsons"));
-		Assert.assertNotNull(h.getCommand("ToDo"));
-		Assert.assertNotNull(h.getCommand("Version"));
-		Assert.assertNotNull(h.getCommand("Weather"));
+		Assert.assertNotNull(h.getCommand("!CatFact"));
+		Assert.assertNotNull(h.getCommand("!ChangeLog"));
+		Assert.assertNotNull(h.getCommand("!Cowbell"));
+		Assert.assertNotNull(h.getCommand("!Futurama"));
+		Assert.assertNotNull(h.getCommand("!Help"));
+		Assert.assertNotNull(h.getCommand("!Owner"));
+		Assert.assertNotNull(h.getCommand("!Ping"));
+		Assert.assertNotNull(h.getCommand("!Reaction"));
+		Assert.assertNotNull(h.getCommand("!Reload"));
+		Assert.assertNotNull(h.getCommand("!Rick&Morty"));
+		Assert.assertNotNull(h.getCommand("!Roll"));
+		Assert.assertNotNull(h.getCommand("!Simpsons"));
+		Assert.assertNotNull(h.getCommand("!ToDo"));
+		Assert.assertNotNull(h.getCommand("!Version"));
+		Assert.assertNotNull(h.getCommand("!Weather"));
 	}
 
 	@Test(dependsOnMethods = "commands", alwaysRun = true)
 	public void basicsCatFact() {
-		AbstractCommand c = h.getCommand("catfact");
+		AbstractCommand c = h.getCommand("!catfact");
 		Assert.assertEquals(c.getName(), "CatFact");
 		Assert.assertEquals(c.getDescription(), "Displays a random cat fact from https://catfact.ninja");
 		Assert.assertEquals(c.getTriggers(), new String[] { "catfact", "catfacts" });
@@ -50,7 +50,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsCatFact", alwaysRun = true)
 	public void basicsChangelog() {
-		AbstractCommand c = h.getCommand("changeLog");
+		AbstractCommand c = h.getCommand("!changelog");
 		Assert.assertEquals(c.getName(), "Change Log");
 		Assert.assertEquals(c.getDescription(), "JonesBot Change Log Information");
 		Assert.assertEquals(c.getTriggers(), new String[] { "changelog" });
@@ -60,7 +60,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsChangelog", alwaysRun = true)
 	public void basicsCowbell() {
-		AbstractCommand c = h.getCommand("cowbell");
+		AbstractCommand c = h.getCommand("!cowbell");
 		Assert.assertEquals(c.getName(), "Cowbell");
 		Assert.assertEquals(c.getDescription(), "When you need more of it");
 		Assert.assertEquals(c.getTriggers(), new String[] { "cowbell" });
@@ -70,7 +70,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsCatFact", alwaysRun = true)
 	public void basicsFuturama() {
-		AbstractCommand c = h.getCommand("futurama");
+		AbstractCommand c = h.getCommand("!futurama");
 		Assert.assertEquals(c.getName(), "Futurama");
 		Assert.assertEquals(c.getDescription(), "Returns an image from http://morbotron.com");
 		Assert.assertEquals(c.getTriggers(), new String[] { "futurama", "f" });
@@ -80,7 +80,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsFuturama", alwaysRun = true)
 	public void basicsGame() {
-		AbstractCommand c = h.getCommand("game");
+		AbstractCommand c = h.getCommand("!game");
 		Assert.assertEquals(c.getName(), "Game");
 		Assert.assertEquals(c.getDescription(), "Starts a new game!");
 		Assert.assertEquals(c.getTriggers(), new String[] { "game" });
@@ -90,7 +90,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsGame", alwaysRun = true)
 	public void basicsHelp() {
-		AbstractCommand c = h.getCommand("help");
+		AbstractCommand c = h.getCommand("!help");
 		Assert.assertEquals(c.getName(), "Help");
 		Assert.assertEquals(c.getDescription(), "The full list of Commands");
 		Assert.assertEquals(c.getTriggers(), new String[] { "help", "h" });
@@ -100,7 +100,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsHelp", alwaysRun = true)
 	public void basicsOwner() {
-		AbstractCommand c = h.getCommand("owner");
+		AbstractCommand c = h.getCommand("!owner");
 		Assert.assertEquals(c.getName(), "Owner");
 		Assert.assertEquals(c.getDescription(), "The full list of Owner-only Commands");
 		Assert.assertEquals(c.getTriggers(), new String[] { "owner" });
@@ -110,7 +110,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsOwner", alwaysRun = true)
 	public void basicsPing() {
-		AbstractCommand c = h.getCommand("ping");
+		AbstractCommand c = h.getCommand("!ping");
 		Assert.assertEquals(c.getName(), "Ping");
 		Assert.assertEquals(c.getDescription(), "Pong!");
 		Assert.assertEquals(c.getTriggers(), new String[] { "ping", "p" });
@@ -120,7 +120,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsPing", alwaysRun = true)
 	public void basicsReaction() {
-		AbstractCommand c = h.getCommand("reaction");
+		AbstractCommand c = h.getCommand("!reaction");
 		Assert.assertEquals(c.getName(), "Reaction");
 		Assert.assertEquals(c.getDescription(), "A list of reactions the Bot will respond with");
 		Assert.assertEquals(c.getTriggers(), new String[] { "reaction", "reactions" });
@@ -130,7 +130,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsReaction", alwaysRun = true)
 	public void basicsReload() {
-		AbstractCommand c = h.getCommand("reload");
+		AbstractCommand c = h.getCommand("!reload");
 		Assert.assertEquals(c.getName(), "Reload");
 		Assert.assertEquals(c.getDescription(), "Reloads all Commands and data from the SQL Database");
 		Assert.assertEquals(c.getTriggers(), new String[] { "reload" });
@@ -140,7 +140,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsCatFact", alwaysRun = true)
 	public void basicsRickMorty() {
-		AbstractCommand c = h.getCommand("rick&morty");
+		AbstractCommand c = h.getCommand("!rick&morty");
 		Assert.assertEquals(c.getName(), "Rick&Morty");
 		Assert.assertEquals(c.getDescription(), "Returns an image from http://masterofallscience.com");
 		Assert.assertEquals(c.getTriggers(), new String[] { "rick&morty", "rick", "morty" });
@@ -150,7 +150,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsRickMorty", alwaysRun = true)
 	public void basicsRoll() {
-		AbstractCommand c = h.getCommand("roll");
+		AbstractCommand c = h.getCommand("!roll");
 		Assert.assertEquals(c.getName(), "Roll");
 		Assert.assertEquals(c.getDescription(), "Roll some dice!");
 		Assert.assertEquals(c.getTriggers(), new String[] { "roll", "r" });
@@ -160,7 +160,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsRoll", alwaysRun = true)
 	public void basicsSimpsons() {
-		AbstractCommand c = h.getCommand("simpsons");
+		AbstractCommand c = h.getCommand("!simpsons");
 		Assert.assertEquals(c.getName(), "Simpsons");
 		Assert.assertEquals(c.getDescription(), "Returns an image from http://frinkiac.com");
 		Assert.assertEquals(c.getTriggers(), new String[] { "simpsons", "s" });
@@ -170,7 +170,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsSimpsons", alwaysRun = true)
 	public void basicsToDo() {
-		AbstractCommand c = h.getCommand("todo");
+		AbstractCommand c = h.getCommand("!todo");
 		Assert.assertEquals(c.getName(), "To Do");
 		Assert.assertEquals(c.getDescription(), "JonesBot To Do List");
 		Assert.assertEquals(c.getTriggers(), new String[] { "todo" });
@@ -180,7 +180,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsToDo", alwaysRun = true)
 	public void basicsVersion() {
-		AbstractCommand c = h.getCommand("version");
+		AbstractCommand c = h.getCommand("!version");
 		Assert.assertEquals(c.getName(), "Version");
 		Assert.assertEquals(c.getDescription(), "JonesBot Version Information");
 		Assert.assertEquals(c.getTriggers(), new String[] { "version", "v" });
@@ -190,7 +190,7 @@ public class CommandBasics {
 
 	@Test(dependsOnMethods = "basicsVersion", alwaysRun = true)
 	public void basicsWeather() {
-		AbstractCommand c = h.getCommand("weather");
+		AbstractCommand c = h.getCommand("!weather");
 		Assert.assertEquals(c.getName(), "Weather");
 		Assert.assertEquals(c.getDescription(), "Gets the Weather from https://openweathermap.org/");
 		Assert.assertEquals(c.getTriggers(), new String[] { "weather", "w" });
