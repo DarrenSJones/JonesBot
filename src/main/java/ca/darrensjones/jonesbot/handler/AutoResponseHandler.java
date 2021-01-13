@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.db.model.OAutoResponseReaction;
-import ca.darrensjones.jonesbot.log.LogUtils;
 import ca.darrensjones.jonesbot.log.Reporter;
 import ca.darrensjones.jonesbot.utilities.DiscordUtils;
 import net.dv8tion.jda.api.entities.Message;
@@ -27,7 +26,7 @@ public class AutoResponseHandler {
 
 	public void process(Message message) {
 		if (hasReaction(message.getContentDisplay())) {
-			Reporter.info("AutoResponse Reaction Start. " + LogUtils.logMessage(message));
+			Reporter.logMessage(message, "AutoResponse Reaction Start.");
 
 			for (OAutoResponseReaction reaction : getReactions(message.getContentDisplay())) {
 				String output = reaction.unicode;

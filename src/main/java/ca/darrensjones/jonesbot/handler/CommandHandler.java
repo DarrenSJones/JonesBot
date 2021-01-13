@@ -8,7 +8,6 @@ import org.reflections.Reflections;
 
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
-import ca.darrensjones.jonesbot.log.LogUtils;
 import ca.darrensjones.jonesbot.log.Reporter;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -29,7 +28,7 @@ public class CommandHandler {
 	}
 
 	public void process(Message message) {
-		Reporter.info("CommandHandler Start. " + LogUtils.logMessage(message));
+		Reporter.logMessage(message, "CommandHandler Start.");
 
 		String content = message.getContentDisplay();
 		AbstractCommand command = getCommand(content);
