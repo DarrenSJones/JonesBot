@@ -1,6 +1,7 @@
 package ca.darrensjones.jonesbot.main;
 
 import ca.darrensjones.jonesbot.bot.Bot;
+import ca.darrensjones.jonesbot.utilities.DiscordUtils;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
@@ -8,7 +9,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 /**
  * @author Darren Jones
- * @version 1.1.1 2020-12-29
+ * @version 1.1.2 2020-01-13
  * @since 1.0.0 2020-11-18
  */
 public class EventListener extends ListenerAdapter {
@@ -30,11 +31,15 @@ public class EventListener extends ListenerAdapter {
 
 	@Override
 	public void onMessageReactionAdd(MessageReactionAddEvent event) {
+		if (DiscordUtils.getUser(bot.jda, event.getUserId()).isBot()) return;
+
 		bot.reactionHandler.process(event, true);
 	}
 
 	@Override
 	public void onMessageReactionRemove(MessageReactionRemoveEvent event) {
+		if (DiscordUtils.getUser(bot.jda, event.getUserId()).isBot()) return;
+
 		bot.reactionHandler.process(event, false);
 	}
 }
