@@ -29,33 +29,38 @@ public class CommandHandler {
 	}
 
 	public void process(Message message) {
-		Reporter.info("Start CommandHandler. " + LogUtils.logMessage(message));
+		Reporter.info("CommandHandler Start. " + LogUtils.logMessage(message));
 
 		String content = message.getContentDisplay();
-		AbstractCommand c = getCommand(content);
+		AbstractCommand command = getCommand(content);
 
-		if (c != null) {
+		if (command == null) {
+			Reporter.warn(String.format("Command not found:[%s]", content));
+
+		} else {
+			Reporter.info(String.format("Command found:[%s]", command.getName()));
+
 			if (hasHelp(content)) {
-				Reporter.info(String.format("Executing Help SubCommand:[%s]", c.getName()));
+				Reporter.info("Executing 'help' subcommand.");
+
 				EmbedBuilder eb = new EmbedBuilder();
-				eb.setTitle("Help: " + c.getName());
-				eb.setDescription(c.getHelp());
+				eb.setTitle("Help: " + command.getName());
+				eb.setDescription(command.getHelp());
 				eb.setColor(new Color(0, 153, 255));
 				message.getChannel().sendMessage(eb.build()).queue();
+
 			} else {
-				Reporter.info(String.format("Executing Command:[%s]", c.getName()));
-				c.execute(message);
+				Reporter.info("Executing Command.");
+				command.execute(message);
 			}
-		} else {
-			Reporter.info(String.format("Command not found in list:[%s]", content));
 		}
 
-		Reporter.info("End CommandHandler.");
+		Reporter.info("CommandHandler End.");
 	}
 
 	/**
 	 * @param content Message Content
-	 * @return True if content starts with Prefix, False otherwise.
+	 * @return True if content starts with Prefix, False otherwise
 	 */
 	public boolean isCommand(String content) {
 		if (content.startsWith(bot.config.BOT_PREFIX)) return true;
@@ -67,11 +72,11 @@ public class CommandHandler {
 	 * @return Command that matches the given content
 	 */
 	public AbstractCommand getCommand(String content) {
-		String name = content.split("\\s+")[0].substring(bot.config.BOT_PREFIX.length());
 		if (isCommand(content)) {
+			String name = content.split("\\s+")[0].substring(bot.config.BOT_PREFIX.length());
 			for (AbstractCommand command : commands) {
-				for (String t : command.getTriggers()) {
-					if (t.equalsIgnoreCase(name)) return command;
+				for (String trigger : command.getTriggers()) {
+					if (trigger.equalsIgnoreCase(name)) return command;
 				}
 			}
 		}
@@ -80,12 +85,14 @@ public class CommandHandler {
 
 	/**
 	 * @param content Message Content
-	 * @return True if content has a 'help' subcommand, False otherwise.
+	 * @return True if content has a 'help' subcommand, False otherwise
 	 */
 	public boolean hasHelp(String content) {
-		String[] args = content.split("\\s+");
-		for (int i = 1; i < args.length; i++) {
-			if (args[i].equalsIgnoreCase(bot.config.BOT_PREFIX + "help")) return true;
+		if (isCommand(content)) {
+			String[] args = content.split("\\s+");
+			for (int i = 1; i < args.length; i++) {
+				if (args[i].equalsIgnoreCase(bot.config.BOT_PREFIX + "help")) return true;
+			}
 		}
 		return false;
 	}

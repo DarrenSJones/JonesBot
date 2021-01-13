@@ -14,7 +14,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.1.1 2020-12-29
+ * @version 1.1.2 2021-01-13
  * @since 1.0.0 2020-11-18
  */
 public class AutoResponseHandler {
@@ -27,17 +27,23 @@ public class AutoResponseHandler {
 
 	public void process(Message message) {
 		if (hasReaction(message.getContentDisplay())) {
-			Reporter.info("Start Reaction. " + LogUtils.logMessage(message));
+			Reporter.info("AutoResponse Reaction Start. " + LogUtils.logMessage(message));
+
 			for (OAutoResponseReaction reaction : getReactions(message.getContentDisplay())) {
 				String output = reaction.unicode;
 				if (reaction.isCustom()) output = DiscordUtils.getCustomEmoji(bot.jda, message.getGuild().getId(), reaction.unicode);
-				Reporter.info(String.format("Reaction Match. id:[%s] output:[%s] regex:[%s]", reaction.id, output, reaction.regex), true);
+				Reporter.info(String.format("Posting Reaction. id:[%s] output:[%s] regex:[%s]", reaction.id, output, reaction.regex), true);
 				message.addReaction(output).queue();
 			}
-			Reporter.info("End Reaction.");
+
+			Reporter.info("AutoResponse Reaction End.");
 		}
 	}
 
+	/**
+	 * @param content Message Content
+	 * @return True if content contains one or more AutoResponseReaction regex matches, False otherwise
+	 */
 	public boolean hasReaction(String content) {
 		for (OAutoResponseReaction reaction : bot.dataHandler.autoResponseReactions) {
 			Pattern pattern = Pattern.compile("(?=(\\W|^)" + reaction.regex + "(\\W|$))");
@@ -46,6 +52,10 @@ public class AutoResponseHandler {
 		return false;
 	}
 
+	/**
+	 * @param content Message Content
+	 * @return List containing all Reaction matches within 'content', in order
+	 */
 	public List<OAutoResponseReaction> getReactions(String content) {
 		ArrayList<Object[]> a = new ArrayList<Object[]>(); // <index, OReaction>
 		for (OAutoResponseReaction reaction : bot.dataHandler.autoResponseReactions) {
