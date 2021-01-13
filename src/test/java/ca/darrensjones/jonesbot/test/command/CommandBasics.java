@@ -11,7 +11,7 @@ import ca.darrensjones.jonesbot.testcore.BotTest;
 
 /**
  * @author Darren Jones
- * @version 1.2.0 2020-12-29
+ * @version 1.1.2 2020-12-29
  * @since 1.0.0 2020-11-24
  */
 public class CommandBasics {

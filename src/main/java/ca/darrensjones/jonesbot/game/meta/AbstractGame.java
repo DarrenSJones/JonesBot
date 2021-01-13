@@ -8,8 +8,8 @@ import net.dv8tion.jda.api.entities.User;
 
 /**
  * @author Darren Jones
- * @version 1.2.0 2020-12-29
- * @since 1.2.0 2020-12-29
+ * @version 1.1.2 2020-12-29
+ * @since 1.1.2 2020-12-29
  */
 public abstract class AbstractGame {
 
