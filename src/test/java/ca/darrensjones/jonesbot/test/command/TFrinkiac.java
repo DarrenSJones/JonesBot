@@ -8,18 +8,17 @@ import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.utilities.Frinkiac;
 import ca.darrensjones.jonesbot.db.controller.CFrinkiacSaved;
 import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
-import ca.darrensjones.jonesbot.testcore.BotTest;
 import ca.darrensjones.jonesbot.testcore.Mock;
+import ca.darrensjones.jonesbot.testcore.TBot;
 import ca.darrensjones.jonesbot.testcore.TestUtils;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-13
+ * @version 1.1.3 2021-01-14
  * @since 1.0.0 2020-12-09
  */
 public class TFrinkiac {
@@ -27,14 +26,13 @@ public class TFrinkiac {
 	@Test
 	public void process() {
 		Mock.reset();
-		Bot bot = BotTest.get();
 
 		String path = "src/test/resources/mock/frinkiac/";
-		String prefix = bot.config.BOT_PREFIX;
+		String prefix = TBot.getConfig().PREFIX;
 		Color color = new Color(123, 123, 123);
-		String host = bot.config.SIMPSONS_HOST;
-		List<OFrinkiacSaved> saved = bot.dataHandler.simpsonsSaved;
-		HashMap<String, String[]> last = bot.dataHandler.simpsonsLast;
+		String host = TBot.getConfig().HOST_SIMPSONS;
+		List<OFrinkiacSaved> saved = TBot.getBot().dataHandler.simpsonsSaved;
+		HashMap<String, String[]> last = TBot.getBot().dataHandler.simpsonsLast;
 
 		// Valid Timestamp
 		Mock.setExpectation("GET", "/api/caption?e=S06E04&t=741423", 200, new File(path + "timestamp_bort.json"));
@@ -176,7 +174,7 @@ public class TFrinkiac {
 	@Test(dependsOnMethods = "buildEmbedRegex", alwaysRun = true)
 	public void getResponse() {
 		Mock.reset();
-		String host = BotTest.get().config.SIMPSONS_HOST;
+		String host = TBot.getConfig().HOST_SIMPSONS;
 
 		String random = "src/test/resources/mock/frinkiac/timestamp_blank.json";
 		Mock.setExpectation("GET", "/api/random", 200, new File(random));

@@ -15,12 +15,13 @@ import net.dv8tion.jda.api.JDABuilder;
 
 /**
  * @author Darren Jones
- * @version 1.1.2 2020-12-29
+ * @version 1.1.3 2021-01-14
  * @since 1.0.0 2020-11-18
  */
 public class Bot {
 
 	public JDA jda;
+	public final Config c;
 	public final BotConfig config;
 	public final AutoResponseHandler autoResponseHandler;
 	public final CommandHandler commandHandler;
@@ -33,12 +34,14 @@ public class Bot {
 	}
 
 	public Bot(boolean test) {
+		this.c = new Config();
 		this.config = CConfig.getConfig();
 		this.autoResponseHandler = new AutoResponseHandler(this);
 		this.commandHandler = new CommandHandler(this);
 		this.gameHandler = new GameHandler(this);
 		this.dataHandler = new DataHandler();
 		this.reactionHandler = new ReactionHandler(this);
+
 		if (!test) setJDA();
 	}
 
@@ -51,5 +54,9 @@ public class Bot {
 		} catch (InterruptedException | LoginException e) {
 			Reporter.fatal("Failed to set JDA.\n" + e.getMessage());
 		}
+	}
+
+	public Config getConfig() {
+		return c;
 	}
 }

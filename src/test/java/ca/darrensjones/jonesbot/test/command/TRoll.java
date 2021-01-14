@@ -4,18 +4,18 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import ca.darrensjones.jonesbot.command.CommandRoll;
-import ca.darrensjones.jonesbot.testcore.BotTest;
+import ca.darrensjones.jonesbot.testcore.TBot;
 
 /**
  * @author Darren Jones
- * @version 1.1.0 2020-12-27
+ * @version 1.1.3 2021-01-14
  * @since 1.0.2 2020-12-22
  */
 public class TRoll {
 
 	@Test
 	public void process() {
-		CommandRoll command = new CommandRoll(BotTest.get());
+		CommandRoll command = new CommandRoll(TBot.getBot());
 
 		// No Parameters
 		Assert.assertTrue(command.process("!roll").matches("^Roll 1d6:\\[[1-6]\\]$"));
@@ -44,7 +44,7 @@ public class TRoll {
 
 	@Test(dependsOnMethods = "process", alwaysRun = true)
 	public void roll() {
-		CommandRoll command = new CommandRoll(BotTest.get());
+		CommandRoll command = new CommandRoll(TBot.getBot());
 
 		Assert.assertEquals(command.roll(1, 1), 1);
 		Assert.assertEquals(command.roll(5, 5), 5);

@@ -10,16 +10,16 @@ import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
 import ca.darrensjones.jonesbot.command.utilities.Frinkiac;
 import ca.darrensjones.jonesbot.handler.CommandHandler;
-import ca.darrensjones.jonesbot.testcore.BotTest;
+import ca.darrensjones.jonesbot.testcore.TBot;
 
 /**
  * @author Darren Jones
- * @version 1.1.2 2021-01-13
+ * @version 1.1.3 2021-01-14
  * @since 1.0.0 2020-11-24
  */
 public class CommandBasics {
 
-	private static final CommandHandler h = BotTest.get().commandHandler;
+	private static final CommandHandler h = TBot.getBot().commandHandler;
 
 	@Test
 	public void commands() {

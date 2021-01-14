@@ -4,16 +4,16 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import ca.darrensjones.jonesbot.handler.AutoResponseHandler;
-import ca.darrensjones.jonesbot.testcore.BotTest;
+import ca.darrensjones.jonesbot.testcore.TBot;
 
 /**
  * @author Darren Jones
- * @version 1.1.2 2021-01-13
+ * @version 1.1.3 2021-01-14
  * @since 1.0.0 2020-11-21
  */
 public class TAutoResponseHandler {
 
-	private static final AutoResponseHandler r = BotTest.get().autoResponseHandler;
+	private static final AutoResponseHandler r = TBot.getBot().autoResponseHandler;
 
 	@Test
 	public void hasReaction() {
