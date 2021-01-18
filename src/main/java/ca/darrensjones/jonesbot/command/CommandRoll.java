@@ -14,7 +14,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.1.0 2020-12-27
+ * @version 1.1.3 2021-01-14
  * @since 1.1.0 2020-12-22
  */
 public class CommandRoll extends AbstractCommand {
@@ -47,7 +47,7 @@ public class CommandRoll extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return "**" + bot.config.BOT_PREFIX + "roll** Rolls a 6-sided die.";
+		return "**" + bot.getPrefix() + "roll** Rolls a 6-sided die.";
 	}
 
 	@Override

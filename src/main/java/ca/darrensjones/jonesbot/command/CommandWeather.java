@@ -23,7 +23,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.1 2020-12-15
+ * @version 1.1.3 2021-01-14
  * @since 1.0.0 2020-11-26
  */
 public class CommandWeather extends AbstractCommand {
@@ -54,7 +54,7 @@ public class CommandWeather extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		String p = bot.config.BOT_PREFIX;
+		String p = bot.getPrefix();
 		String output = "**" + p + "w** " + getDescription();
 		output += "\n**" + p + "w {city}** Gets the Weather for the given city.";
 		output += "\n**" + p + "w " + p + "5day** Gets the 5-Day Forecast.";
@@ -69,19 +69,23 @@ public class CommandWeather extends AbstractCommand {
 
 	public static EmbedBuilder process(Bot bot, String content) {
 
+		String token = bot.getConfig().WEATHER_TOKEN;
+		String host = bot.getConfig().HOST_WEATHER;
+		String defaultCity = bot.getConfig().WEATHER_DEFAULT;
+
 		boolean is5Day;
 		String city;
 		String request;
 
-		city = content.replaceAll(bot.config.BOT_PREFIX + "\\w+(\\s+)?", "").trim().replaceAll("\\s", "%20");
-		if (StringUtils.isBlank(city)) city = bot.config.WEATHER_DEFAULT_CITY;
+		city = content.replaceAll(bot.getPrefix() + "\\w+(\\s+)?", "").trim().replaceAll("\\s", "%20");
+		if (StringUtils.isBlank(city)) city = defaultCity;
 
-		if (Pattern.compile(bot.config.BOT_PREFIX + "5day\\s?").matcher(content.toLowerCase()).find()) {
+		if (Pattern.compile(bot.getPrefix() + "5day\\s?").matcher(content.toLowerCase()).find()) {
 			is5Day = true;
-			request = String.format("%s/data/2.5/forecast?units=metric&appid=%s&q=%s", bot.config.WEATHER_HOST, bot.config.WEATHER_TOKEN, city);
+			request = String.format("%s/data/2.5/forecast?units=metric&appid=%s&q=%s", host, token, city);
 		} else {
 			is5Day = false;
-			request = String.format("%s/data/2.5/weather?units=metric&appid=%s&q=%s", bot.config.WEATHER_HOST, bot.config.WEATHER_TOKEN, city);
+			request = String.format("%s/data/2.5/weather?units=metric&appid=%s&q=%s", host, token, city);
 		}
 
 		EmbedBuilder eb = new EmbedBuilder();
@@ -89,13 +93,13 @@ public class CommandWeather extends AbstractCommand {
 			String response = RequestUtils.getResponseBody(request);
 
 			if (is5Day) { // Forecast
-				eb.setTitle("5 Day Forecast", String.format("%s/find?q=%s", bot.config.WEATHER_HOST, city).replace("api.", ""));
+				eb.setTitle("5 Day Forecast", String.format("%s/find?q=%s", host, city).replace("api.", ""));
 
 				JSONObject resp = (JSONObject) new JSONParser().parse(response);
 				String id = ((JSONObject) resp.get("city")).get("id").toString();
 				String name = ((JSONObject) resp.get("city")).get("name").toString();
 
-				eb.setTitle("5 Day Forecast", String.format("%s/city/%s", bot.config.WEATHER_HOST, id).replace("api.", ""));
+				eb.setTitle("5 Day Forecast", String.format("%s/city/%s", host, id).replace("api.", ""));
 				eb.setDescription(name);
 
 				// 5 Day responses have 40 entries, every 3 hours for 5 days
@@ -129,7 +133,7 @@ public class CommandWeather extends AbstractCommand {
 				}
 
 			} else { // Current
-				eb.setTitle("Current Weather", String.format("%s/find?q=%s", bot.config.WEATHER_HOST, city).replace("api.", ""));
+				eb.setTitle("Current Weather", String.format("%s/find?q=%s", host, city).replace("api.", ""));
 
 				JSONObject json = (JSONObject) new JSONParser().parse(response);
 				String desc = ((JSONObject) ((JSONArray) json.get("weather")).get(0)).get("main").toString();
@@ -146,7 +150,7 @@ public class CommandWeather extends AbstractCommand {
 				String sunrise = MyDateUtils.longToZDT(((JSONObject) json.get("sys")).get("sunrise").toString() + "000").toLocalTime().toString();
 				String sunset = MyDateUtils.longToZDT(((JSONObject) json.get("sys")).get("sunset").toString() + "000").toLocalTime().toString();
 
-				eb.setTitle("Current Weather", String.format("%s/city/%s", bot.config.WEATHER_HOST, id).replace("api.", ""));
+				eb.setTitle("Current Weather", String.format("%s/city/%s", host, id).replace("api.", ""));
 				eb.setDescription(name);
 				eb.setThumbnail(icon);
 				eb.addField(desc, String.format("%s°C, Feels Like %s°C", temp, tempFeel), true);

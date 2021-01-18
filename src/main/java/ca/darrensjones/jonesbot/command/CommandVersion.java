@@ -11,7 +11,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.2 2020-12-22
+ * @version 1.1.3 2021-01-14
  * @since 1.0.0 2020-12-14
  */
 public class CommandVersion extends AbstractCommand {
@@ -42,12 +42,12 @@ public class CommandVersion extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return "**" + bot.config.BOT_PREFIX + "version** Displays current version information.";
+		return "**" + bot.getPrefix() + "version** Displays current version information.";
 	}
 
 	@Override
 	public void execute(Message message) {
-		String current = bot.config.BOT_VERSION;
+		String current = bot.getConfig().VERSION;
 		String description = "";
 		for (String l : Version.getVersionEntry(false)) description += "\n" + l;
 		EmbedBuilder eb = new EmbedBuilder();

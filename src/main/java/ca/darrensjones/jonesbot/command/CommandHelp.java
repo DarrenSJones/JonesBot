@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.1.2 2020-12-29
+ * @version 1.1.3 2021-01-14
  * @since 1.0.0 2020-11-24
  */
 public class CommandHelp extends AbstractCommand {
@@ -41,15 +41,15 @@ public class CommandHelp extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return "**" + bot.config.BOT_PREFIX + "help** " + getDescription();
+		return "**" + bot.getPrefix() + "help** " + getDescription();
 	}
 
 	@Override
 	public void execute(Message message) {
-		String help = String.format("Commands are not case-sensitive. Try \"**{command} %shelp**\" for more information.", bot.config.BOT_PREFIX);
+		String help = String.format("Commands are not case-sensitive. Try \"**{command} %shelp**\" for more information.", bot.getPrefix());
 		for (AbstractCommand c : bot.commandHandler.commands) {
 			if (c.visibility().isPublic()) {
-				help += String.format("%n**%s%s**: %s", bot.config.BOT_PREFIX, c.getTriggers()[0], c.getDescription());
+				help += String.format("%n**%s%s**: %s", bot.getPrefix(), c.getTriggers()[0], c.getDescription());
 			}
 		}
 

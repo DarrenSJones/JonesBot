@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-09
+ * @version 1.1.3 2021-01-14
  * @since 1.0.0 2020-12-08
  */
 public class CommandRickMorty extends AbstractCommand {
@@ -44,14 +44,14 @@ public class CommandRickMorty extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return Frinkiac.getHelp(bot.config.BOT_PREFIX);
+		return Frinkiac.getHelp(bot.getPrefix());
 	}
 
 	@Override
 	public void execute(Message message) {
-		String prefix = bot.config.BOT_PREFIX;
+		String prefix = bot.getPrefix();
 		Color color = new Color(207, 219, 219);
-		String host = bot.config.RICKMORTY_HOST;
+		String host = bot.getConfig().HOST_RICKMORTY;
 		List<OFrinkiacSaved> saved = bot.dataHandler.rickMortySaved;
 		HashMap<String, String[]> last = bot.dataHandler.rickMortyLast;
 

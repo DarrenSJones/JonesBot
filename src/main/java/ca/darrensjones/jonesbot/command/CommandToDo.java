@@ -11,7 +11,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.2 2020-12-22
+ * @version 1.1.3 2021-01-14
  * @since 1.0.2 2020-12-22
  */
 public class CommandToDo extends AbstractCommand {
@@ -42,7 +42,7 @@ public class CommandToDo extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return "**" + bot.config.BOT_PREFIX + "todo** Displays the current to do list.";
+		return "**" + bot.getPrefix() + "todo** Displays the current to do list.";
 	}
 
 	@Override

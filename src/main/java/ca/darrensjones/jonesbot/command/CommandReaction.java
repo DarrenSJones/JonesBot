@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.1.1 2020-12-29
+ * @version 1.1.3 2021-01-14
  * @since 1.0.0 2020-11-23
  */
 public class CommandReaction extends AbstractCommand {
@@ -43,7 +43,7 @@ public class CommandReaction extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return "**" + bot.config.BOT_PREFIX + "reaction** " + getDescription();
+		return "**" + bot.getPrefix() + "reaction** " + getDescription();
 	}
 
 	@Override

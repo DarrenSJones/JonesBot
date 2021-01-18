@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-09
+ * @version 1.1.3 2021-01-14
  * @since 1.0.0 2020-11-23
  */
 public class CommandPing extends AbstractCommand {
@@ -38,7 +38,7 @@ public class CommandPing extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return "**" + bot.config.BOT_PREFIX + "ping** " + getDescription();
+		return "**" + bot.getPrefix() + "ping** " + getDescription();
 	}
 
 	@Override

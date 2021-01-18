@@ -32,6 +32,6 @@ public class TBot {
 
 	public static Config getConfig() {
 		if (bot == null) createBot();
-		return bot.c;
+		return bot.getConfig();
 	}
 }

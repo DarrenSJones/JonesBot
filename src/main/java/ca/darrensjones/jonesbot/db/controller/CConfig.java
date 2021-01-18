@@ -3,18 +3,17 @@ package ca.darrensjones.jonesbot.db.controller;
 import java.sql.ResultSet;
 import java.util.HashMap;
 
-import ca.darrensjones.jonesbot.bot.BotConfig;
 import ca.darrensjones.jonesbot.db.BotDB;
 import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.2 2020-12-22
+ * @version 1.1.3 2021-01-18
  * @since 1.0.0 2020-11-18
  */
 public class CConfig {
 
-	public static BotConfig getConfig() {
+	public static String[] getConfigValues() {
 		HashMap<String, String> map = new HashMap<String, String>();
 		try {
 			ResultSet rs = BotDB.get().select("SELECT item_key, item_value FROM bot_config");
@@ -23,8 +22,6 @@ public class CConfig {
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());
 		}
-		return new BotConfig(map.get("BOT_VERSION"), map.get("BOT_TOKEN"), map.get("BOT_GITHUB_REPO"), map.get("BOT_OWNER_ID"), map.get("BOT_PREFIX"),
-				map.get("CATFACT_HOST"), map.get("SIMPSONS_HOST"), map.get("FUTURAMA_HOST"), map.get("RICK&MORTY_HOST"), map.get("WEATHER_TOKEN"),
-				map.get("WEATHER_HOST"), map.get("WEATHER_DEFAULT_CITY"));
+		return new String[] { map.get("BOT_PREFIX"), map.get("BOT_TOKEN"), map.get("BOT_OWNER_ID"), map.get("BOT_GITHUB_REPO"), map.get("WEATHER_TOKEN") };
 	}
 }

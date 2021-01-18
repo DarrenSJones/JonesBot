@@ -14,7 +14,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.1.2 2021-01-13
+ * @version 1.1.3 2021-01-14
  * @since 1.0.0 2020-11-22
  */
 public class CommandHandler {
@@ -62,7 +62,7 @@ public class CommandHandler {
 	 * @return True if content starts with Prefix, False otherwise
 	 */
 	public boolean isCommand(String content) {
-		if (content.startsWith(bot.config.BOT_PREFIX)) return true;
+		if (content.startsWith(bot.getPrefix())) return true;
 		else return false;
 	}
 
@@ -72,7 +72,7 @@ public class CommandHandler {
 	 */
 	public AbstractCommand getCommand(String content) {
 		if (isCommand(content)) {
-			String name = content.split("\\s+")[0].substring(bot.config.BOT_PREFIX.length());
+			String name = content.split("\\s+")[0].substring(bot.getPrefix().length());
 			for (AbstractCommand command : commands) {
 				for (String trigger : command.getTriggers()) {
 					if (trigger.equalsIgnoreCase(name)) return command;
@@ -90,7 +90,7 @@ public class CommandHandler {
 		if (isCommand(content)) {
 			String[] args = content.split("\\s+");
 			for (int i = 1; i < args.length; i++) {
-				if (args[i].equalsIgnoreCase(bot.config.BOT_PREFIX + "help")) return true;
+				if (args[i].equalsIgnoreCase(bot.getPrefix() + "help")) return true;
 			}
 		}
 		return false;

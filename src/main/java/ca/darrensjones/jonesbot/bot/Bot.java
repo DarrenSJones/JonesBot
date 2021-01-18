@@ -2,7 +2,6 @@ package ca.darrensjones.jonesbot.bot;
 
 import javax.security.auth.login.LoginException;
 
-import ca.darrensjones.jonesbot.db.controller.CConfig;
 import ca.darrensjones.jonesbot.handler.CommandHandler;
 import ca.darrensjones.jonesbot.handler.DataHandler;
 import ca.darrensjones.jonesbot.handler.GameHandler;
@@ -15,14 +14,13 @@ import net.dv8tion.jda.api.JDABuilder;
 
 /**
  * @author Darren Jones
- * @version 1.1.3 2021-01-14
+ * @version 1.1.3 2021-01-18
  * @since 1.0.0 2020-11-18
  */
 public class Bot {
 
 	public JDA jda;
-	public final Config c;
-	public final BotConfig config;
+	private final Config config;
 	public final AutoResponseHandler autoResponseHandler;
 	public final CommandHandler commandHandler;
 	public final GameHandler gameHandler;
@@ -34,15 +32,14 @@ public class Bot {
 	}
 
 	public Bot(boolean test) {
-		this.c = new Config();
-		this.config = CConfig.getConfig();
+		this.config = new Config();
 		this.autoResponseHandler = new AutoResponseHandler(this);
 		this.commandHandler = new CommandHandler(this);
 		this.gameHandler = new GameHandler(this);
 		this.dataHandler = new DataHandler();
 		this.reactionHandler = new ReactionHandler(this);
 
-		if (!test) setJDA();
+		if (!test) setJDA(); // Doesn't connect to Discord for testing
 	}
 
 	public void setJDA() {
@@ -57,6 +54,10 @@ public class Bot {
 	}
 
 	public Config getConfig() {
-		return c;
+		return config;
+	}
+
+	public String getPrefix() {
+		return config.getPrefix();
 	}
 }
