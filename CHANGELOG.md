@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased][Unreleased]
+### Changed
+- Moved Config around to remove some values from the DB.
+
 ## [1.1.2][1.1.2] - 2021-01-13 - Internal Logging Cleanup
 ### Added
 - Foundations for future Games, including the Handler and Models.
@@ -70,7 +74,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - AutoResponse for Reactions.
 - Custom Reporter for Console and Trace logging.
 
-[Unreleased]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.1...dev
+[Unreleased]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.3...dev
+[1.1.3]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.2...v1.1.3
+[1.1.2]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/DarrenSJones/JonesBot/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/DarrenSJones/JonesBot/compare/v1.0.1...v1.0.2
