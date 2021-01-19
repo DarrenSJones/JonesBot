@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 - Moved Config around to remove some values from the DB.
 
+### Fixed
+- Changelog command now links to the Dev changelog to show unreleased changes.
+
 ## [1.1.2][1.1.2] - 2021-01-13 - Internal Logging Cleanup
 ### Added
 - Foundations for future Games, including the Handler and Models.

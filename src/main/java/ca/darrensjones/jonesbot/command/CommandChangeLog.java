@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.1.3 2021-01-14
+ * @version 1.1.3 2021-01-18
  * @since 1.0.2 2020-12-22
  */
 public class CommandChangeLog extends AbstractCommand {
@@ -50,7 +50,7 @@ public class CommandChangeLog extends AbstractCommand {
 		String description = "The change log is linked above";
 //		for (String v : Version.getVersions(false)) description += String.format("%n%s/blob/v%s/CHANGELOG.md", bot.config.BOT_GITHUB_REPO, v);
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.setTitle(String.format("Current Version: %s", current), String.format("%s/blob/main/CHANGELOG.md", bot.getConfig().BOT_GITHUB));
+		eb.setTitle(String.format("Current Version: %s", current), String.format("%s/blob/dev/CHANGELOG.md", bot.getConfig().BOT_GITHUB));
 		eb.setDescription(description);
 		eb.setColor(new Color(0, 153, 255));
 		message.getChannel().sendMessage(eb.build()).queue();
