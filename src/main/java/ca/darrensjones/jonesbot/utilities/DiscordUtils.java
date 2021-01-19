@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.entities.User;
 
 /**
  * @author Darren Jones
- * @version 1.1.2 2021-01-13
+ * @version 1.1.3 2021-01-19
  * @since 1.1.1 2020-12-29
  */
 public class DiscordUtils {
@@ -27,16 +27,18 @@ public class DiscordUtils {
 		return jda.getTextChannelById(textChannelId).retrieveMessageById(messageId).complete();
 	}
 
+	public static Message getMessage(TextChannel textChannel, String messageId) {
+		return textChannel.retrieveMessageById(messageId).complete();
+	}
+
+	/** Used when the User isn't defined and has to be retrieved. */
 	public static User getUser(JDA jda, String userId) {
 		return jda.retrieveUserById(userId).complete();
 	}
 
+	/** Used when the User isn't defined and has to be retrieved. */
 	public static boolean isBot(JDA jda, String userId) {
 		if (jda.retrieveUserById(userId).complete().isBot()) return false;
 		return true;
-	}
-
-	public static Message getMessage(TextChannel textChannel, String messageId) {
-		return textChannel.retrieveMessageById(messageId).complete();
 	}
 }
