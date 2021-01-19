@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 
 /**
  * @author Darren Jones
- * @version 1.1.2 2021-01-13
+ * @version 1.1.3 2021-01-19
  * @since 1.0.0 2020-11-18
  */
 public class Reporter {
@@ -90,8 +90,8 @@ public class Reporter {
 			authorId = message.getAuthor().getId();
 			guildName = "none";
 			guildId = "none";
-			channelName = "private";
-			channelId = "private";
+			channelName = "group";
+			channelId = "group";
 			messageContent = message.getContentDisplay();
 			messageId = message.getId();
 			break;
