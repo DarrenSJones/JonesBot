@@ -28,7 +28,7 @@ public class TFrinkiac {
 		Mock.reset();
 
 		String path = "src/test/resources/mock/frinkiac/";
-		String prefix = TBot.getConfig().PREFIX;
+		String prefix = TBot.getPrefix();
 		Color color = new Color(123, 123, 123);
 		String host = TBot.getConfig().HOST_SIMPSONS;
 		List<OFrinkiacSaved> saved = TBot.getBot().dataHandler.simpsonsSaved;

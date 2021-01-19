@@ -6,7 +6,7 @@ import ca.darrensjones.jonesbot.db.BotDB;
 
 /**
  * @author Darren Jones
- * @version 1.1.3 2021-01-14
+ * @version 1.1.3 2021-01-18
  * @since 1.1.3 2021-01-14
  */
 public class TBot {
@@ -33,5 +33,10 @@ public class TBot {
 	public static Config getConfig() {
 		if (bot == null) createBot();
 		return bot.getConfig();
+	}
+
+	public static String getPrefix() {
+		if (bot == null) createBot();
+		return bot.getPrefix();
 	}
 }
