@@ -1,7 +1,9 @@
 package ca.darrensjones.jonesbot.command;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,7 +16,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.1.3 2021-01-14
+ * @version 1.1.3 2021-01-19
  * @since 1.1.0 2020-12-22
  */
 public class CommandRoll extends AbstractCommand {
@@ -58,47 +60,72 @@ public class CommandRoll extends AbstractCommand {
 	}
 
 	public String process(String content) {
-		String output = "";
-		String diceMatch = "\\d+(d|D)\\d+";
-		String maxMatch = "\\s+\\d+$";
+
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>(); // Dice faces, amount to roll
+		HashMap<Integer, List<Integer>> results = new HashMap<Integer, List<Integer>>(); // Dice faces, roll results
+
+		Pattern pDice = Pattern.compile("\\d+(d|D)\\d+");
+		Matcher mMaxSides = Pattern.compile("\\s+\\d+$").matcher(content);
+
+		// HashMap contains all dice to roll, and the amount of times to roll for each
 		try {
-			if (Pattern.compile(diceMatch).matcher(content).find()) {
-				Matcher m = Pattern.compile(diceMatch).matcher(content);
-				int total = 0;
-				while (m.find()) {
-					String s = m.group();
-					int amount = Integer.parseInt(s.split("(d|D)")[0]);
-					int sides = Integer.parseInt(s.split("(d|D)")[1]);
-					List<Integer> t = new ArrayList<Integer>();
-					for (int i = 0; i < amount; i++) {
-						int r = roll(sides);
-						t.add(r);
-						total += r;
-					}
-					output += String.format(" %sd%s:%s", amount, sides, t.toString());
+			if (pDice.matcher(content).find()) {
+				Matcher mDice = pDice.matcher(content);
+				while (mDice.find()) {
+					int amount = Integer.parseInt(mDice.group().split("(d|D)")[0]);
+					int sides = Integer.parseInt(mDice.group().split("(d|D)")[1]);
+					if (map.containsKey(sides)) amount += map.get(sides);
+					map.put(sides, amount);
 				}
-				output = String.format("Roll Total:[%s]%s", total, output);
-			} else if (Pattern.compile(maxMatch).matcher(content).find()) {
-				Matcher m = Pattern.compile(maxMatch).matcher(content);
-				if (m.find()) {
-					int max = Integer.parseInt(m.group().trim());
-					output = String.format("Roll 1d%s:[%s]", max, roll(max));
-				}
+
+			} else if (mMaxSides.find()) {
+				map.put(Integer.parseInt(mMaxSides.group().trim()), 1);
+
 			} else {
-				int max = 6;
-				output = String.format("Roll 1d%s:[%s]", max, roll(max));
+				map.put(6, 1);
 			}
+
 		} catch (IllegalArgumentException e) {
-			output = "Roll: Maximum must be greater than Minimum.";
+			return "Roll: Maximum must be greater than Minimum.";
 		}
+
+		// Iterates through the HashMap for each die
+		int total = 0;
+		for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+			List<Integer> list = new ArrayList<Integer>();
+			int sides = entry.getKey();
+			for (int i = 0; i < entry.getValue(); i++) {
+				int roll = roll(sides);
+				list.add(roll);
+				total += roll;
+			}
+			results.put(sides, list);
+		}
+
+		String output = String.format("Roll Total:[%s]", total);
+		for (Map.Entry<Integer, List<Integer>> entry : results.entrySet()) {
+			output += String.format(", %sd%s:%s", entry.getValue().size(), entry.getKey(), entry.getValue().toString());
+		}
+
 		return output;
 	}
 
+	/**
+	 * @param max A positive number
+	 * @return A random number between 1 and 'max'
+	 * @throws IllegalArgumentException If 'max' is less than 1
+	 */
 	public int roll(int max) throws IllegalArgumentException {
-		return roll(max, 1);
+		return roll(1, max);
 	}
 
-	public int roll(int max, int min) throws IllegalArgumentException {
+	/**
+	 * @param min Must be less than 'max'
+	 * @param max Must be greater than 'min'
+	 * @return A random number between 1 and 'max'
+	 * @throws IllegalArgumentException If 'max' is less than 1
+	 */
+	public int roll(int min, int max) throws IllegalArgumentException {
 		return rand.nextInt(max - (min - 1)) + min;
 	}
 }
