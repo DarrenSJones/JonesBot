@@ -168,7 +168,8 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Roll");
 		Assert.assertEquals(c.getDescription(), "Roll some dice!");
 		Assert.assertEquals(c.getTriggers(), new String[] { "roll", "r" });
-		Assert.assertEquals(c.getHelp(), "**!roll** Rolls a 6-sided die.");
+		Assert.assertEquals(c.getHelp(), "**!roll** Rolls a 6-sided die.\n**!roll {sides}** Rolls a die with the given number of sides.\n"
+				+ "**!roll {amount}d{sides}** Rolls a given die the given amount (eg. 2d6).");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 

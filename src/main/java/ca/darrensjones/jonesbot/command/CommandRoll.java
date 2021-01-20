@@ -49,7 +49,11 @@ public class CommandRoll extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return "**" + bot.getPrefix() + "roll** Rolls a 6-sided die.";
+		String p = bot.getPrefix();
+		String output = "**" + p + "roll** Rolls a 6-sided die.";
+		output += "\n**" + p + "roll {sides}** Rolls a die with the given number of sides.";
+		output += "\n**" + p + "roll {amount}d{sides}** Rolls a given die the given amount (eg. 2d6).";
+		return output;
 	}
 
 	@Override
