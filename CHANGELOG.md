@@ -3,11 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased][Unreleased]
+## [1.1.3][1.1.3] - 2021-01-19 - Config Cleanup
 ### Changed
 - Moved Config around to remove some values from the DB.
+- Console and debug logging cleaned up to be more descriptive.
 
 ### Fixed
+- Reorganized Roll command and tests to fix some minor issues, including range.
 - Changelog command now links to the Dev changelog to show unreleased changes.
 
 ## [1.1.2][1.1.2] - 2021-01-13 - Internal Logging Cleanup
