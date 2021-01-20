@@ -58,13 +58,4 @@ public class Version {
 			return null;
 		}
 	}
-
-	public static String readToDo() {
-		try {
-			return FileUtils.readFileToString(new File("todo.txt"), StandardCharsets.UTF_8);
-		} catch (Exception e) {
-			Reporter.fatal("ReadChangelog Error.\n" + e.getMessage());
-			return null;
-		}
-	}
 }
