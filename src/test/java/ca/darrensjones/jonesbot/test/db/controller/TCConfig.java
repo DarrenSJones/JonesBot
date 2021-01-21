@@ -26,8 +26,8 @@ public class TCConfig {
 
 	@Test(dependsOnMethods = "getConfigValues", alwaysRun = true)
 	public void getDatabaseVersion() {
-		String version = CConfig.getDatabaseVersion();
+		String dbVersion = CConfig.getDatabaseVersion();
 
-		Assert.assertTrue(version.matches("\\d\\.\\d\\.\\d"));
+		Assert.assertTrue(dbVersion.matches("\\d\\.\\d\\.\\d"));
 	}
 }
