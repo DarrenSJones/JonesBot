@@ -4,12 +4,12 @@ import ca.darrensjones.jonesbot.db.controller.CConfig;
 
 /**
  * @author Darren Jones
- * @version 1.1.3 2021-01-18
+ * @version 1.1.4 2021-01-20
  * @since 1.1.3 2021-01-14
  */
 public class Config {
 
-	public final String VERSION = "1.1.3a";
+	public final String VERSION = "1.1.4";
 
 	// Default values for testing, these will be updated from the DB.
 	public String PREFIX = "!";
