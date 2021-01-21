@@ -9,7 +9,7 @@ CREATE TABLE "bot_config" (
 INSERT INTO bot_config
 	(item_key, item_value)
 VALUES
-	('BOT_VERSION',				'0.0.0'),
+	('DB_VERSION',				'0.0.0'),
 	('BOT_TOKEN',				'discord-bot-token-here'),
 	('BOT_GITHUB_REPO',			'github-repo-path-here'),
 	('BOT_OWNER_ID',			'discord-bot-owner-id-here'),
