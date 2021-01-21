@@ -8,7 +8,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.1.4 2021-01-20
+ * @version 1.1.4 2021-01-21
  * @since 1.0.0 2020-11-18
  */
 public class CConfig {
@@ -26,10 +26,10 @@ public class CConfig {
 	}
 
 	public static String getDatabaseVersion() {
-		String version = "0.0.0";
+		String version = "";
 		try {
 			ResultSet rs = BotDB.get().select("SELECT item_key, item_value FROM bot_config WHERE item_key = 'DB_VERSION'");
-			version = rs.getString("item_value");
+			if (rs.next()) version = rs.getString("item_value");
 			rs.getStatement().close();
 		} catch (Exception e) {
 			Reporter.fatal(e.getMessage());
