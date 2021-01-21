@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+##[Unreleased][Unreleased]
+### Added
+- DBUpdater to handle any Database creation and updates.
+
+### Changed
+- ReadMe installation instructions were reorganized.
+
+### Fixed
+- Can now determine if the Database has been updated to the same version as the bot.
+
 ## [1.1.3][1.1.3] - 2021-01-19 - Config Cleanup
 ### Changed
 - Moved Config around to remove some values from the DB.
@@ -80,6 +90,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Custom Reporter for Console and Trace logging.
 
 [Unreleased]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.3...dev
+[1.1.4]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.0...v1.1.1
