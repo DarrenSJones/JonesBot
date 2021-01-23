@@ -1,10 +1,15 @@
 package ca.darrensjones.jonesbot.bot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ca.darrensjones.jonesbot.db.controller.CConfig;
+import ca.darrensjones.jonesbot.db.controller.CVersion;
+import ca.darrensjones.jonesbot.db.model.OVersion;
 
 /**
  * @author Darren Jones
- * @version 1.1.4 2021-01-20
+ * @version 1.1.4 2021-01-22
  * @since 1.1.3 2021-01-14
  */
 public class Config {
@@ -16,6 +21,9 @@ public class Config {
 	public String BOT_TOKEN = "discord-bot-token-here";
 	public String BOT_OWNER_ID = "discord-bot-owner-id-here";
 	public String BOT_GITHUB = "github-repo-path-here";
+
+	// Gets the version list from the change log
+	public List<OVersion> VERSION_LIST = new ArrayList<OVersion>();
 
 	// These are set to "http://localhost:1080" for testing.
 	public String HOST_CATFACT = "https://catfact.ninja";
@@ -34,6 +42,8 @@ public class Config {
 		this.BOT_OWNER_ID = values[2];
 		this.BOT_GITHUB = values[3];
 		this.WEATHER_TOKEN = values[4];
+
+		this.VERSION_LIST = CVersion.getVersionList();
 	}
 
 	public String getPrefix() {
