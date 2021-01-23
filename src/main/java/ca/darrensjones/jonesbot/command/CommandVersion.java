@@ -5,7 +5,7 @@ import java.awt.Color;
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
-import ca.darrensjones.jonesbot.command.utilities.Version;
+import ca.darrensjones.jonesbot.db.model.OVersion;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 
@@ -49,7 +49,7 @@ public class CommandVersion extends AbstractCommand {
 	public void execute(Message message) {
 		String current = bot.getConfig().VERSION;
 		String description = "";
-		for (String l : Version.getVersionEntry(false)) description += "\n" + l;
+		for (OVersion v : bot.getConfig().VERSION_LIST) description += "\n" + v.description;
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setTitle(String.format("Current Version: %s", current));
 		eb.setDescription(description);
