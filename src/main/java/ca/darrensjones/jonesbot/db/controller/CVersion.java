@@ -12,17 +12,20 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.1.4 2021-01-21
- * @since 1.1.4 2021-01-21
+ * @version 1.1.4 2021-01-22
+ * @since 1.1.4 2021-01-22
  */
 public class CVersion {
 
-	private static OVersion setRecord(String versionName) {
-		String[] v = versionName.split("\\.");
+	private static OVersion setRecord(String changelogRow) {
+		String[] s = changelogRow.split("\\s-\\s");
+		String[] version = s[0].substring(1).split("]")[0].split("\\.");
 		OVersion record = new OVersion();
-		record.major = Integer.parseInt(v[0]);
-		record.minor = Integer.parseInt(v[1]);
-		record.patch = Integer.parseInt(v[2]);
+		record.major = Integer.parseInt(version[0]);
+		record.minor = Integer.parseInt(version[1]);
+		record.patch = Integer.parseInt(version[2]);
+		record.date = s[1];
+		record.description = s[2];
 		return record;
 	}
 
@@ -31,8 +34,8 @@ public class CVersion {
 		List<OVersion> versionList = new ArrayList<OVersion>();
 		String[] versions = readChangelog().split("\n##\\s");
 		for (int i = versions.length - 1; i > 0; i--) {
-			String entry = versions[i].split("\n###\\s")[0];
-			versionList.add(setRecord(entry.substring(1).split("]")[0]));
+			String row = versions[i].split("\n###\\s")[0];
+			versionList.add(setRecord(row));
 		}
 		return versionList;
 	}
