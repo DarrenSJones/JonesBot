@@ -20,12 +20,6 @@
 		</classes>
 	</test>
 
-	<test name="Utilities">
-		<classes>
-			<!-- <class name="ca.darrensjones.jonesbot.test.utilities.TVersionUtils" /> -->
-		</classes>
-	</test>
-
 	<test name="Commands">
 		<classes>
 			<class name="ca.darrensjones.jonesbot.test.command.CommandBasics" />
