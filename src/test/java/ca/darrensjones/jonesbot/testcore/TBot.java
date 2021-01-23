@@ -6,7 +6,7 @@ import ca.darrensjones.jonesbot.db.BotDB;
 
 /**
  * @author Darren Jones
- * @version 1.1.3 2021-01-18
+ * @version 1.1.4 2021-01-22
  * @since 1.1.3 2021-01-14
  */
 public class TBot {
@@ -15,7 +15,7 @@ public class TBot {
 
 	private static void createBot() {
 		BotDB.init("localhost:1433", "jonesbottest", "jonesbot", "jonesbot");
-		bot = new Bot(true); // Doesn't create JDA instance
+		bot = new Bot(); // Doesn't connect to Discord using JDA
 
 		bot.getConfig().BOT_GITHUB = "http://localhost:1080";
 		bot.getConfig().HOST_CATFACT = "http://localhost:1080";

@@ -14,7 +14,7 @@ import net.dv8tion.jda.api.JDABuilder;
 
 /**
  * @author Darren Jones
- * @version 1.1.3 2021-01-18
+ * @version 1.1.4 2021-01-22
  * @since 1.0.0 2020-11-18
  */
 public class Bot {
@@ -28,18 +28,12 @@ public class Bot {
 	public final ReactionHandler reactionHandler;
 
 	public Bot() {
-		this(false);
-	}
-
-	public Bot(boolean test) {
 		this.config = new Config();
 		this.autoResponseHandler = new AutoResponseHandler(this);
 		this.commandHandler = new CommandHandler(this);
 		this.gameHandler = new GameHandler(this);
 		this.dataHandler = new DataHandler();
 		this.reactionHandler = new ReactionHandler(this);
-
-		if (!test) setJDA(); // Doesn't connect to Discord for testing
 	}
 
 	public void setJDA() {
