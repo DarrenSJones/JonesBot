@@ -49,4 +49,10 @@ public class Config {
 	public String getPrefix() {
 		return PREFIX;
 	}
+
+	public List<String> getVersionList() {
+		List<String> list = new ArrayList<String>();
+		for (OVersion version : VERSION_LIST) list.add(version.getName());
+		return list;
+	}
 }
