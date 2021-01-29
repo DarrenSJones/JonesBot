@@ -1,7 +1,3 @@
-USE jonesbot
-
-DROP TABLE IF EXISTS "bot_config";
-
 CREATE TABLE "bot_config" (
 	"item_key"		VARCHAR(20) NOT NULL,
 	"item_value"	VARCHAR(64) DEFAULT NULL);
@@ -23,16 +19,12 @@ VALUES
 	('WEATHER_TOKEN',			'openweathermap-token-here');
 
 
-DROP TABLE IF EXISTS "reaction";
-
 CREATE TABLE "reaction" (
 	"id"		INT IDENTITY(1, 1)	NOT NULL	PRIMARY KEY,
 	"shortcode"	VARCHAR(20)			NOT NULL,
 	"unicode"	NVARCHAR(64)		NOT NULL,
 	"regex"		VARCHAR(255)		NOT NULL);
 
-
-DROP TABLE IF EXISTS "frinkiac_saved";
 
 CREATE TABLE "frinkiac_saved" (
 	"id"		INT IDENTITY(1, 1)	NOT NULL	PRIMARY KEY,
@@ -41,4 +33,3 @@ CREATE TABLE "frinkiac_saved" (
 	"key"		VARCHAR(6)			NOT NULL,
 	"timestamp"	VARCHAR(10)			NOT NULL,
 	"regex"		VARCHAR(255)		NOT NULL);
-
