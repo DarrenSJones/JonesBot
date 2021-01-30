@@ -10,7 +10,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.1.2 2020-01-13
+ * @version 1.1.4 2021-01-29
  * @since 1.0.0 2020-11-18
  */
 public class JDBC {
@@ -44,9 +44,22 @@ public class JDBC {
 		return connection;
 	}
 
+	public void execute(String sql) throws SQLException {
+		Statement stmt = getConnection().createStatement();
+		stmt.execute(sql);
+		stmt.close();
+	}
+
 	public ResultSet select(String sql) throws SQLException {
 		Statement stmt = getConnection().createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
 		return rs;
+	}
+
+	public int update(String sql) throws SQLException {
+		Statement stmt = getConnection().createStatement();
+		int updates = stmt.executeUpdate(sql);
+		stmt.close();
+		return updates;
 	}
 }
