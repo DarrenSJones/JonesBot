@@ -12,7 +12,7 @@ public class BotDB {
 	private static JDBC jdbc;
 
 	/** This is set on Bot initialization, before the JDA connection is made. */
-	public static void init(String driver, String database, String userName, String password) {
+	public static void set(String driver, String database, String userName, String password) {
 		jdbc = new JDBC(driver, database, userName, password);
 		Reporter.info(String.format("JDBC Set:[%s] Database:[%s] UserName:[%s] Password:[%s]", driver, database, userName, password));
 	}
