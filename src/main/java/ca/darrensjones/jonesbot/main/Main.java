@@ -6,7 +6,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.1.4 2021-01-29
+ * @version 1.1.4 2021-02-01
  * @since 1.0.0 2020-11-18
  */
 public class Main {
@@ -15,7 +15,7 @@ public class Main {
 		Reporter.info("");
 		Reporter.info("Bot initializating...");
 
-		BotDB.set("localhost:1433", "jonesbot", "jonesbot", "jonesbot");
+		BotDB.init();
 		Bot bot = new Bot();
 		bot.setJDA(); // Connects to Discord using JDA
 

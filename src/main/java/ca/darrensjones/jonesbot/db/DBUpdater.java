@@ -12,7 +12,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.1.4 2021-01-29
+ * @version 1.1.4 2021-02-01
  * @since 1.1.4 2021-01-29
  */
 public class DBUpdater {
@@ -20,13 +20,13 @@ public class DBUpdater {
 	// Executed from the command line
 	public static void main(String[] args) {
 		String test = "jonesbottest";
-		BotDB.set("localhost:1433", test, "jonesbot", "jonesbot");
+		BotDB.initTest();
 		dropAllTables(test);
 		updateToVersion(test);
 		populateTable(test, "src/test/resources/db/testdata.sql");
 
 		String prod = "jonesbot";
-		BotDB.set("localhost:1433", prod, "jonesbot", "jonesbot");
+		BotDB.init();
 		dropAllTables(prod);
 		updateToVersion(prod);
 		populateTable(prod, "C:\\git\\data\\jonesbot_data.sql");
