@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 
 /**
  * @author Darren Jones
- * @version 1.1.3 2021-01-19
+ * @version 1.1.4 2021-02-02
  * @since 1.0.0 2020-11-18
  */
 public class Reporter {
@@ -53,12 +53,19 @@ public class Reporter {
 	}
 
 	public static void fatal(String message) {
-		fatal(message, true);
+		trace.fatal(message);
+		console.fatal(message);
 	}
 
-	public static void fatal(String message, boolean printToConsole) {
+	public static void fatal(String message, Exception e) {
+		fatal(message, e, true);
+	}
+
+	public static void fatal(String message, Exception e, boolean printToConsole) {
+		message = String.format("%s Error:[%s]", message, e.getMessage());
 		trace.fatal(message);
 		if (printToConsole) console.fatal(message);
+		e.printStackTrace();
 	}
 
 	/**
