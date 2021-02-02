@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.darrensjones.jonesbot.db.controller.CConfig;
-import ca.darrensjones.jonesbot.db.controller.CVersion;
 import ca.darrensjones.jonesbot.db.model.OVersion;
 
 /**
  * @author Darren Jones
- * @version 1.1.4 2021-01-22
+ * @version 1.1.4 2021-02-02
  * @since 1.1.3 2021-01-14
  */
 public class Config {
@@ -42,8 +41,6 @@ public class Config {
 		this.BOT_OWNER_ID = values[2];
 		this.BOT_GITHUB = values[3];
 		this.WEATHER_TOKEN = values[4];
-
-		this.VERSION_LIST = CVersion.getVersionList();
 	}
 
 	public String getPrefix() {
