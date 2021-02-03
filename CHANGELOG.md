@@ -3,15 +3,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased][Unreleased] - 2021-01-22 - Database Updater
+## [Unreleased][Unreleased] - 2021-02-02 - Database Updater
 ### Added
-- DBUpdater to handle any Database creation and updates.
+- DbUpdater, a new process that handles all database creation and updates.
+- Gradle JavaExec can now run DbUpdater from the command line before the bot is ran.
 
 ### Changed
-- ReadMe installation instructions were reorganized.
+- ReadMe installation was changed for DbUpdater to remove manual steps.
 
 ### Fixed
 - Can now determine if the Database has been updated to the same version as the bot.
+- Database and Mock Server information is now stored in the database properties config file.
 - Fatal errors now log exceptions in a standard way.
 
 ## [1.1.3][1.1.3] - 2021-01-19 - Config Cleanup

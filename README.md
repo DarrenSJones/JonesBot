@@ -4,7 +4,7 @@ This is being built as a personal project and isn't being supported for outside 
 
 ## Installation
 ### Prerequisites
-Currently only Windows is supported. The following must be installed before installing the bot:
+Currently only Windows 10 is supported. The following must be installed before installing the bot:
 * [Gradle](https://gradle.org/)
 * [Java JDK 15](https://www.oracle.com/java/technologies/javase-jdk15-downloads.html)
 * [Microsoft SQL Server 2019](https://www.microsoft.com/en-us/sql-server/sql-server-2019)
@@ -19,13 +19,9 @@ Currently only Windows is supported. The following must be installed before inst
 <t>Create two new databases in MSSQL. One is used in production and the other used for testing.<br>
 <t>By default the databases are called `jonesbot` and `jonesbottest`, running on `localhost:1433`.<br>
 <t>This can be changed in `src/main/resources/config/database.properties`.<br>
-4. **Build Database Tables**<br>
-<t>Currently the Databases must be populated manually, in the following order:<br>
-<t>a. Run `src/main/resources/db/1_0_0.sql`, followed by any patches in order.<br>
-<t>b. Repeat Step a, using the test database.<br>
-<t>c. Run `src/test/resources/db/testdata.sql` to add test data.<br>
-<t>d. Run a local file to add required data to the main database, or edit it directly.<br>
-<t>In the future, this process will be automated.
+4. **Update Databases to the Current Version**<br>
+<t>In the command prompt, `cd` to the directory containing the project.<br>
+<t>Send `gradle database` to update the database to match the current bot version.<br>
 5. **Run Tests to Validate Installation**<br>
 <t>In the command prompt, `cd` to the directory containing the project.<br>
 <t>Send `gradle clean test` to run the test suite, ensuring the bot installed correctly.<br>
