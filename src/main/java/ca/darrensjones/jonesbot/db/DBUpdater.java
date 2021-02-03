@@ -17,19 +17,21 @@ import ca.darrensjones.jonesbot.log.Reporter;
  */
 public class DBUpdater {
 
-	// Executed from the command line
+	/**
+	 * Executed from the command line using 'gradle database'
+	 */
 	public static void main(String[] args) {
 		String test = "jonesbottest";
 		BotDB.initTest();
 		dropAllTables(test);
 		updateToVersion(test);
-		populateTable(test, "src/test/resources/db/testdata.sql");
+		populateTable(test, BotDB.getDbBackup());
 
 		String prod = "jonesbot";
 		BotDB.init();
 		dropAllTables(prod);
 		updateToVersion(prod);
-		populateTable(prod, "C:\\git\\data\\jonesbot_data.sql");
+		populateTable(prod, BotDB.getDbBackup());
 	}
 
 	private static void dropAllTables(String databaseName) {

@@ -15,6 +15,7 @@ public class BotDB {
 
 	private static JDBC jdbc;
 	private static Properties properties; // Only contains prod/test database information
+	private static String dbBackup;
 
 	/** This is set on Bot initialization, before the JDA connection is made. */
 	public static void init() {
@@ -23,6 +24,7 @@ public class BotDB {
 		String database = properties.getProperty("prodDbName");
 		String userName = properties.getProperty("prodDbUserName");
 		String password = properties.getProperty("prodDbPassword");
+		dbBackup = properties.getProperty("prodDbBackup");
 		BotDB.set(driver, database, userName, password);
 	}
 
@@ -33,6 +35,7 @@ public class BotDB {
 		String database = properties.getProperty("testDbName");
 		String userName = properties.getProperty("testDbUserName");
 		String password = properties.getProperty("testDbPassword");
+		dbBackup = properties.getProperty("testDbBackup");
 		BotDB.set(driver, database, userName, password);
 	}
 
@@ -44,6 +47,10 @@ public class BotDB {
 	/** Assumes a connection has already been made. */
 	public static JDBC get() {
 		return jdbc;
+	}
+
+	public static String getDbBackup() {
+		return dbBackup;
 	}
 
 	private static void setProperties() {
