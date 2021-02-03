@@ -52,11 +52,6 @@ public class Reporter {
 		if (printToConsole) console.warn(message);
 	}
 
-	public static void fatal(String message) {
-		trace.fatal(message);
-		console.fatal(message);
-	}
-
 	public static void fatal(String message, Exception e) {
 		fatal(message, e, true);
 	}
