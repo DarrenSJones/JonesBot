@@ -35,3 +35,8 @@ test {
 		testLogging.showStandardStreams = true
 	}
 }
+
+task database(type: JavaExec) {
+	main = "ca.darrensjones.jonesbot.db.DBUpdater"
+	classpath = sourceSets.main.runtimeClasspath
+}
