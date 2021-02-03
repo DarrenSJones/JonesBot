@@ -50,9 +50,9 @@ public class BotDB {
 		try {
 			properties = new Properties();
 			properties.load(new FileInputStream(new File("src/main/resources/config/database.properties")));
+			Reporter.info("Loaded database properties.");
 		} catch (Exception e) {
 			Reporter.fatal("Failed to set database properties.", e);
-			e.printStackTrace();
 		}
 	}
 }
