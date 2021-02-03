@@ -3,8 +3,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-##[Unreleased][Unreleased]
-## [1.1.4][1.1.4] - 2021-01-22 - Database Updater
+## [Unreleased][Unreleased] - 2021-01-22 - Database Updater
 ### Added
 - DBUpdater to handle any Database creation and updates.
 
@@ -13,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 - Can now determine if the Database has been updated to the same version as the bot.
-- Version list is now found dynamically from the change log on bot initialization.
+- Fatal errors now log exceptions in a standard way.
 
 ## [1.1.3][1.1.3] - 2021-01-19 - Config Cleanup
 ### Changed
