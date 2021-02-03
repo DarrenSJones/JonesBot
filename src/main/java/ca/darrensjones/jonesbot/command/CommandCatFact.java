@@ -16,7 +16,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.1.3 2021-01-14
+ * @version 1.1.4 2021-02-02
  * @since 1.0.0 2020-11-24
  */
 public class CommandCatFact extends AbstractCommand {
@@ -67,8 +67,9 @@ public class CommandCatFact extends AbstractCommand {
 			JSONObject json = (JSONObject) new JSONParser().parse(response);
 			return json.get("fact").toString();
 		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
-			return "Cat Fact not found.";
+			String message = "Cat Fact response not found.";
+			Reporter.fatal(message, e);
+			return message;
 		}
 	}
 }

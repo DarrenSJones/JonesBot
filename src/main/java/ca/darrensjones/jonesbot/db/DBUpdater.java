@@ -12,7 +12,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.1.4 2021-02-01
+ * @version 1.1.4 2021-02-02
  * @since 1.1.4 2021-01-29
  */
 public class DBUpdater {
@@ -51,7 +51,7 @@ public class DBUpdater {
 			Reporter.info(String.format("Dropped all tables from [%s].", databaseName));
 
 		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
+			Reporter.fatal("DBUpdater dropAllTables.", e);
 		}
 	}
 
@@ -69,7 +69,7 @@ public class DBUpdater {
 
 			Reporter.info(String.format("Updated database [%s] to version [1.0.0]", databaseName));
 		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
+			Reporter.fatal("DBUpdater updateToVersion.", e);
 		}
 	}
 
@@ -87,7 +87,7 @@ public class DBUpdater {
 
 			Reporter.info(String.format("Populated Database:[%s].", databaseName));
 		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
+			Reporter.fatal("DBUpdater populateTable.", e);
 		}
 	}
 }

@@ -15,7 +15,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.1.4 2021-01-19
+ * @version 1.1.4 2021-02-02
  * @since 1.0.2 2020-12-22
  */
 public class CommandToDo extends AbstractCommand {
@@ -62,7 +62,7 @@ public class CommandToDo extends AbstractCommand {
 		try {
 			return FileUtils.readFileToString(new File("todo.txt"), StandardCharsets.UTF_8);
 		} catch (Exception e) {
-			Reporter.fatal("ReadChangelog Error.\n" + e.getMessage());
+			Reporter.fatal("ReadToDo Error.", e);
 			return null;
 		}
 	}

@@ -20,7 +20,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-13
+ * @version 1.1.4 2021-02-02
  * @since 1.0.0 2020-12-08
  */
 public class Frinkiac {
@@ -160,7 +160,7 @@ public class Frinkiac {
 			if (StringUtils.isNotBlank(resp) && !resp.equals("[]") && !resp.equals("Not Found\n")) response = resp;
 
 		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
+			Reporter.fatal("Frinkiac response not found.", e);
 		}
 		return response;
 	}

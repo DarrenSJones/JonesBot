@@ -19,7 +19,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.1 2020-12-19
+ * @version 1.1.4 2021-02-02
  * @since 1.0.0 2020-11-25
  */
 public class Mock {
@@ -59,7 +59,7 @@ public class Mock {
 			client.when(HttpRequest.request().withMethod(method).withPath(requestPath).withQueryStringParameters(requestParameters), Times.unlimited())
 					.respond(HttpResponse.response().withStatusCode(responseStatusCode).withBody(responseBody));
 		} catch (Exception e) {
-			Reporter.fatal("SetExpectation Exception.\n" + e.getMessage());
+			Reporter.fatal("Mock setExpectation.", e);
 		}
 	}
 }

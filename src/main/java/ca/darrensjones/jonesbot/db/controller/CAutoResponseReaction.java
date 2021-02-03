@@ -11,7 +11,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.1.1 2020-12-29
+ * @version 1.1.4 2021-02-02
  * @since 1.0.0 2020-11-18
  */
 public class CAutoResponseReaction {
@@ -32,7 +32,7 @@ public class CAutoResponseReaction {
 			while (rs.next()) list.add(setRecord(rs));
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
+			Reporter.fatal("CAutoResponseReaction getAll.", e);
 		}
 		return list;
 	}

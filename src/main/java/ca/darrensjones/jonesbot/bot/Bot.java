@@ -14,7 +14,7 @@ import net.dv8tion.jda.api.JDABuilder;
 
 /**
  * @author Darren Jones
- * @version 1.1.4 2021-01-22
+ * @version 1.1.4 2021-02-02
  * @since 1.0.0 2020-11-18
  */
 public class Bot {
@@ -43,7 +43,7 @@ public class Bot {
 			jda.awaitReady();
 			Reporter.info("JDA set and ready.");
 		} catch (InterruptedException | LoginException e) {
-			Reporter.fatal("Failed to set JDA.\n" + e.getMessage());
+			Reporter.fatal("Failed to set JDA.", e);
 		}
 	}
 

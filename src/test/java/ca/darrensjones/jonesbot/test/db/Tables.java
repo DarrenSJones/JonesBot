@@ -13,7 +13,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.1 2020-12-17
+ * @version 1.1.4 2021-02-02
  * @since 1.0.0 2020-11-21
  */
 public class Tables {
@@ -26,7 +26,7 @@ public class Tables {
 			while (rs.next()) tables.add(rs.getString(1));
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
+			Reporter.fatal("Tables allTables.", e);
 		}
 
 		Assert.assertEquals(tables.size(), 3);
@@ -76,7 +76,7 @@ public class Tables {
 			for (int i = 1; i <= rsmd.getColumnCount(); i++) columns.add(rsmd.getColumnName(i));
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
+			Reporter.fatal("Tables getColumnNames.", e);
 		}
 		return columns;
 	}

@@ -14,7 +14,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.1.3 2021-01-14
+ * @version 1.1.4 2021-02-02
  * @since 1.0.0 2020-11-22
  */
 public class CommandHandler {
@@ -106,7 +106,7 @@ public class CommandHandler {
 				AbstractCommand command = c.getConstructor(Bot.class).newInstance(bot);
 				list.add(command);
 			} catch (Exception e) {
-				Reporter.fatal(e.getMessage());
+				Reporter.fatal("CommandHandler setCommands.", e);
 			}
 		}
 		commands = list;

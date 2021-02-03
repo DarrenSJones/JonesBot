@@ -11,7 +11,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-12-09
+ * @version 1.1.4 2021-02-02
  * @since 1.0.0 2020-12-03
  */
 public class CFrinkiacSaved {
@@ -33,7 +33,7 @@ public class CFrinkiacSaved {
 			while (rs.next()) list.add(setRecord(rs));
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
+			Reporter.fatal("CFrinkiacSaved getById.", e);
 		}
 		return list;
 	}

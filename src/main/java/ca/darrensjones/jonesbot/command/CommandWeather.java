@@ -23,7 +23,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.1.3 2021-01-14
+ * @version 1.1.4 2021-02-02
  * @since 1.0.0 2020-11-26
  */
 public class CommandWeather extends AbstractCommand {
@@ -166,8 +166,9 @@ public class CommandWeather extends AbstractCommand {
 			eb.setDescription("City Not Found: " + city);
 
 		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
-			eb.setDescription("EmbedBuilder Error!");
+			String message = "CommandWeather EmbedBuilder error.";
+			Reporter.fatal(message, e);
+			eb.setDescription(message);
 		}
 
 		return eb;

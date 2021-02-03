@@ -9,7 +9,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.0.0 2020-11-28
+ * @version 1.1.4 2021-02-02
  * @since 1.0.0 2020-11-28
  */
 public class TestUtils {
@@ -19,7 +19,7 @@ public class TestUtils {
 		try {
 			output = FileUtils.readFileToString(new File(filePath), StandardCharsets.UTF_8);
 		} catch (Exception e) {
-			Reporter.fatal(e.getMessage());
+			Reporter.fatal("TestUtils readFile.", e);
 		}
 		return output;
 	}

@@ -10,7 +10,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.1.4 2021-01-29
+ * @version 1.1.4 2021-02-02
  * @since 1.0.0 2020-11-18
  */
 public class JDBC {
@@ -35,7 +35,7 @@ public class JDBC {
 			connection = DriverManager.getConnection(url, userName, password);
 			Reporter.info(String.format("JDBC Connection created:[%s]", connection.getCatalog()));
 		} catch (SQLException e) {
-			Reporter.fatal("Failed to create JDBC Connection.\n" + e.getMessage());
+			Reporter.fatal("Failed to create JDBC Connection.", e);
 		}
 	}
 

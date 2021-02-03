@@ -62,7 +62,7 @@ public class Reporter {
 	}
 
 	public static void fatal(String message, Exception e, boolean printToConsole) {
-		message = String.format("%s Error:[%s]", message, e.getMessage());
+		message = String.format("%s Exception:[%s]", message, e.getMessage());
 		trace.fatal(message);
 		if (printToConsole) console.fatal(message);
 		e.printStackTrace();
