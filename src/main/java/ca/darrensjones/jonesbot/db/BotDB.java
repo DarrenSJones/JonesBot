@@ -1,24 +1,39 @@
 package ca.darrensjones.jonesbot.db;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
+
 import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.1.4 2021-02-01
+ * @version 1.1.4 2021-02-02
  * @since 1.0.0 2020-11-18
  */
 public class BotDB {
 
 	private static JDBC jdbc;
+	private static Properties properties; // Only contains prod/test database information
 
 	/** This is set on Bot initialization, before the JDA connection is made. */
 	public static void init() {
-		BotDB.set("localhost:1433", "jonesbot", "jonesbot", "jonesbot");
+		setProperties();
+		String driver = properties.getProperty("prodDbHost") + ":" + properties.getProperty("prodDbPort");
+		String database = properties.getProperty("prodDbName");
+		String userName = properties.getProperty("prodDbUserName");
+		String password = properties.getProperty("prodDbPassword");
+		BotDB.set(driver, database, userName, password);
 	}
 
 	/** This is set on Bot initialization, before the JDA connection is made. */
 	public static void initTest() {
-		BotDB.set("localhost:1433", "jonesbottest", "jonesbot", "jonesbot");
+		setProperties();
+		String driver = properties.getProperty("testDbHost") + ":" + properties.getProperty("testDbPort");
+		String database = properties.getProperty("testDbName");
+		String userName = properties.getProperty("testDbUserName");
+		String password = properties.getProperty("testDbPassword");
+		BotDB.set(driver, database, userName, password);
 	}
 
 	public static void set(String driver, String database, String userName, String password) {
@@ -29,5 +44,15 @@ public class BotDB {
 	/** Assumes a connection has already been made. */
 	public static JDBC get() {
 		return jdbc;
+	}
+
+	private static void setProperties() {
+		try {
+			properties = new Properties();
+			properties.load(new FileInputStream(new File("src/main/resources/config/database.properties")));
+		} catch (Exception e) {
+			Reporter.fatal("Failed to set database properties.", e);
+			e.printStackTrace();
+		}
 	}
 }
