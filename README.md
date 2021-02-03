@@ -17,8 +17,8 @@ Currently only Windows is supported. The following must be installed before inst
 <t>Send `gradle check` to download any missing dependencies.<br>
 3. **Create Databases**<br>
 <t>Create two new databases in MSSQL. One is used in production and the other used for testing.<br>
-<t>Currently these are non-configurable and must be called `jonesbot` and `jonesbottest`, with that casing.<br>
-<t>The host and port are also currently non-configurable, and must run using `localhost:1433`.<br>
+<t>By default the databases are called `jonesbot` and `jonesbottest`, running on `localhost:1433`.<br>
+<t>This can be changed in `src/main/resources/config/database.properties`.<br>
 4. **Build Database Tables**<br>
 <t>Currently the Databases must be populated manually, in the following order:<br>
 <t>a. Run `src/main/resources/db/1_0_0.sql`, followed by any patches in order.<br>
