@@ -3,7 +3,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased][Unreleased] - 2021-02-02 - Database Updater
+## [Unreleased][Unreleased] - Simple Schedule
+### Added
+- Simple Schedule, taken from the old Java prototype, updated with database support.
+- Cron can now initiate the schedule directly from the Bot.
+
+### Changed
+- Renamed SQL files to match versions.
+
+## [1.1.4][1.1.4] - 2021-02-02 - Database Updater
 ### Added
 - DbUpdater, a new process that handles all database creation and updates.
 - Gradle JavaExec can now run DbUpdater from the command line before the bot is ran.
