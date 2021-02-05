@@ -29,3 +29,12 @@ INSERT INTO frinkiac_saved VALUES (1,	'The Anvil',		'S08E15',	'856087',	'(the an
 INSERT INTO frinkiac_saved VALUES (2,	'Ass',				'S05E15',	'586936',	'ass');
 INSERT INTO frinkiac_saved VALUES (2,	'Lincoln',			'S03E10',	'589838',	'lincoln|jonesbot');
 INSERT INTO frinkiac_saved VALUES (3,	'TV',				'S01E08',	'62479',	'tv');
+
+-- DayOfWeek
+INSERT INTO simple_schedule VALUES (null,'1','123456789012345678','123456789012345678','1:00 PM','Monday!');
+INSERT INTO simple_schedule VALUES (null,'2','123456789012345678','123456789012345678','2:00 PM','Tuesday!');
+INSERT INTO simple_schedule VALUES (null,'3','123456789012345678','123456789012345678','3:00 PM','Wednesday!');
+INSERT INTO simple_schedule VALUES (null,'4','123456789012345678','123456789012345678','4:00 PM','Thursday!');
+INSERT INTO simple_schedule VALUES (null,'5','123456789012345678','123456789012345678','5:00 PM','Friday!');
+INSERT INTO simple_schedule VALUES (null,'6','123456789012345678','123456789012345678','6:00 PM','Saturday!');
+INSERT INTO simple_schedule VALUES (null,'7','123456789012345678','123456789012345678','7:00 PM','Sunday!');
