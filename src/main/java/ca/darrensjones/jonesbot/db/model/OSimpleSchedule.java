@@ -12,7 +12,6 @@ import ca.darrensjones.jonesbot.db.AbstractModel;
 public class OSimpleSchedule extends AbstractModel {
 	public int id;
 	public LocalDate date;
-	public int dayOfWeek;
 	public String guildId;
 	public String channelId;
 	public String time;
