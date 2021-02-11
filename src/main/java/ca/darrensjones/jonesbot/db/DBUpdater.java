@@ -12,7 +12,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.2.0 2021-02-03
+ * @version 1.2.0 2021-02-11
  * @since 1.1.4 2021-01-29
  */
 public class DBUpdater {
@@ -24,13 +24,13 @@ public class DBUpdater {
 		String test = "jonesbottest";
 		BotDB.initTest();
 		dropAllTables(test);
-		updateToVersion(test);
+		cleanInstall(test);
 		populateTable(test, BotDB.getDbBackup());
 
 		String prod = "jonesbot";
 		BotDB.init();
 		dropAllTables(prod);
-		updateToVersion(prod);
+		cleanInstall(prod);
 		populateTable(prod, BotDB.getDbBackup());
 	}
 
@@ -57,7 +57,7 @@ public class DBUpdater {
 		}
 	}
 
-	private static void updateToVersion(String databaseName) {
+	private static void cleanInstall(String databaseName) {
 		try {
 			Reporter.info(String.format("Updating database [%s] to version [1.0.0]", databaseName));
 
@@ -70,8 +70,20 @@ public class DBUpdater {
 			}
 
 			Reporter.info(String.format("Updated database [%s] to version [1.0.0]", databaseName));
+
+			Reporter.info(String.format("Updating database [%s] to version [1.2.0]", databaseName));
+
+			queries = FileUtils.readFileToString(new File("src/main/resources/db/1.0.0_to_1.2.0.sql"), StandardCharsets.UTF_8).split("(?<=;)");
+
+			for (String query : queries) {
+				query = query.replaceAll("--[\\s\\S]+\\n", "").replaceAll("\\s+", " ").trim();
+				BotDB.get().execute(query);
+				Reporter.info(String.format("JDBC Execute:[%s]", query));
+			}
+
+			Reporter.info(String.format("Updated database [%s] to version [1.2.0]", databaseName));
 		} catch (Exception e) {
-			Reporter.fatal("DBUpdater updateToVersion.", e);
+			Reporter.fatal("DBUpdater cleanInstall.", e);
 		}
 	}
 
@@ -84,7 +96,7 @@ public class DBUpdater {
 			for (String query : queries) {
 				query = query.replaceAll("--[\\s\\S]+\\n", "").replaceAll("\\s+", " ").trim();
 				int updates = BotDB.get().update(query);
-				Reporter.info(String.format("JDBC Execute, inserted [%s] Row(s):[%s]", updates, query));
+				Reporter.info(String.format("JDBC Update, inserted [%s] Row(s):[%s]", updates, query));
 			}
 
 			Reporter.info(String.format("Populated Database:[%s].", databaseName));
