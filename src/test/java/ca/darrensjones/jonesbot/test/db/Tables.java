@@ -13,7 +13,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.1.4 2021-02-02
+ * @version 1.2.0 2021-02-11
  * @since 1.0.0 2020-11-21
  */
 public class Tables {
@@ -29,10 +29,11 @@ public class Tables {
 			Reporter.fatal("Tables allTables.", e);
 		}
 
-		Assert.assertEquals(tables.size(), 3);
+		Assert.assertEquals(tables.size(), 4);
 		Assert.assertEquals(tables.get(0), "bot_config");
 		Assert.assertEquals(tables.get(1), "frinkiac_saved");
 		Assert.assertEquals(tables.get(2), "reaction");
+		Assert.assertEquals(tables.get(3), "simple_schedule");
 	}
 
 	@Test(dependsOnMethods = "allTables", alwaysRun = true)
@@ -43,7 +44,7 @@ public class Tables {
 		Assert.assertEquals(columns.get(1), "item_value");
 	}
 
-	@Test(dependsOnMethods = "allTables", alwaysRun = true)
+	@Test(dependsOnMethods = "bot_config", alwaysRun = true)
 	public void frinkiac_saved() {
 		List<String> columns = getColumnNames("frinkiac_saved");
 		Assert.assertEquals(columns.size(), 6);
@@ -63,6 +64,19 @@ public class Tables {
 		Assert.assertEquals(columns.get(1), "shortcode");
 		Assert.assertEquals(columns.get(2), "unicode");
 		Assert.assertEquals(columns.get(3), "regex");
+	}
+
+	@Test(dependsOnMethods = "reaction", alwaysRun = true)
+	public void simple_schedule() {
+		List<String> columns = getColumnNames("simple_schedule");
+		Assert.assertEquals(columns.size(), 7);
+		Assert.assertEquals(columns.get(0), "id");
+		Assert.assertEquals(columns.get(1), "date");
+		Assert.assertEquals(columns.get(2), "day_of_week");
+		Assert.assertEquals(columns.get(3), "guild_id");
+		Assert.assertEquals(columns.get(4), "channel_id");
+		Assert.assertEquals(columns.get(5), "time");
+		Assert.assertEquals(columns.get(6), "value");
 	}
 
 	/**
