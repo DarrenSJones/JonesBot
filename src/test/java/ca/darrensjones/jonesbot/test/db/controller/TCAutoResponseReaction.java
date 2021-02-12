@@ -10,10 +10,10 @@ import ca.darrensjones.jonesbot.db.model.OAutoResponseReaction;
 
 /**
  * @author Darren Jones
- * @version 1.1.1 2020-12-29
+ * @version 1.2.0 2021-02-12
  * @since 1.0.0 2020-11-21
  */
-public class TCReaction {
+public class TCAutoResponseReaction {
 
 	@Test
 	public void getAll() {
