@@ -13,7 +13,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.2.0 2021-02-11
+ * @version 1.2.0 2021-02-12
  * @since 1.0.0 2020-11-21
  */
 public class Tables {
@@ -71,12 +71,12 @@ public class Tables {
 		List<String> columns = getColumnNames("simple_schedule");
 		Assert.assertEquals(columns.size(), 7);
 		Assert.assertEquals(columns.get(0), "id");
-		Assert.assertEquals(columns.get(1), "date");
-		Assert.assertEquals(columns.get(2), "day_of_week");
+		Assert.assertEquals(columns.get(1), "event_date");
+		Assert.assertEquals(columns.get(2), "event_day_of_week");
 		Assert.assertEquals(columns.get(3), "guild_id");
 		Assert.assertEquals(columns.get(4), "channel_id");
-		Assert.assertEquals(columns.get(5), "time");
-		Assert.assertEquals(columns.get(6), "value");
+		Assert.assertEquals(columns.get(5), "event_time");
+		Assert.assertEquals(columns.get(6), "event_value");
 	}
 
 	/**
