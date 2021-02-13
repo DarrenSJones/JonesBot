@@ -12,7 +12,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.2.0 2021-02-11
+ * @version 1.2.0 2021-02-12
  * @since 1.1.4 2021-01-29
  */
 public class DBUpdater {
@@ -61,7 +61,7 @@ public class DBUpdater {
 		try {
 			Reporter.info(String.format("Updating database [%s] to version [1.0.0]", databaseName));
 
-			String[] queries = FileUtils.readFileToString(new File("src/main/resources/db/1.0.0.sql"), StandardCharsets.UTF_8).split("(?<=;)");
+			String[] queries = FileUtils.readFileToString(new File("src/main/resources/db/1.0.0_.sql"), StandardCharsets.UTF_8).split("(?<=;)");
 
 			for (String query : queries) {
 				query = query.replaceAll("--[\\s\\S]+\\n", "").replaceAll("\\s+", " ").trim();
