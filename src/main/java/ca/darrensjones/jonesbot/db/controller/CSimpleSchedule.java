@@ -15,7 +15,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author Darren Jones
- * @version 1.2.0 2021-02-12
+ * @version 1.2.0 2021-02-13
  * @since 1.2.0 2021-02-12
  */
 public class CSimpleSchedule {
@@ -42,7 +42,7 @@ public class CSimpleSchedule {
 		List<String[]> list = new ArrayList<String[]>();
 		try {
 			String query = String.format(
-					"SELECT DISTINCT guild_id, channel_id FROM simple_schedule WHERE event_date = '%s' OR event_day_of_week = '%s' ORDER by guild_id, channel_id",
+					"SELECT DISTINCT guild_id, channel_id FROM simple_schedule WHERE (event_date = '%s' OR event_day_of_week = '%s') ORDER by guild_id, channel_id",
 					date, date.getDayOfWeek());
 			ResultSet rs = BotDB.get().select(query);
 			while (rs.next()) {
@@ -56,12 +56,27 @@ public class CSimpleSchedule {
 		return list;
 	}
 
-	public static List<OSimpleSchedule> getScheduleByDate(LocalDate date) {
+	public static List<OSimpleSchedule> getScheduleByDateAndGuild(LocalDate date, String guildId) {
 		List<OSimpleSchedule> list = new ArrayList<OSimpleSchedule>();
 		try {
 			String query = String.format(
-					"SELECT id, event_date, event_day_of_week, guild_id, channel_id, event_time, event_value FROM simple_schedule WHERE event_date = '%s' OR event_day_of_week = '%s' ORDER by guild_id, channel_id",
-					date, date.getDayOfWeek());
+					"SELECT id, event_date, event_day_of_week, guild_id, channel_id, event_time, event_value FROM simple_schedule WHERE (event_date = '%s' OR event_day_of_week = '%s') AND guild_id = '%s' ORDER by guild_id, channel_id, id",
+					date, date.getDayOfWeek(), guildId);
+			ResultSet rs = BotDB.get().select(query);
+			while (rs.next()) list.add(setRecord(rs));
+			rs.getStatement().close();
+		} catch (Exception e) {
+			Reporter.fatal("CSimpleSchedule getScheduleByDate.", e);
+		}
+		return list;
+	}
+
+	public static List<OSimpleSchedule> getScheduleByDateAndChannel(LocalDate date, String channelId) {
+		List<OSimpleSchedule> list = new ArrayList<OSimpleSchedule>();
+		try {
+			String query = String.format(
+					"SELECT id, event_date, event_day_of_week, guild_id, channel_id, event_time, event_value FROM simple_schedule WHERE (event_date = '%s' OR event_day_of_week = '%s') AND channel_id = '%s' ORDER by guild_id, channel_id, id",
+					date, date.getDayOfWeek(), channelId);
 			ResultSet rs = BotDB.get().select(query);
 			while (rs.next()) list.add(setRecord(rs));
 			rs.getStatement().close();
