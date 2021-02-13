@@ -23,7 +23,7 @@ public class CommandBasics {
 
 	@Test
 	public void commands() {
-		Assert.assertEquals(h.commands.size(), 16);
+		Assert.assertEquals(h.commands.size(), 17);
 		Assert.assertNotNull(h.getCommand("!CatFact"));
 		Assert.assertNotNull(h.getCommand("!ChangeLog"));
 		Assert.assertNotNull(h.getCommand("!Cowbell"));
@@ -35,6 +35,7 @@ public class CommandBasics {
 		Assert.assertNotNull(h.getCommand("!Reload"));
 		Assert.assertNotNull(h.getCommand("!Rick&Morty"));
 		Assert.assertNotNull(h.getCommand("!Roll"));
+		Assert.assertNotNull(h.getCommand("!SimpleSchedule"));
 		Assert.assertNotNull(h.getCommand("!Simpsons"));
 		Assert.assertNotNull(h.getCommand("!ToDo"));
 		Assert.assertNotNull(h.getCommand("!Version"));
@@ -174,6 +175,16 @@ public class CommandBasics {
 	}
 
 	@Test(dependsOnMethods = "basicsRoll", alwaysRun = true)
+	public void basicsSimpleSchedule() {
+		AbstractCommand c = h.getCommand("!simpleschedule");
+		Assert.assertEquals(c.getName(), "Simple Schedule");
+		Assert.assertEquals(c.getDescription(), "A Simple Schedule for JonesBot");
+		Assert.assertEquals(c.getTriggers(), new String[] { "simpleschedule", "schedule" });
+		Assert.assertEquals(c.getHelp(), "**!schedule** Displays today's schedule.");
+		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
+	}
+
+	@Test(dependsOnMethods = "basicsSimpleSchedule", alwaysRun = true)
 	public void basicsSimpsons() {
 		AbstractCommand c = h.getCommand("!simpsons");
 		Assert.assertEquals(c.getName(), "Simpsons");
