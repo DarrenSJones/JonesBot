@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Cron can now initiate the schedule directly from the Bot.
 
 ### Changed
-- Renamed SQL files to match versions.
+- Renamed SQL files to match versions and keep alphabetical order.
 
 ## [1.1.4][1.1.4] - 2021-02-02 - Database Updater
 ### Added
