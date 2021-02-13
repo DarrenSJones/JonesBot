@@ -31,9 +31,10 @@ public class TCSimpleSchedule {
 	public void getUniqueChannelsForDate() {
 
 		List<String[]> monday = CSimpleSchedule.getUniqueChannelsForDate(mo);
-		Assert.assertEquals(monday.size(), 2);
+		Assert.assertEquals(monday.size(), 3);
 		Assert.assertEquals(monday.get(0), new String[] { "023456789012345678", "223456789012345678" });
 		Assert.assertEquals(monday.get(1), new String[] { "023456789012345678", "323456789012345678" });
+		Assert.assertEquals(monday.get(2), new String[] { "123456789012345678", "923456789012345678" });
 
 		List<String[]> tuesday = CSimpleSchedule.getUniqueChannelsForDate(tu);
 		Assert.assertEquals(tuesday.size(), 1);
@@ -71,6 +72,11 @@ public class TCSimpleSchedule {
 		Assert.assertEquals(monday.get(1).event_value, "Monday Date!");
 		Assert.assertEquals(monday.get(2).event_time, "1:30 AM");
 		Assert.assertEquals(monday.get(2).event_value, "Another Monday Date!");
+
+		List<OSimpleSchedule> monday2 = CSimpleSchedule.getScheduleByDateAndGuild(mo, "123456789012345678");
+		Assert.assertEquals(monday2.size(), 1);
+		Assert.assertEquals(monday2.get(0).event_time, "1:45 AM");
+		Assert.assertEquals(monday2.get(0).event_value, "Yet Another Monday Date!");
 
 		List<OSimpleSchedule> tuesday = CSimpleSchedule.getScheduleByDateAndGuild(tu, guild);
 		Assert.assertEquals(tuesday.size(), 2);
