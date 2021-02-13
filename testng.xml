@@ -9,6 +9,7 @@
 			<class name="ca.darrensjones.jonesbot.test.db.controller.TCAutoResponseReaction" />
 			<class name="ca.darrensjones.jonesbot.test.db.controller.TCConfig" />
 			<class name="ca.darrensjones.jonesbot.test.db.controller.TCFrinkiacSaved" />
+			<class name="ca.darrensjones.jonesbot.test.db.controller.TCSimpleSchedule" />
 		</classes>
 	</test>
 
