@@ -9,12 +9,11 @@ import ca.darrensjones.jonesbot.db.controller.CSimpleSchedule;
 import ca.darrensjones.jonesbot.db.model.OSimpleSchedule;
 import ca.darrensjones.jonesbot.log.Reporter;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author Darren Jones
- * @version 1.2.0 2021-02-13
- * @since 1.2.0 2021-02-13
+ * @version 1.2.0 2021-02-15
+ * @since 1.2.0 2021-02-15
  */
 public class SimpleSchedule {
 
@@ -39,13 +38,11 @@ public class SimpleSchedule {
 		Reporter.info("Schedule Cron End");
 	}
 
-	public static EmbedBuilder scheduleCommand(Message message) {
+	public static EmbedBuilder scheduleCommand(LocalDate date, String guildId) {
 		Reporter.info("Schedule Command Start");
 
-		LocalDate date = LocalDate.now();
-
 		EmbedBuilder eb = buildBaseEmbed(date);
-		for (OSimpleSchedule event : CSimpleSchedule.getScheduleByDateAndGuild(date, message.getGuild().getId())) { // All events for the channel
+		for (OSimpleSchedule event : CSimpleSchedule.getScheduleByDateAndGuild(date, guildId)) { // All events for the channel
 			eb.addField(event.event_time, event.event_value, false);
 		}
 
