@@ -3,13 +3,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased][Unreleased] - Simple Schedule
+## [1.2.0][1.2.0] - Simple Schedule
 ### Added
 - Simple Schedule, taken from the old Java prototype, updated with database support.
 - Cron can now initiate the schedule directly from the Bot.
+- Schedule command to display all of today's events at any time.
 
 ### Changed
 - Renamed SQL files to match versions and keep alphabetical order.
+- DBUpdater now updates from nothing to the current version and then loads a backup.
 
 ## [1.1.4][1.1.4] - 2021-02-02 - Database Updater
 ### Added
@@ -100,7 +102,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - AutoResponse for Reactions.
 - Custom Reporter for Console and Trace logging.
 
-[Unreleased]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.3...dev
+[1.2.0]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.4...v1.2.0
 [1.1.4]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/DarrenSJones/JonesBot/compare/v1.1.1...v1.1.2
