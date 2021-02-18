@@ -8,12 +8,12 @@ import ca.darrensjones.jonesbot.db.model.OVersion;
 
 /**
  * @author Darren Jones
- * @version 1.2.0 2021-02-15
+ * @version 1.2.1 2021-02-18
  * @since 1.1.3 2021-01-14
  */
 public class Config {
 
-	public final String VERSION = "1.2.0";
+	public final String VERSION = "1.2.1";
 
 	// Default values for testing, these will be updated from the DB.
 	public String PREFIX = "!";
