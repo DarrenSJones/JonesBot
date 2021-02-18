@@ -1,9 +1,9 @@
 package ca.darrensjones.jonesbot.command.meta;
 
 /**
- * @author Darren Jones
+ * @author  Darren Jones
  * @version 1.0.0 2020-11-24
- * @since 1.0.0 2020-11-24
+ * @since   1.0.0 2020-11-24
  */
 public enum CommandVisibility {
 

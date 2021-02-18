@@ -1,17 +1,16 @@
 package ca.darrensjones.jonesbot.handler;
 
+import ca.darrensjones.jonesbot.db.controller.CAutoResponseReaction;
+import ca.darrensjones.jonesbot.db.controller.CFrinkiacSaved;
+import ca.darrensjones.jonesbot.db.model.OAutoResponseReaction;
+import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
 import java.util.HashMap;
 import java.util.List;
 
-import ca.darrensjones.jonesbot.db.controller.CFrinkiacSaved;
-import ca.darrensjones.jonesbot.db.controller.CAutoResponseReaction;
-import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
-import ca.darrensjones.jonesbot.db.model.OAutoResponseReaction;
-
 /**
- * @author Darren Jones
- * @version 1.1.1 2020-12-29
- * @since 1.0.0 2020-12-08
+ * @author  Darren Jones
+ * @version 1.2.1 2021-02-18
+ * @since   1.0.0 2020-12-08
  */
 public class DataHandler {
 
@@ -44,8 +43,9 @@ public class DataHandler {
 		rickMortySaved = CFrinkiacSaved.getById("3");
 	}
 
-	/** Used by Frinkiac to store the most recent response for each channel, overwriting if one exists. */
-	public static void setLast(HashMap<String, String[]> last, String messageChannel, String title, String response) {
+	/** Used by Frinkiac to store the most recent response by channel, overwriting any existing. */
+	public static void setLast(HashMap<String, String[]> last, String messageChannel, String title,
+			String response) {
 		last.remove(messageChannel);
 		last.put(messageChannel, new String[] { title, response });
 	}

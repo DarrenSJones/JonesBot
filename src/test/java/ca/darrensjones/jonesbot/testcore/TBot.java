@@ -5,9 +5,9 @@ import ca.darrensjones.jonesbot.bot.Config;
 import ca.darrensjones.jonesbot.db.BotDB;
 
 /**
- * @author Darren Jones
+ * @author  Darren Jones
  * @version 1.1.4 2021-02-01
- * @since 1.1.3 2021-01-14
+ * @since   1.1.3 2021-01-14
  */
 public class TBot {
 

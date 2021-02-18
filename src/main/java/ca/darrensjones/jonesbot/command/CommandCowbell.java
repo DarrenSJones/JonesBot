@@ -6,9 +6,9 @@ import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
- * @author Darren Jones
- * @version 1.1.3 2021-01-14
- * @since 1.0.0 2020-11-24
+ * @author  Darren Jones
+ * @version 1.2.1 2021-02-18
+ * @since   1.0.0 2020-11-24
  */
 public class CommandCowbell extends AbstractCommand {
 
@@ -43,6 +43,7 @@ public class CommandCowbell extends AbstractCommand {
 
 	@Override
 	public void execute(Message message) {
-		message.getChannel().sendMessage("https://media.giphy.com/media/3o6ozscsz4jRX7xuQE/giphy.gif").queue();
+		message.getChannel()
+				.sendMessage("https://media.giphy.com/media/3o6ozscsz4jRX7xuQE/giphy.gif").queue();
 	}
 }

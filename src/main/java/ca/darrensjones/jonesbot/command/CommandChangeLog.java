@@ -1,17 +1,16 @@
 package ca.darrensjones.jonesbot.command;
 
-import java.awt.Color;
-
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
+import java.awt.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
- * @author Darren Jones
- * @version 1.1.4 2021-01-21
- * @since 1.0.2 2020-12-22
+ * @author  Darren Jones
+ * @version 1.2.1 2021-02-18
+ * @since   1.0.2 2020-12-22
  */
 public class CommandChangeLog extends AbstractCommand {
 
@@ -47,7 +46,8 @@ public class CommandChangeLog extends AbstractCommand {
 	@Override
 	public void execute(Message message) {
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.setTitle(String.format("Current Version: %s", bot.getConfig().VERSION), String.format("%s/blob/dev/CHANGELOG.md", bot.getConfig().BOT_GITHUB));
+		eb.setTitle(String.format("Current Version: %s", bot.getConfig().VERSION),
+				String.format("%s/blob/dev/CHANGELOG.md", bot.getConfig().BOT_GITHUB));
 		eb.setDescription("The change log is linked above");
 		eb.setColor(new Color(0, 153, 255));
 		message.getChannel().sendMessage(eb.build()).queue();

@@ -1,5 +1,9 @@
 package ca.darrensjones.jonesbot.command;
 
+import ca.darrensjones.jonesbot.bot.Bot;
+import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
+import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
+import ca.darrensjones.jonesbot.log.Reporter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,17 +11,12 @@ import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import ca.darrensjones.jonesbot.bot.Bot;
-import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
-import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
-import ca.darrensjones.jonesbot.log.Reporter;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
- * @author Darren Jones
- * @version 1.1.3 2021-01-19
- * @since 1.1.0 2020-12-22
+ * @author  Darren Jones
+ * @version 1.2.1 2021-02-18
+ * @since   1.1.0 2020-12-22
  */
 public class CommandRoll extends AbstractCommand {
 
@@ -52,7 +51,7 @@ public class CommandRoll extends AbstractCommand {
 		String p = bot.getPrefix();
 		String output = "**" + p + "roll** Rolls a 6-sided die.";
 		output += "\n**" + p + "roll {sides}** Rolls a die with the given number of sides.";
-		output += "\n**" + p + "roll {amount}d{sides}** Rolls a given die the given amount (eg. 2d6).";
+		output += "\n**" + p + "roll {amount}d{sides}** Rolls the die the given amount (eg. 2d6).";
 		return output;
 	}
 
@@ -65,8 +64,11 @@ public class CommandRoll extends AbstractCommand {
 
 	public String process(String content) {
 
-		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>(); // Dice faces, amount to roll
-		HashMap<Integer, List<Integer>> results = new HashMap<Integer, List<Integer>>(); // Dice faces, roll results
+		// Dice faces, amount to roll
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+		// Dice faces, roll results
+		HashMap<Integer, List<Integer>> results = new HashMap<Integer, List<Integer>>();
 
 		Pattern pDice = Pattern.compile("\\d+(d|D)\\d+");
 		Matcher mMaxSides = Pattern.compile("\\s+\\d+$").matcher(content);
@@ -78,13 +80,13 @@ public class CommandRoll extends AbstractCommand {
 				while (mDice.find()) {
 					int amount = Integer.parseInt(mDice.group().split("(d|D)")[0]);
 					int sides = Integer.parseInt(mDice.group().split("(d|D)")[1]);
-					if (map.containsKey(sides)) amount += map.get(sides);
+					if (map.containsKey(sides)) {
+						amount += map.get(sides);
+					}
 					map.put(sides, amount);
 				}
-
 			} else if (mMaxSides.find()) {
 				map.put(Integer.parseInt(mMaxSides.group().trim()), 1);
-
 			} else {
 				map.put(6, 1);
 			}
@@ -108,26 +110,29 @@ public class CommandRoll extends AbstractCommand {
 
 		String output = String.format("Roll Total:[%s]", total);
 		for (Map.Entry<Integer, List<Integer>> entry : results.entrySet()) {
-			output += String.format(", %sd%s:%s", entry.getValue().size(), entry.getKey(), entry.getValue().toString());
+			int size = entry.getValue().size();
+			String key = entry.getKey().toString();
+			String value = entry.getValue().toString();
+			output += String.format(", %sd%s:%s", size, key, value);
 		}
 
 		return output;
 	}
 
 	/**
-	 * @param max A positive number
-	 * @return A random number between 1 and 'max'
-	 * @throws IllegalArgumentException If 'max' is less than 1
+	 * @param  max                      A positive number.
+	 * @return                          A random number between 1 and 'max'.
+	 * @throws IllegalArgumentException If 'max' is less than 1.
 	 */
 	public int roll(int max) throws IllegalArgumentException {
 		return roll(1, max);
 	}
 
 	/**
-	 * @param min Must be less than 'max'
-	 * @param max Must be greater than 'min'
-	 * @return A random number between 1 and 'max'
-	 * @throws IllegalArgumentException If 'max' is less than 1
+	 * @param  min                      Must be less than 'max'.
+	 * @param  max                      Must be greater than 'min'.
+	 * @return                          A random number between 1 and 'max'.
+	 * @throws IllegalArgumentException If 'max' is less than 1.
 	 */
 	public int roll(int min, int max) throws IllegalArgumentException {
 		return rand.nextInt(max - (min - 1)) + min;

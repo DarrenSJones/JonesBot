@@ -1,18 +1,17 @@
 package ca.darrensjones.jonesbot.command;
 
-import java.time.LocalDate;
-
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
 import ca.darrensjones.jonesbot.simpleschedule.SimpleSchedule;
+import java.time.LocalDate;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
- * @author Darren Jones
- * @version 1.2.0 2021-02-15
- * @since 1.2.0 2021-02-15
+ * @author  Darren Jones
+ * @version 1.2.1 2021-02-18
+ * @since   1.2.0 2021-02-15
  */
 public class CommandSimpleSchedule extends AbstractCommand {
 

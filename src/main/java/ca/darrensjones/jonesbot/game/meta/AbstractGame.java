@@ -1,15 +1,14 @@
 package ca.darrensjones.jonesbot.game.meta;
 
+import ca.darrensjones.jonesbot.bot.Bot;
 import java.util.ArrayList;
 import java.util.List;
-
-import ca.darrensjones.jonesbot.bot.Bot;
 import net.dv8tion.jda.api.entities.User;
 
 /**
- * @author Darren Jones
- * @version 1.1.2 2020-12-29
- * @since 1.1.2 2020-12-29
+ * @author  Darren Jones
+ * @version 1.2.1 2021-02-18
+ * @since   1.1.2 2020-12-29
  */
 public abstract class AbstractGame {
 
@@ -23,28 +22,28 @@ public abstract class AbstractGame {
 	}
 
 	/**
-	 * The name of the Game
+	 * The name of the Game.
 	 * 
 	 * @return name
 	 */
 	public abstract String getName();
 
 	/**
-	 * A short description of the Game
+	 * A short description of the Game.
 	 * 
 	 * @return description
 	 */
 	public abstract String getDescription();
 
 	/**
-	 * Triggers for the Game
+	 * Triggers for the Game.
 	 * 
 	 * @return triggers
 	 */
 	public abstract String[] getTriggers();
 
 	/**
-	 * Returns the current GameStatus
+	 * Returns the current GameStatus.
 	 * 
 	 * @return gameStatus
 	 */
@@ -53,7 +52,7 @@ public abstract class AbstractGame {
 	}
 
 	/**
-	 * Returns all Players in the current Game
+	 * Returns all players in the current Game.
 	 * 
 	 * @return players
 	 */
@@ -62,12 +61,12 @@ public abstract class AbstractGame {
 	}
 
 	/**
-	 * Posts an embed displaying help for the Game
+	 * Posts an embed displaying help for the Game.
 	 */
 	public abstract String help();
 
 	/**
-	 * Reloads the game
+	 * Reloads the Game.
 	 */
 	public void reload() {
 		gameStatus = GameStatus.OVER;

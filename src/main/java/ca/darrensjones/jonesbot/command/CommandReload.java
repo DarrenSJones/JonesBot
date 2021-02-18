@@ -6,9 +6,9 @@ import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
- * @author Darren Jones
+ * @author  Darren Jones
  * @version 1.1.3 2021-01-14
- * @since 1.0.0 2020-11-24
+ * @since   1.0.0 2020-11-24
  */
 public class CommandReload extends AbstractCommand {
 

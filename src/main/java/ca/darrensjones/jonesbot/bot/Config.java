@@ -1,15 +1,14 @@
 package ca.darrensjones.jonesbot.bot;
 
+import ca.darrensjones.jonesbot.db.controller.CConfig;
+import ca.darrensjones.jonesbot.db.model.OVersion;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.darrensjones.jonesbot.db.controller.CConfig;
-import ca.darrensjones.jonesbot.db.model.OVersion;
-
 /**
- * @author Darren Jones
+ * @author  Darren Jones
  * @version 1.2.1 2021-02-18
- * @since 1.1.3 2021-01-14
+ * @since   1.1.3 2021-01-14
  */
 public class Config {
 

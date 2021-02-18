@@ -6,9 +6,9 @@ import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
- * @author Darren Jones
+ * @author  Darren Jones
  * @version 1.1.3 2021-01-14
- * @since 1.1.2 2020-12-29
+ * @since   1.1.2 2020-12-29
  */
 public class CommandGame extends AbstractCommand {
 

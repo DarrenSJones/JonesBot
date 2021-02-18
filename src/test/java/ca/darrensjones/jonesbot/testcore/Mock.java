@@ -1,12 +1,12 @@
 package ca.darrensjones.jonesbot.testcore;
 
+import ca.darrensjones.jonesbot.log.Reporter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.mockserver.client.MockServerClient;
@@ -17,12 +17,10 @@ import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
 import org.mockserver.model.Parameter;
 
-import ca.darrensjones.jonesbot.log.Reporter;
-
 /**
- * @author Darren Jones
- * @version 1.1.4 2021-02-02
- * @since 1.0.0 2020-11-25
+ * @author  Darren Jones
+ * @version 1.2.1 2021-02-18
+ * @since   1.0.0 2020-11-25
  */
 public class Mock {
 
@@ -32,11 +30,11 @@ public class Mock {
 	private static ClientAndServer server;
 	private static MockServerClient client;
 
-	/**
-	 * If the Mock Server hasn't be started, starts it and a new Client. Otherwise, only resets the Client.
-	 */
+	/** Starts the Mock Server if it hasn't started and resets the Client. */
 	public static void reset() {
-		if (StringUtils.isBlank(host)) setMock();
+		if (StringUtils.isBlank(host)) {
+			setMock();
+		}
 
 		if (server == null) {
 			server = new ClientAndServer(Integer.parseInt(port));
@@ -56,7 +54,8 @@ public class Mock {
 	 * @param responseStatusCode Status Code to return with the response
 	 * @param file               File that contains the response Body
 	 */
-	public static void setExpectation(String method, String path, int responseStatusCode, File file) {
+	public static void setExpectation(String method, String path, int responseStatusCode,
+			File file) {
 		String requestPath = path;
 		List<Parameter> requestParameters = new ArrayList<Parameter>();
 		if (path.contains("?")) {
@@ -70,25 +69,26 @@ public class Mock {
 
 		try {
 			String responseBody = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
-			client.when(HttpRequest.request().withMethod(method).withPath(requestPath).withQueryStringParameters(requestParameters), Times.unlimited())
-					.respond(HttpResponse.response().withStatusCode(responseStatusCode).withBody(responseBody));
+			client.when(HttpRequest.request().withMethod(method).withPath(requestPath)
+					.withQueryStringParameters(requestParameters), Times.unlimited())
+					.respond(HttpResponse.response().withStatusCode(responseStatusCode)
+							.withBody(responseBody));
 		} catch (Exception e) {
-			Reporter.fatal("Mock setExpectation.", e);
+			Reporter.error("Mock setExpectation.", e);
 		}
 	}
 
-	/**
-	 * Sets the Mock Host and Port from the database.properties file.
-	 */
+	/** Sets the Mock Host and Port from the database.properties file. */
 	private static void setMock() {
 		Properties properties = new Properties();
 		try {
-			properties.load(new FileInputStream(new File("src/main/resources/config/database.properties")));
+			File file = new File("src/main/resources/config/database.properties");
+			properties.load(new FileInputStream(file));
 			host = properties.getProperty("mockHost");
 			port = properties.getProperty("mockPort");
 			Reporter.debug("Loaded mock properties.");
 		} catch (Exception e) {
-			Reporter.fatal("Failed to set mock properties.", e);
+			Reporter.error("Failed to set mock properties.", e);
 		}
 	}
 }

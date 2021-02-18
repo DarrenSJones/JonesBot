@@ -1,21 +1,19 @@
 package ca.darrensjones.jonesbot.handler;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.reflections.Reflections;
-
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.log.Reporter;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import org.reflections.Reflections;
 
 /**
- * @author Darren Jones
- * @version 1.1.4 2021-02-02
- * @since 1.0.0 2020-11-22
+ * @author  Darren Jones
+ * @version 1.2.1 2021-02-18
+ * @since   1.0.0 2020-11-22
  */
 public class CommandHandler {
 
@@ -58,17 +56,17 @@ public class CommandHandler {
 	}
 
 	/**
-	 * @param content Message Content
-	 * @return True if content starts with Prefix, False otherwise
+	 * @param  content Message Content
+	 * @return         True if content starts with Prefix, False otherwise
 	 */
 	public boolean isCommand(String content) {
 		if (content.startsWith(bot.getPrefix())) return true;
-		else return false;
+		return false;
 	}
 
 	/**
-	 * @param content Message Content
-	 * @return Command that matches the given content
+	 * @param  content Message Content
+	 * @return         Command that matches the given content
 	 */
 	public AbstractCommand getCommand(String content) {
 		if (isCommand(content)) {
@@ -83,8 +81,8 @@ public class CommandHandler {
 	}
 
 	/**
-	 * @param content Message Content
-	 * @return True if content has a 'help' subcommand, False otherwise
+	 * @param  content Message Content
+	 * @return         True if content has a 'help' subcommand, False otherwise
 	 */
 	public boolean hasHelp(String content) {
 		if (isCommand(content)) {
@@ -96,12 +94,11 @@ public class CommandHandler {
 		return false;
 	}
 
-	/**
-	 * Adds all AbtractCommands from the 'command' package to the commands list.
-	 */
+	/** Adds all AbtractCommands from the 'command' package to the commands list. */
 	public void setCommands() {
 		ArrayList<AbstractCommand> list = new ArrayList<AbstractCommand>();
-		for (Class<? extends AbstractCommand> c : new Reflections("ca.darrensjones.jonesbot.command").getSubTypesOf(AbstractCommand.class)) {
+		for (Class<? extends AbstractCommand> c : new Reflections(
+				"ca.darrensjones.jonesbot.command").getSubTypesOf(AbstractCommand.class)) {
 			try {
 				AbstractCommand command = c.getConstructor(Bot.class).newInstance(bot);
 				list.add(command);

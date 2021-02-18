@@ -1,17 +1,16 @@
 package ca.darrensjones.jonesbot.command;
 
-import java.awt.Color;
-
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
+import java.awt.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
- * @author Darren Jones
- * @version 1.1.3 2021-01-14
- * @since 1.0.0 2020-11-24
+ * @author  Darren Jones
+ * @version 1.2.1 2021-02-18
+ * @since   1.0.0 2020-11-24
  */
 public class CommandOwner extends AbstractCommand {
 
@@ -48,10 +47,13 @@ public class CommandOwner extends AbstractCommand {
 	public void execute(Message message) {
 		if (!message.getAuthor().getId().equals(bot.getConfig().BOT_OWNER_ID)) return;
 
-		String help = String.format("Commands are not case-sensitive. Try \"{command} %shelp\" for more information.", bot.getPrefix());
+		String prefix = bot.getPrefix();
+		String help = String.format("Try \"**{command} %shelp**\" for more information.", prefix);
 		for (AbstractCommand c : bot.commandHandler.commands) {
 			if (c.visibility().isOwner()) {
-				help += String.format("%n**%s%s**: %s", bot.getPrefix(), c.getTriggers()[0], c.getDescription());
+				String trigger = c.getTriggers()[0];
+				String description = c.getDescription();
+				help += String.format("%n**%s%s**: %s", bot.getPrefix(), trigger, description);
 			}
 		}
 

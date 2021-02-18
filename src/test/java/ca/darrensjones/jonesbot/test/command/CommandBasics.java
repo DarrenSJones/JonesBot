@@ -13,9 +13,9 @@ import ca.darrensjones.jonesbot.handler.CommandHandler;
 import ca.darrensjones.jonesbot.testcore.TBot;
 
 /**
- * @author Darren Jones
+ * @author  Darren Jones
  * @version 1.1.3 2021-01-14
- * @since 1.0.0 2020-11-24
+ * @since   1.0.0 2020-11-24
  */
 public class CommandBasics {
 
@@ -47,7 +47,8 @@ public class CommandBasics {
 		List<String> triggers = new ArrayList<String>();
 		for (AbstractCommand command : h.commands) {
 			for (String trigger : command.getTriggers()) {
-				Assert.assertFalse(triggers.contains(trigger)); // Fails if duplicate command triggers exist
+				Assert.assertFalse(triggers.contains(trigger)); // Fails if duplicate command
+																// triggers exist
 				triggers.add(trigger);
 			}
 		}
@@ -57,9 +58,11 @@ public class CommandBasics {
 	public void basicsCatFact() {
 		AbstractCommand c = h.getCommand("!catfact");
 		Assert.assertEquals(c.getName(), "CatFact");
-		Assert.assertEquals(c.getDescription(), "Displays a random cat fact from https://catfact.ninja");
+		Assert.assertEquals(c.getDescription(),
+				"Displays a random cat fact from https://catfact.ninja");
 		Assert.assertEquals(c.getTriggers(), new String[] { "catfact", "catfacts" });
-		Assert.assertEquals(c.getHelp(), "**!catfact** Displays a random cat fact from https://catfact.ninja");
+		Assert.assertEquals(c.getHelp(),
+				"**!catfact** Displays a random cat fact from https://catfact.ninja");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
@@ -139,7 +142,8 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Reaction");
 		Assert.assertEquals(c.getDescription(), "A list of reactions the Bot will respond with");
 		Assert.assertEquals(c.getTriggers(), new String[] { "reaction", "reactions" });
-		Assert.assertEquals(c.getHelp(), "**!reaction** A list of reactions the Bot will respond with");
+		Assert.assertEquals(c.getHelp(),
+				"**!reaction** A list of reactions the Bot will respond with");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
@@ -147,9 +151,11 @@ public class CommandBasics {
 	public void basicsReload() {
 		AbstractCommand c = h.getCommand("!reload");
 		Assert.assertEquals(c.getName(), "Reload");
-		Assert.assertEquals(c.getDescription(), "Reloads all Commands and data from the SQL Database");
+		Assert.assertEquals(c.getDescription(),
+				"Reloads all Commands and data from the SQL Database");
 		Assert.assertEquals(c.getTriggers(), new String[] { "reload" });
-		Assert.assertEquals(c.getHelp(), "**!reload** Reloads all Commands and data from the SQL Database");
+		Assert.assertEquals(c.getHelp(),
+				"**!reload** Reloads all Commands and data from the SQL Database");
 		Assert.assertEquals(c.visibility(), CommandVisibility.OWNER);
 	}
 
@@ -157,7 +163,8 @@ public class CommandBasics {
 	public void basicsRickMorty() {
 		AbstractCommand c = h.getCommand("!rick&morty");
 		Assert.assertEquals(c.getName(), "Rick&Morty");
-		Assert.assertEquals(c.getDescription(), "Returns an image from http://masterofallscience.com");
+		Assert.assertEquals(c.getDescription(),
+				"Returns an image from http://masterofallscience.com");
 		Assert.assertEquals(c.getTriggers(), new String[] { "rick&morty", "rick", "morty" });
 		Assert.assertEquals(c.getHelp(), Frinkiac.getHelp("!"));
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
@@ -169,8 +176,9 @@ public class CommandBasics {
 		Assert.assertEquals(c.getName(), "Roll");
 		Assert.assertEquals(c.getDescription(), "Roll some dice!");
 		Assert.assertEquals(c.getTriggers(), new String[] { "roll", "r" });
-		Assert.assertEquals(c.getHelp(), "**!roll** Rolls a 6-sided die.\n**!roll {sides}** Rolls a die with the given number of sides.\n"
-				+ "**!roll {amount}d{sides}** Rolls a given die the given amount (eg. 2d6).");
+		Assert.assertEquals(c.getHelp(),
+				"**!roll** Rolls a 6-sided die.\n**!roll {sides}** Rolls a die with the given number of sides.\n"
+						+ "**!roll {amount}d{sides}** Rolls the die the given amount (eg. 2d6).");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 
@@ -218,10 +226,12 @@ public class CommandBasics {
 	public void basicsWeather() {
 		AbstractCommand c = h.getCommand("!weather");
 		Assert.assertEquals(c.getName(), "Weather");
-		Assert.assertEquals(c.getDescription(), "Gets the Weather from https://openweathermap.org/");
+		Assert.assertEquals(c.getDescription(),
+				"Gets the Weather from https://openweathermap.org/");
 		Assert.assertEquals(c.getTriggers(), new String[] { "weather", "w" });
-		Assert.assertEquals(c.getHelp(), "**!w** Gets the Weather from https://openweathermap.org/\n**!w {city}** Gets the Weather for the given city."
-				+ "\n**!w !5day** Gets the 5-Day Forecast.\n**!w !5day {city}** Gets the 5-Day Forecast for the given city.");
+		Assert.assertEquals(c.getHelp(),
+				"**!w** Gets the Weather from https://openweathermap.org/\n**!w {city}** Gets the Weather for the given city."
+						+ "\n**!w !5day** Gets the 5-Day Forecast.\n**!w !5day {city}** Gets the 5-Day Forecast for the given city.");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
 	}
 }

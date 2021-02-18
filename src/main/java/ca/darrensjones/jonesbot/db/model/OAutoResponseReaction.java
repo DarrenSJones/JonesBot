@@ -3,9 +3,9 @@ package ca.darrensjones.jonesbot.db.model;
 import ca.darrensjones.jonesbot.db.AbstractModel;
 
 /**
- * @author Darren Jones
+ * @author  Darren Jones
  * @version 1.1.1 2020-12-29
- * @since 1.0.0 2020-11-18
+ * @since   1.0.0 2020-11-18
  */
 public class OAutoResponseReaction extends AbstractModel {
 	public int id;
