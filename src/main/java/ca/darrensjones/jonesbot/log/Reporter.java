@@ -1,14 +1,12 @@
 package ca.darrensjones.jonesbot.log;
 
-import org.apache.logging.log4j.Logger;
-
 import net.dv8tion.jda.api.entities.Message;
-
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author  Darren Jones
- * @version 1.1.4 2021-02-02
+ * @version 1.2.1 2021-02-18
  * @since   1.0.0 2020-11-18
  */
 public class Reporter {
@@ -16,9 +14,8 @@ public class Reporter {
 	private static final Logger trace = LogManager.getLogger("TraceLogger");
 	private static final Logger console = LogManager.getLogger("ConsoleLogger");
 
-	public static void info(String message) {
-		trace.info(message);
-		console.info(message);
+	public static void debug(String message) {
+		trace.debug(message);
 	}
 
 	public static void error(String message) {
@@ -26,21 +23,21 @@ public class Reporter {
 		console.error(message);
 	}
 
-	public static void debug(String message) {
-		trace.debug(message);
-		console.debug(message);
-	}
-
-	public static void warn(String message) {
-		trace.warn(message);
-		console.warn(message);
-	}
-
 	public static void fatal(String message, Exception e) {
 		message = String.format("%s Exception:[%s]", message, e.getMessage());
 		trace.fatal(message);
 		console.fatal(message);
 		e.printStackTrace();
+	}
+
+	public static void info(String message) {
+		trace.info(message);
+		console.info(message);
+	}
+
+	public static void warn(String message) {
+		trace.warn(message);
+		console.warn(message);
 	}
 
 	/**
