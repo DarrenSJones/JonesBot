@@ -74,7 +74,8 @@ public class Mock {
 					.respond(HttpResponse.response().withStatusCode(responseStatusCode)
 							.withBody(responseBody));
 		} catch (Exception e) {
-			Reporter.error("Mock setExpectation.", e);
+			Reporter.error("Mock setExpectation.");
+			e.printStackTrace();
 		}
 	}
 
@@ -88,7 +89,8 @@ public class Mock {
 			port = properties.getProperty("mockPort");
 			Reporter.debug("Loaded mock properties.");
 		} catch (Exception e) {
-			Reporter.error("Failed to set mock properties.", e);
+			Reporter.error("Failed to set mock properties.");
+			e.printStackTrace();
 		}
 	}
 }

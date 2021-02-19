@@ -12,9 +12,9 @@ import ca.darrensjones.jonesbot.db.BotDB;
 import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
- * @author Darren Jones
- * @version 1.2.0 2021-02-12
- * @since 1.0.0 2020-11-21
+ * @author  Darren Jones
+ * @version 1.2.1 2021-02-18
+ * @since   1.0.0 2020-11-21
  */
 public class Tables {
 
@@ -22,11 +22,13 @@ public class Tables {
 	public void allTables() {
 		List<String> tables = new ArrayList<String>();
 		try {
-			ResultSet rs = BotDB.get().select("SELECT * FROM " + "jonesbottest" + ".sys.tables ORDER BY name");
+			ResultSet rs = BotDB.get()
+					.select("SELECT * FROM " + "jonesbottest" + ".sys.tables ORDER BY name");
 			while (rs.next()) tables.add(rs.getString(1));
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.fatal("Tables allTables.", e);
+			Reporter.error("Tables allTables.");
+			e.printStackTrace();
 		}
 
 		Assert.assertEquals(tables.size(), 4);
@@ -90,7 +92,8 @@ public class Tables {
 			for (int i = 1; i <= rsmd.getColumnCount(); i++) columns.add(rsmd.getColumnName(i));
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.fatal("Tables getColumnNames.", e);
+			Reporter.error("Tables getColumnNames.");
+			e.printStackTrace();
 		}
 		return columns;
 	}

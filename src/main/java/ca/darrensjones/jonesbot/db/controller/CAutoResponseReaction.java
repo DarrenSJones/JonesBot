@@ -33,7 +33,8 @@ public class CAutoResponseReaction {
 			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("CAutoResponseReaction getAll.", e);
+			Reporter.error("CAutoResponseReaction getAll.");
+			e.printStackTrace();
 		}
 		return list;
 	}

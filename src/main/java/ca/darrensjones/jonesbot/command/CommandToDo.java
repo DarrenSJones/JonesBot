@@ -60,7 +60,8 @@ public class CommandToDo extends AbstractCommand {
 		try {
 			return FileUtils.readFileToString(new File("todo.txt"), StandardCharsets.UTF_8);
 		} catch (Exception e) {
-			Reporter.fatal("ReadToDo Error.", e);
+			Reporter.error("ReadToDo Error.");
+			e.printStackTrace();
 			return null;
 		}
 	}

@@ -205,7 +205,8 @@ public class CommandWeather extends AbstractCommand {
 
 		} catch (Exception e) {
 			String message = "CommandWeather EmbedBuilder error.";
-			Reporter.error(message, e);
+			Reporter.error(message);
+			e.printStackTrace();
 			eb.setDescription(message);
 		}
 

@@ -51,7 +51,8 @@ public class CSimpleSchedule {
 			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("CSimpleSchedule getScheduleByDate.", e);
+			Reporter.error("CSimpleSchedule getScheduleByDate.");
+			e.printStackTrace();
 		}
 		return list;
 	}
@@ -68,7 +69,8 @@ public class CSimpleSchedule {
 			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("CSimpleSchedule getScheduleByDate.", e);
+			Reporter.error("CSimpleSchedule getScheduleByDate.");
+			e.printStackTrace();
 		}
 		return list;
 	}
@@ -86,7 +88,8 @@ public class CSimpleSchedule {
 			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("CSimpleSchedule getScheduleByDate.", e);
+			Reporter.error("CSimpleSchedule getScheduleByDate.");
+			e.printStackTrace();
 		}
 		return list;
 	}

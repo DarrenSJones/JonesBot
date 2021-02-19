@@ -66,7 +66,8 @@ public class CommandCatFact extends AbstractCommand {
 			return obj.get("fact").toString();
 		} catch (Exception e) {
 			String message = "Cat Fact response not found.";
-			Reporter.error(message, e);
+			Reporter.error(message);
+			e.printStackTrace();
 			return message;
 		}
 	}

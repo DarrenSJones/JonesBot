@@ -103,7 +103,8 @@ public class CommandHandler {
 				AbstractCommand command = c.getConstructor(Bot.class).newInstance(bot);
 				list.add(command);
 			} catch (Exception e) {
-				Reporter.fatal("CommandHandler setCommands.", e);
+				Reporter.error("CommandHandler setCommands.");
+				e.printStackTrace();
 			}
 		}
 		commands = list;

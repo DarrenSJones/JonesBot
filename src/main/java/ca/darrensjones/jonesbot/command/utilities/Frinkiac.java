@@ -191,7 +191,8 @@ public class Frinkiac {
 			}
 			return response;
 		} catch (Exception e) {
-			Reporter.error("Frinkiac response not found.", e);
+			Reporter.error("Frinkiac response not found.");
+			e.printStackTrace();
 			return "";
 		}
 	}

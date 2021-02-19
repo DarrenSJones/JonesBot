@@ -36,7 +36,8 @@ public class CFrinkiacSaved {
 			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("CFrinkiacSaved getById.", e);
+			Reporter.error("CFrinkiacSaved getById.");
+			e.printStackTrace();
 		}
 		return list;
 	}

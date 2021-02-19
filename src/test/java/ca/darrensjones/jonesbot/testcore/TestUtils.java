@@ -17,7 +17,8 @@ public class TestUtils {
 		try {
 			output = FileUtils.readFileToString(new File(filePath), StandardCharsets.UTF_8);
 		} catch (Exception e) {
-			Reporter.error("TestUtils readFile.", e);
+			Reporter.error("TestUtils readFile.");
+			e.printStackTrace();
 		}
 		return output;
 	}

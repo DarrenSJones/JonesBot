@@ -21,7 +21,8 @@ public class CConfig {
 			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("CConfig getConfigValues.", e);
+			Reporter.error("CConfig getConfigValues.");
+			e.printStackTrace();
 		}
 		return new String[] { map.get("BOT_PREFIX"), map.get("BOT_TOKEN"), map.get("BOT_OWNER_ID"),
 				map.get("BOT_GITHUB_REPO"), map.get("WEATHER_TOKEN") };
@@ -37,7 +38,8 @@ public class CConfig {
 			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("CConfig getDatabaseVersion.", e);
+			Reporter.error("CConfig getDatabaseVersion.");
+			e.printStackTrace();
 		}
 		return version;
 	}

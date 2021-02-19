@@ -26,12 +26,6 @@ public class Reporter {
 		console.error(message);
 	}
 
-	public static void error(String message, Exception e) {
-		trace.error(message);
-		console.error(message);
-		e.printStackTrace();
-	}
-
 	public static void debug(String message) {
 		trace.debug(message);
 		console.debug(message);
