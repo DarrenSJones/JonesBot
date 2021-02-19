@@ -40,6 +40,6 @@ public class ReactionHandler {
 		Reporter.debug(String.format(
 				"Reaction %s! Guild:[%s] Channel:[%s] MessageId:[%s] User:[%s] Emote:[%s]", action,
 				textChannel.getGuild().getName(), textChannel.getName(), message.getId(),
-				user.getName(), reactionEmote.getEmoji()), false);
+				user.getName(), reactionEmote.getEmoji()));
 	}
 }

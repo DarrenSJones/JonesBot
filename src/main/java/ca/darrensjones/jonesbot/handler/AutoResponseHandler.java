@@ -33,7 +33,7 @@ public class AutoResponseHandler {
 							reaction.unicode);
 				}
 				Reporter.info(String.format("Posting Reaction. id:[%s] output:[%s] regex:[%s]",
-						reaction.id, output, reaction.regex), true);
+						reaction.id, output, reaction.regex));
 				message.addReaction(output).queue();
 			}
 			Reporter.info("AutoResponse Reaction End.");

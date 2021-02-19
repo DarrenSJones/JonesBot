@@ -7,9 +7,9 @@ import net.dv8tion.jda.api.entities.Message;
 import org.apache.logging.log4j.LogManager;
 
 /**
- * @author Darren Jones
+ * @author  Darren Jones
  * @version 1.1.4 2021-02-02
- * @since 1.0.0 2020-11-18
+ * @since   1.0.0 2020-11-18
  */
 public class Reporter {
 
@@ -17,49 +17,35 @@ public class Reporter {
 	private static final Logger console = LogManager.getLogger("ConsoleLogger");
 
 	public static void info(String message) {
-		info(message, true);
-	}
-
-	public static void info(String message, boolean printToConsole) {
 		trace.info(message);
-		if (printToConsole) console.info(message);
+		console.info(message);
 	}
 
 	public static void error(String message) {
-		error(message, true);
+		trace.error(message);
+		console.error(message);
 	}
 
-	public static void error(String message, boolean printToConsole) {
+	public static void error(String message, Exception e) {
 		trace.error(message);
-		if (printToConsole) console.error(message);
+		console.error(message);
+		e.printStackTrace();
 	}
 
 	public static void debug(String message) {
-		debug(message, true);
-	}
-
-	public static void debug(String message, boolean printToConsole) {
 		trace.debug(message);
-		if (printToConsole) console.debug(message);
+		console.debug(message);
 	}
 
 	public static void warn(String message) {
-		warn(message, true);
-	}
-
-	public static void warn(String message, boolean printToConsole) {
 		trace.warn(message);
-		if (printToConsole) console.warn(message);
+		console.warn(message);
 	}
 
 	public static void fatal(String message, Exception e) {
-		fatal(message, e, true);
-	}
-
-	public static void fatal(String message, Exception e, boolean printToConsole) {
 		message = String.format("%s Exception:[%s]", message, e.getMessage());
 		trace.fatal(message);
-		if (printToConsole) console.fatal(message);
+		console.fatal(message);
 		e.printStackTrace();
 	}
 
@@ -118,10 +104,13 @@ public class Reporter {
 			channelId = "";
 			messageContent = "";
 			messageId = "";
-			Reporter.error(String.format("logMessage ChannelType Invalid:[%s]", message.getChannelType().toString()));
+			Reporter.error(String.format("logMessage ChannelType Invalid:[%s]",
+					message.getChannelType().toString()));
 		}
 
-		Reporter.info(String.format("%s Author:[%s] Guild:[%s] Channel:[%s] MessageContent:[%s]", msg, authorName, guildName, channelName, messageContent));
-		Reporter.info(String.format("AuthorId:[%s] GuildId:[%s] ChannelId:[%s] MessageId:[%s]", authorId, guildId, channelId, messageId), false);
+		Reporter.info(String.format("%s Author:[%s] Guild:[%s] Channel:[%s] MessageContent:[%s]",
+				msg, authorName, guildName, channelName, messageContent));
+		Reporter.debug(String.format("AuthorId:[%s] GuildId:[%s] ChannelId:[%s] MessageId:[%s]",
+				authorId, guildId, channelId, messageId));
 	}
 }

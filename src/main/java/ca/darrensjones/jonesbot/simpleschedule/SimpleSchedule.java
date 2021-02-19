@@ -46,8 +46,7 @@ public class SimpleSchedule {
 			bot.jda.getTextChannelById(channelId).sendMessage(eb.build()).queue();
 			Reporter.info(
 					String.format("Schedule Cron Posted. Guild:[%s] Channel:[%s] EventCount:[%s]",
-							guildId, channelId, eb.getFields().size()),
-					true);
+							guildId, channelId, eb.getFields().size()));
 		}
 
 		Reporter.info("Schedule Cron End.");
