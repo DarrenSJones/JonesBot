@@ -1,5 +1,5 @@
 New Command: Poll
 New Command: Urban Dictionary lookup
-A simple schedule for simple events
 A countdown using the same base as schedule
-Games eventually?
+Simple audio soundboard
+Games of some kind
