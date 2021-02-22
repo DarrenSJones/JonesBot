@@ -9,15 +9,15 @@ import java.sql.Statement;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-22
  * @since   1.0.0 2020-11-18
  */
 public class JDBC {
 
-	private final String driver;
-	private final String database;
-	private final String userName;
-	private final String password;
+	public final String driver;
+	public final String database;
+	public final String userName;
+	public final String password;
 	private Connection connection;
 
 	public JDBC(String driver, String database, String userName, String password) {
