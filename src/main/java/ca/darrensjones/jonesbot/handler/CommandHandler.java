@@ -12,7 +12,7 @@ import org.reflections.Reflections;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-22
  * @since   1.0.0 2020-11-22
  */
 public class CommandHandler {
@@ -108,5 +108,6 @@ public class CommandHandler {
 			}
 		}
 		commands = list;
+		Reporter.info(String.format("Loaded [%s] Commands.", list.size()));
 	}
 }

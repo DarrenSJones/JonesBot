@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.JDABuilder;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-22
  * @since   1.0.0 2020-11-18
  */
 public class Bot {
@@ -36,14 +36,17 @@ public class Bot {
 	}
 
 	public void setJDA() {
+		Reporter.info(String.format("JDA connecting. token:[%s]", config.BOT_TOKEN));
 		try {
-			JDABuilder builder = JDABuilder.createDefault(config.BOT_TOKEN)
-					.addEventListeners(new EventListener(this));
+			JDABuilder builder = JDABuilder.createDefault(config.BOT_TOKEN);
+			builder.addEventListeners(new EventListener(this));
 			jda = builder.build();
 			jda.awaitReady();
-			Reporter.info("JDA set and ready.");
+			Reporter.info(String.format("Bot userName:[%s]", jda.getSelfUser().getName()));
+			Reporter.info(String.format("Bot userId:[%s]", jda.getSelfUser().getId()));
+			Reporter.info("JDA connection set and ready.");
 		} catch (InterruptedException | LoginException e) {
-			Reporter.fatal("JDA failed to set, Bot is unable to start.", e);
+			Reporter.fatal("JDA connection failed, Bot is unable to start.", e);
 		}
 	}
 

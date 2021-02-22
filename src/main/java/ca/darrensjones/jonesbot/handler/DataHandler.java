@@ -4,12 +4,13 @@ import ca.darrensjones.jonesbot.db.controller.CAutoResponseReaction;
 import ca.darrensjones.jonesbot.db.controller.CFrinkiacSaved;
 import ca.darrensjones.jonesbot.db.model.OAutoResponseReaction;
 import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
+import ca.darrensjones.jonesbot.log.Reporter;
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-22
  * @since   1.0.0 2020-12-08
  */
 public class DataHandler {
@@ -29,18 +30,22 @@ public class DataHandler {
 
 	public DataHandler() {
 		reloadSQL();
-
-		simpsonsLast = new HashMap<String, String[]>();
-		futuramaLast = new HashMap<String, String[]>();
-		rickMortyLast = new HashMap<String, String[]>();
+		loadLast();
 	}
 
 	public void reloadSQL() {
 		autoResponseReactions = CAutoResponseReaction.getAll();
-
 		simpsonsSaved = CFrinkiacSaved.getById("1");
 		futuramaSaved = CFrinkiacSaved.getById("2");
 		rickMortySaved = CFrinkiacSaved.getById("3");
+		Reporter.info("DataHandler SQL reloaded.");
+	}
+
+	public void loadLast() {
+		simpsonsLast = new HashMap<String, String[]>();
+		futuramaLast = new HashMap<String, String[]>();
+		rickMortyLast = new HashMap<String, String[]>();
+		Reporter.info("DataHandler last loaded.");
 	}
 
 	/** Used by Frinkiac to store the most recent response by channel, overwriting any existing. */

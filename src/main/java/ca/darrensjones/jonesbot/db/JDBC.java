@@ -14,10 +14,10 @@ import java.sql.Statement;
  */
 public class JDBC {
 
-	public final String driver;
-	public final String database;
-	public final String userName;
-	public final String password;
+	private final String driver;
+	private final String database;
+	private final String userName;
+	private final String password;
 	private Connection connection;
 
 	public JDBC(String driver, String database, String userName, String password) {
@@ -27,17 +27,17 @@ public class JDBC {
 		this.password = password;
 	}
 
-	private void createConnection() {
+	public void createConnection() {
 		String url = String.format(
 				"jdbc:sqlserver://%s;databaseName=%s;integratedSecurity=true;loginTimeout=10;",
 				driver, database);
-		Reporter.info(String.format("Creating JDBC Connection:[%s] UserName:[%s] Password:[%s]",
-				url, userName, password));
+		Reporter.info(String.format("JDBC connecting. url:[%s] userName:[%s] password:[%s]", url,
+				userName, password));
 		try {
 			connection = DriverManager.getConnection(url, userName, password);
-			Reporter.info(String.format("JDBC Connection created:[%s]", connection.getCatalog()));
+			Reporter.info(String.format("JDBC connected. database:[%s]", connection.getCatalog()));
 		} catch (SQLException e) {
-			Reporter.fatal("Failed to create JDBC Connection.", e);
+			Reporter.fatal("Failed to create JDBC connection.", e);
 		}
 	}
 

@@ -2,12 +2,13 @@ package ca.darrensjones.jonesbot.bot;
 
 import ca.darrensjones.jonesbot.db.controller.CConfig;
 import ca.darrensjones.jonesbot.db.model.OVersion;
+import ca.darrensjones.jonesbot.log.Reporter;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-22
  * @since   1.1.3 2021-01-14
  */
 public class Config {
@@ -40,6 +41,7 @@ public class Config {
 		this.BOT_OWNER_ID = values[2];
 		this.BOT_GITHUB = values[3];
 		this.WEATHER_TOKEN = values[4];
+		Reporter.info("Config initialized.");
 	}
 
 	public String getPrefix() {
@@ -48,7 +50,9 @@ public class Config {
 
 	public List<String> getVersionList() {
 		List<String> list = new ArrayList<String>();
-		for (OVersion version : VERSION_LIST) list.add(version.getName());
+		for (OVersion version : VERSION_LIST) {
+			list.add(version.getName());
+		}
 		return list;
 	}
 }
