@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-22
  * @since   1.0.0 2020-11-18
  */
 public class Reporter {
@@ -24,7 +24,6 @@ public class Reporter {
 	}
 
 	public static void fatal(String message, Exception e) {
-		message = String.format("%s Exception:[%s]", message, e.getMessage());
 		trace.fatal(message);
 		console.fatal(message);
 		e.printStackTrace();
@@ -40,13 +39,7 @@ public class Reporter {
 		console.warn(message);
 	}
 
-	/**
-	 * Logs Message information into the Console and Trace Log.
-	 * 
-	 * @param message Discord Message
-	 * @param msg     Reason the message is being logged
-	 */
-	public static void logMessage(Message message, String msg) {
+	public static void log(Message message) {
 		String authorName, authorId;
 		String guildName, guildId;
 		String channelName, channelId;
@@ -95,13 +88,13 @@ public class Reporter {
 			channelId = "";
 			messageContent = "";
 			messageId = "";
-			Reporter.error(String.format("logMessage ChannelType Invalid:[%s]",
+			Reporter.error(String.format("Reporter ChannelType is invalid:[%s]",
 					message.getChannelType().toString()));
 		}
 
-		Reporter.info(String.format("%s Author:[%s] Guild:[%s] Channel:[%s] MessageContent:[%s]",
-				msg, authorName, guildName, channelName, messageContent));
-		Reporter.debug(String.format("AuthorId:[%s] GuildId:[%s] ChannelId:[%s] MessageId:[%s]",
-				authorId, guildId, channelId, messageId));
+		Reporter.info(String.format("guild:[%s] channel:[%s] author:[%s] messageContent:[%s]",
+				guildName, channelName, authorName, messageContent));
+		Reporter.debug(String.format("guildId:[%s] channelId:[%s] authorId:[%s] messageId:[%s]",
+				guildId, channelId, authorId, messageId));
 	}
 }

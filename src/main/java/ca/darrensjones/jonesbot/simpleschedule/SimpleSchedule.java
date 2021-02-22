@@ -12,18 +12,18 @@ import net.dv8tion.jda.api.EmbedBuilder;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-22
  * @since   1.2.0 2021-02-15
  */
 public class SimpleSchedule {
 
 	public static void scheduleCron(Bot bot) {
-		Reporter.info("Schedule Cron Start.");
+		Reporter.info("Start schedule cron.");
 
 		LocalDate date = LocalDate.now();
 
 		List<String[]> channels = CSimpleSchedule.getUniqueChannelsForDate(date);
-		Reporter.info(String.format("Found [%s] Channels with Scheduled Events. Date:[%s]",
+		Reporter.info(String.format("Found [%s] channels with scheduled events. date:[%s]",
 				channels.size(), date.toString()));
 
 		for (String[] channel : channels) { // Each channel that has an event
@@ -33,41 +33,40 @@ public class SimpleSchedule {
 			// All events for the channel
 			List<OSimpleSchedule> events = CSimpleSchedule.getScheduleByDateAndChannel(date,
 					channelId);
-			Reporter.info(String.format("Found [%s] Scheduled Events. Date:[%s] Channel:[%s]",
+			Reporter.info(String.format("Found [%s] scheduled events. date:[%s] channel:[%s]",
 					channels.size(), date.toString(), channelId));
 
 			EmbedBuilder eb = buildBaseEmbed(date);
 			for (OSimpleSchedule event : events) {
 				eb.addField(event.event_time, event.event_value, false);
-				Reporter.info(String.format("Found Event. Time:[%s] Value:[%s]", event.event_time,
+				Reporter.info(String.format("Found event. time:[%s] value:[%s]", event.event_time,
 						event.event_value));
 			}
 
 			bot.jda.getTextChannelById(channelId).sendMessage(eb.build()).queue();
-			Reporter.info(
-					String.format("Schedule Cron Posted. Guild:[%s] Channel:[%s] EventCount:[%s]",
-							guildId, channelId, eb.getFields().size()));
+			Reporter.info(String.format("Posted schedule cron. guild:[%s] channel:[%s] events:[%s]",
+					guildId, channelId, eb.getFields().size()));
 		}
 
-		Reporter.info("Schedule Cron End.");
+		Reporter.info("End schedule cron.");
 	}
 
 	public static EmbedBuilder scheduleCommand(LocalDate date, String guildId) {
-		Reporter.info("Schedule Command Start.");
+		Reporter.info("Start schedule command.");
 
 		// All events for the guild, by channel
 		List<OSimpleSchedule> events = CSimpleSchedule.getScheduleByDateAndGuild(date, guildId);
-		Reporter.info(String.format("Found [%s] Scheduled Events. Date[%s] Guild[%s]",
+		Reporter.info(String.format("Found [%s] scheduled events. date:[%s] guild:[%s]",
 				events.size(), date.toString(), guildId));
 
 		EmbedBuilder eb = buildBaseEmbed(date);
 		for (OSimpleSchedule event : events) {
 			eb.addField(event.event_time, event.event_value, false);
-			Reporter.info(String.format("Found Event. Time:[%s] Value:[%s]", event.event_time,
+			Reporter.info(String.format("Found event. time:[%s] value:[%s]", event.event_time,
 					event.event_value));
 		}
 
-		Reporter.info("Schedule Command End.");
+		Reporter.info("End schedule command.");
 		return eb;
 	}
 

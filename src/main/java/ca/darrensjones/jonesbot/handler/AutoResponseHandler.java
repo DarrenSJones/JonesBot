@@ -25,7 +25,8 @@ public class AutoResponseHandler {
 
 	public void process(Message message) {
 		if (hasReaction(message.getContentDisplay())) {
-			Reporter.logMessage(message, "AutoResponse Reaction Start.");
+			Reporter.info("Start AutoResponse - Reaction.");
+			Reporter.log(message);
 			for (OAutoResponseReaction reaction : getReactions(message.getContentDisplay())) {
 				String output = reaction.unicode;
 				if (reaction.isCustom()) {
@@ -36,7 +37,7 @@ public class AutoResponseHandler {
 						reaction.id, output, reaction.regex));
 				message.addReaction(output).queue();
 			}
-			Reporter.info("AutoResponse Reaction End.");
+			Reporter.info("End AutoResponse - Reaction.");
 		}
 	}
 

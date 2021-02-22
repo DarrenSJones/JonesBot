@@ -26,7 +26,8 @@ public class CommandHandler {
 	}
 
 	public void process(Message message) {
-		Reporter.logMessage(message, "CommandHandler Start.");
+		Reporter.info("Start CommandHandler.");
+		Reporter.log(message);
 
 		String content = message.getContentDisplay();
 		AbstractCommand command = getCommand(content);
@@ -52,7 +53,7 @@ public class CommandHandler {
 			}
 		}
 
-		Reporter.info("CommandHandler End.");
+		Reporter.info("End CommandHandler.");
 	}
 
 	/**

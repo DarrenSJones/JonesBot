@@ -11,7 +11,7 @@ import org.apache.http.impl.client.HttpClients;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-22
  * @since   1.0.0 2020-11-24
  */
 public class RequestUtils {
@@ -21,18 +21,16 @@ public class RequestUtils {
 	 * 
 	 * @param  requestUrl URL the request is sent to.
 	 * @return            ResponseBody retrieved from the request.
-	 * @throws Exception  Error of any kind with the request.
+	 * @throws Exception  Error of any kind.
 	 */
 	public static String getResponseBody(String requestUrl) throws Exception {
-		Reporter.debug(
-				String.format("RequestUtils.getResponseBody Sending Request:[%s]", requestUrl));
+		Reporter.debug(String.format("RequestUtils sending request:[%s]", requestUrl));
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(new URI(requestUrl));
 		HttpEntity httpEntity = httpClient.execute(httpGet).getEntity();
 		String responseBody = IOUtils.toString(httpEntity.getContent(),
 				StandardCharsets.UTF_8.name());
-		Reporter.debug(String.format("RequestUtils.getResponseBody Received ResponseBody:[%s]",
-				responseBody));
+		Reporter.debug(String.format("RequestUtils received responseBody:[%s]", responseBody));
 		return responseBody;
 	}
 }
