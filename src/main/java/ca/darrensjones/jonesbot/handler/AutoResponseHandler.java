@@ -25,26 +25,26 @@ public class AutoResponseHandler {
 
 	public void process(Message message) {
 		if (hasReaction(message.getContentDisplay())) {
-			Reporter.info("Start AutoResponse - Reaction.");
+			Reporter.info("Start AutoResponse reaction.");
 			Reporter.log(message);
 			for (OAutoResponseReaction reaction : getReactions(message.getContentDisplay())) {
-				String output = reaction.unicode;
-				if (reaction.isCustom()) {
-					output = DiscordUtils.getCustomEmoji(bot.jda, message.getGuild().getId(),
+				String emoji = reaction.unicode;
+				if (reaction.isCustom()) { // Custom varies by guild
+					emoji = DiscordUtils.getCustomEmoji(bot.jda, message.getGuild().getId(),
 							reaction.unicode);
 				}
-				Reporter.info(String.format("Posting Reaction. id:[%s] output:[%s] regex:[%s]",
-						reaction.id, output, reaction.regex));
-				message.addReaction(output).queue();
+				Reporter.info(String.format("Posting AutoResponse reaction. emoji:[%s] regex:[%s]",
+						emoji, reaction.regex));
+				message.addReaction(emoji).queue();
 			}
-			Reporter.info("End AutoResponse - Reaction.");
+			Reporter.info("End AutoResponse reaction.");
 		}
 	}
 
 	/**
-	 * @param  content Message Content
+	 * @param  content Message content.
 	 * @return         True if content contains one or more AutoResponseReaction regex matches,
-	 *                 False otherwise
+	 *                 false otherwise.
 	 */
 	public boolean hasReaction(String content) {
 		for (OAutoResponseReaction reaction : bot.dataHandler.autoResponseReactions) {
@@ -55,30 +55,27 @@ public class AutoResponseHandler {
 	}
 
 	/**
-	 * @param  content Message Content
-	 * @return         List containing all Reaction matches within 'content', in order
+	 * @param  content Message content.
+	 * @return         List containing all reaction matches within 'content', in order.
 	 */
 	public List<OAutoResponseReaction> getReactions(String content) {
-		ArrayList<Object[]> a = new ArrayList<Object[]>(); // <index, OReaction>
+		ArrayList<Object[]> ordered = new ArrayList<Object[]>(); // <index, OReaction>
 		for (OAutoResponseReaction reaction : bot.dataHandler.autoResponseReactions) {
 			Pattern pattern = Pattern.compile("(?=(\\W|^)(" + reaction.regex + ")(\\W|$))");
 			Matcher matcher = pattern.matcher(content.toLowerCase());
 			if (matcher.find()) {
 				int index = 0;
-				for (Object[] obj : a) {
-					if (matcher.start() > (Integer) obj[0]) {
-						index++;
-					} else {
-						break;
-					}
+				for (Object[] obj : ordered) {
+					if (matcher.start() <= (Integer) obj[0]) break;
+					index++;
 				}
-				a.add(index, new Object[] { matcher.start(), reaction });
+				ordered.add(index, new Object[] { matcher.start(), reaction });
 			}
 		}
-		List<OAutoResponseReaction> l = new ArrayList<OAutoResponseReaction>();
-		for (Object[] obj : a) {
-			l.add((OAutoResponseReaction) obj[1]);
+		List<OAutoResponseReaction> list = new ArrayList<OAutoResponseReaction>();
+		for (Object[] obj : ordered) {
+			list.add((OAutoResponseReaction) obj[1]);
 		}
-		return l;
+		return list;
 	}
 }

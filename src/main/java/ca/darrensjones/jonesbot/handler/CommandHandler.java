@@ -32,25 +32,21 @@ public class CommandHandler {
 		String content = message.getContentDisplay();
 		AbstractCommand command = getCommand(content);
 
-		if (command == null) {
-			Reporter.warn(String.format("Command not found:[%s]", content));
-
-		} else {
+		if (command != null) {
 			Reporter.info(String.format("Command found:[%s]", command.getName()));
-
 			if (hasHelp(content)) {
 				Reporter.info("Executing 'help' subcommand.");
-
 				EmbedBuilder eb = new EmbedBuilder();
 				eb.setTitle("Help: " + command.getName());
 				eb.setDescription(command.getHelp());
 				eb.setColor(new Color(0, 153, 255));
 				message.getChannel().sendMessage(eb.build()).queue();
-
 			} else {
-				Reporter.info("Executing Command.");
+				Reporter.info(String.format("Executing Command:[%s]", command.getName()));
 				command.execute(message);
 			}
+		} else {
+			Reporter.warn(String.format("Command not found:[%s]", content));
 		}
 
 		Reporter.info("End CommandHandler.");
@@ -97,18 +93,18 @@ public class CommandHandler {
 
 	/** Adds all AbtractCommands from the 'command' package to the commands list. */
 	public void setCommands() {
+		String path = "ca.darrensjones.jonesbot.command";
 		ArrayList<AbstractCommand> list = new ArrayList<AbstractCommand>();
-		for (Class<? extends AbstractCommand> c : new Reflections(
-				"ca.darrensjones.jonesbot.command").getSubTypesOf(AbstractCommand.class)) {
+		for (Class<? extends AbstractCommand> c : new Reflections(path)
+				.getSubTypesOf(AbstractCommand.class)) {
 			try {
 				AbstractCommand command = c.getConstructor(Bot.class).newInstance(bot);
 				list.add(command);
 			} catch (Exception e) {
-				Reporter.error("CommandHandler setCommands.");
-				e.printStackTrace();
+				Reporter.fatal("CommandHandler setCommands.", e);
 			}
 		}
 		commands = list;
-		Reporter.info(String.format("Loaded [%s] Commands.", list.size()));
+		Reporter.info(String.format("Loaded [%s] Commands from [%s]", commands.size(), path));
 	}
 }
