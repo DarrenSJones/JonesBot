@@ -14,7 +14,7 @@ import org.json.simple.parser.JSONParser;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-23
  * @since   1.0.0 2020-11-24
  */
 public class CommandCatFact extends AbstractCommand {
@@ -60,15 +60,16 @@ public class CommandCatFact extends AbstractCommand {
 	}
 
 	public static String getResponse(String host) {
+		String fact = "Cat Fact not found.";
 		try {
 			String response = RequestUtils.getResponseBody(host + "/fact");
 			JSONObject obj = (JSONObject) new JSONParser().parse(response);
-			return obj.get("fact").toString();
+			fact = obj.get("fact").toString();
+			Reporter.info(String.format("Cat Fact found:[%s]", fact));
 		} catch (Exception e) {
-			String message = "Cat Fact response not found.";
-			Reporter.error(message);
+			Reporter.error(fact);
 			e.printStackTrace();
-			return message;
 		}
+		return fact;
 	}
 }

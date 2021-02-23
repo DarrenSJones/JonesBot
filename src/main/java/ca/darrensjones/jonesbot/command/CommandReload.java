@@ -3,11 +3,12 @@ package ca.darrensjones.jonesbot.command;
 import ca.darrensjones.jonesbot.bot.Bot;
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
+import ca.darrensjones.jonesbot.log.Reporter;
 import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author  Darren Jones
- * @version 1.1.3 2021-01-14
+ * @version 1.1.3 2021-02-23
  * @since   1.0.0 2020-11-24
  */
 public class CommandReload extends AbstractCommand {
@@ -45,6 +46,7 @@ public class CommandReload extends AbstractCommand {
 	public void execute(Message message) {
 		if (!message.getAuthor().getId().equals(bot.getConfig().BOT_OWNER_ID)) return;
 
+		Reporter.info("Reloading Commands and SQL data.");
 		bot.commandHandler.setCommands();
 		bot.dataHandler.reloadSQL();
 		message.getChannel().sendMessage("Commands and SQL data reloaded!").queue();

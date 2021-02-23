@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-23
  * @since   1.0.0 2020-11-24
  */
 public class CommandCowbell extends AbstractCommand {
@@ -43,7 +43,7 @@ public class CommandCowbell extends AbstractCommand {
 
 	@Override
 	public void execute(Message message) {
-		message.getChannel()
-				.sendMessage("https://media.giphy.com/media/3o6ozscsz4jRX7xuQE/giphy.gif").queue();
+		String url = "https://media.giphy.com/media/3o6ozscsz4jRX7xuQE/giphy.gif";
+		message.getChannel().sendMessage(url).queue();
 	}
 }

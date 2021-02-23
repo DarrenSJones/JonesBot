@@ -12,9 +12,9 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 /**
- * @author Darren Jones
- * @version 1.1.3 2021-01-14
- * @since 1.0.0 2020-11-28
+ * @author  Darren Jones
+ * @version 1.2.1 2021-02-23
+ * @since   1.0.0 2020-11-28
  */
 public class TCommandWeather {
 
@@ -25,8 +25,9 @@ public class TCommandWeather {
 		String path = "src/test/resources/mock/weather/";
 
 		// Current High
-		Mock.setExpectation("GET", "/data/2.5/weather?units=metric&appid=12345678901234567890123456789012&q=Regina,Saskatchewan,CA", 200,
-				new File(path + "current_high.json"));
+		Mock.setExpectation("GET",
+				"/data/2.5/weather?units=metric&appid=12345678901234567890123456789012&q=Regina,Saskatchewan,CA",
+				200, new File(path + "current_high.json"));
 		MessageEmbed hc = CommandWeather.process(TBot.getBot(), "!w").build();
 		Assert.assertEquals(hc.getTitle(), "Current Weather");
 		Assert.assertEquals(hc.getUrl(), "http://localhost:1080/city/6119109");
@@ -47,8 +48,9 @@ public class TCommandWeather {
 		Assert.assertEquals(hc.getFields().get(5).getValue(), EmbedBuilder.ZERO_WIDTH_SPACE);
 
 		// Current Low
-		Mock.setExpectation("GET", "/data/2.5/weather?units=metric&appid=12345678901234567890123456789012&q=New York", 200,
-				new File(path + "current_low.json"));
+		Mock.setExpectation("GET",
+				"/data/2.5/weather?units=metric&appid=12345678901234567890123456789012&q=New York",
+				200, new File(path + "current_low.json"));
 		MessageEmbed lc = CommandWeather.process(TBot.getBot(), "!w New York").build();
 		Assert.assertEquals(lc.getTitle(), "Current Weather");
 		Assert.assertEquals(lc.getUrl(), "http://localhost:1080/city/6119109");
@@ -69,8 +71,9 @@ public class TCommandWeather {
 		Assert.assertEquals(lc.getFields().get(5).getValue(), EmbedBuilder.ZERO_WIDTH_SPACE);
 
 		// 5 Day High
-		Mock.setExpectation("GET", "/data/2.5/forecast?units=metric&appid=12345678901234567890123456789012&q=Regina,Saskatchewan,CA", 200,
-				new File(path + "forecast_high.json"));
+		Mock.setExpectation("GET",
+				"/data/2.5/forecast?units=metric&appid=12345678901234567890123456789012&q=Regina,Saskatchewan,CA",
+				200, new File(path + "forecast_high.json"));
 		MessageEmbed h5 = CommandWeather.process(TBot.getBot(), "!w !5day").build();
 		Assert.assertEquals(h5.getTitle(), "5 Day Forecast");
 		Assert.assertEquals(h5.getUrl(), "http://localhost:1080/city/6119109");
@@ -109,8 +112,9 @@ public class TCommandWeather {
 		Assert.assertEquals(h5.getFields().get(14).getValue(), "High: 1000°C Low: 1000°C");
 
 		// 5 Day High
-		Mock.setExpectation("GET", "/data/2.5/forecast?units=metric&appid=12345678901234567890123456789012&q=New York", 200,
-				new File(path + "forecast_low.json"));
+		Mock.setExpectation("GET",
+				"/data/2.5/forecast?units=metric&appid=12345678901234567890123456789012&q=New York",
+				200, new File(path + "forecast_low.json"));
 		MessageEmbed l5 = CommandWeather.process(TBot.getBot(), "!w !5day New York").build();
 		Assert.assertEquals(l5.getTitle(), "5 Day Forecast");
 		Assert.assertEquals(l5.getUrl(), "http://localhost:1080/city/6119109");
@@ -148,20 +152,22 @@ public class TCommandWeather {
 		Assert.assertEquals(l5.getFields().get(14).getName(), "Wind: 0 kph N");
 		Assert.assertEquals(l5.getFields().get(14).getValue(), "High: -1000°C Low: -1000°C");
 
-		// City Not Found Current
-		Mock.setExpectation("GET", "/data/2.5/weather?units=metric&appid=12345678901234567890123456789012&q=FakeTownName", 404,
-				new File(path + "city_not_found.json"));
+		// City not found Current
+		Mock.setExpectation("GET",
+				"/data/2.5/weather?units=metric&appid=12345678901234567890123456789012&q=FakeTownName",
+				404, new File(path + "city_not_found.json"));
 		MessageEmbed cnfc = CommandWeather.process(TBot.getBot(), "!w FakeTownName").build();
 		Assert.assertEquals(cnfc.getTitle(), "Current Weather");
 		Assert.assertEquals(cnfc.getUrl(), "http://localhost:1080/find?q=FakeTownName");
-		Assert.assertEquals(cnfc.getDescription(), "City Not Found: FakeTownName");
+		Assert.assertEquals(cnfc.getDescription(), "City not found: FakeTownName");
 
-		// City Not Found Forecast
-		Mock.setExpectation("GET", "/data/2.5/forecast?units=metric&appid=12345678901234567890123456789012&q=FakeTownName", 404,
-				new File(path + "city_not_found.json"));
+		// City not found Forecast
+		Mock.setExpectation("GET",
+				"/data/2.5/forecast?units=metric&appid=12345678901234567890123456789012&q=FakeTownName",
+				404, new File(path + "city_not_found.json"));
 		MessageEmbed cnff = CommandWeather.process(TBot.getBot(), "!w !5day FakeTownName").build();
 		Assert.assertEquals(cnff.getTitle(), "5 Day Forecast");
 		Assert.assertEquals(cnff.getUrl(), "http://localhost:1080/find?q=FakeTownName");
-		Assert.assertEquals(cnff.getDescription(), "City Not Found: FakeTownName");
+		Assert.assertEquals(cnff.getDescription(), "City not found: FakeTownName");
 	}
 }

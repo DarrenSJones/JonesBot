@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-23
  * @since   1.0.0 2020-12-14
  */
 public class CommandVersion extends AbstractCommand {
@@ -26,7 +26,7 @@ public class CommandVersion extends AbstractCommand {
 
 	@Override
 	public String getDescription() {
-		return "JonesBot Version Information";
+		return "JonesBot version information";
 	}
 
 	@Override

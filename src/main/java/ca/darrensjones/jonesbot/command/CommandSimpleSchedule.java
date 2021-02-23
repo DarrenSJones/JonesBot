@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-23
  * @since   1.2.0 2021-02-15
  */
 public class CommandSimpleSchedule extends AbstractCommand {
@@ -26,7 +26,7 @@ public class CommandSimpleSchedule extends AbstractCommand {
 
 	@Override
 	public String getDescription() {
-		return "A Simple Schedule for JonesBot";
+		return "A simple schedule for JonesBot";
 	}
 
 	@Override

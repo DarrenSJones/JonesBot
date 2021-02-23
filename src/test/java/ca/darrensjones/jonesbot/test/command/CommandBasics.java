@@ -14,7 +14,7 @@ import ca.darrensjones.jonesbot.testcore.TBot;
 
 /**
  * @author  Darren Jones
- * @version 1.1.3 2021-01-14
+ * @version 1.2.1 2021-02-23
  * @since   1.0.0 2020-11-24
  */
 public class CommandBasics {
@@ -103,7 +103,7 @@ public class CommandBasics {
 		Assert.assertEquals(c.getDescription(), "Starts a new game!");
 		Assert.assertEquals(c.getTriggers(), new String[] { "game" });
 		Assert.assertEquals(c.getHelp(), "**!game** Starts a new game!");
-		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
+		Assert.assertEquals(c.visibility(), CommandVisibility.HIDDEN);
 	}
 
 	@Test(dependsOnMethods = "basicsGame", alwaysRun = true)
@@ -186,7 +186,7 @@ public class CommandBasics {
 	public void basicsSimpleSchedule() {
 		AbstractCommand c = h.getCommand("!simpleschedule");
 		Assert.assertEquals(c.getName(), "Simple Schedule");
-		Assert.assertEquals(c.getDescription(), "A Simple Schedule for JonesBot");
+		Assert.assertEquals(c.getDescription(), "A simple schedule for JonesBot");
 		Assert.assertEquals(c.getTriggers(), new String[] { "simpleschedule", "schedule" });
 		Assert.assertEquals(c.getHelp(), "**!schedule** Displays today's schedule.");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);
@@ -205,10 +205,10 @@ public class CommandBasics {
 	@Test(dependsOnMethods = "basicsSimpsons", alwaysRun = true)
 	public void basicsToDo() {
 		AbstractCommand c = h.getCommand("!todo");
-		Assert.assertEquals(c.getName(), "To Do");
-		Assert.assertEquals(c.getDescription(), "JonesBot To Do List");
-		Assert.assertEquals(c.getTriggers(), new String[] { "todo" });
-		Assert.assertEquals(c.getHelp(), "**!todo** Displays the current to do list.");
+		Assert.assertEquals(c.getName(), "To-Do");
+		Assert.assertEquals(c.getDescription(), "JonesBot to-do list");
+		Assert.assertEquals(c.getTriggers(), new String[] { "todo", "to-do" });
+		Assert.assertEquals(c.getHelp(), "**!todo** Displays the current to-do list.");
 		Assert.assertEquals(c.visibility(), CommandVisibility.HIDDEN);
 	}
 
@@ -216,7 +216,7 @@ public class CommandBasics {
 	public void basicsVersion() {
 		AbstractCommand c = h.getCommand("!version");
 		Assert.assertEquals(c.getName(), "Version");
-		Assert.assertEquals(c.getDescription(), "JonesBot Version Information");
+		Assert.assertEquals(c.getDescription(), "JonesBot version information");
 		Assert.assertEquals(c.getTriggers(), new String[] { "version", "v" });
 		Assert.assertEquals(c.getHelp(), "**!version** Displays current version information.");
 		Assert.assertEquals(c.visibility(), CommandVisibility.PUBLIC);

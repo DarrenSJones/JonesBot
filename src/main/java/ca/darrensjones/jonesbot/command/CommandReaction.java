@@ -50,7 +50,7 @@ public class CommandReaction extends AbstractCommand {
 		String description = "Contact your Admin for additions:";
 		for (OAutoResponseReaction reaction : bot.dataHandler.autoResponseReactions) {
 			String code = reaction.unicode;
-			if (reaction.isCustom()) { // Custom emoji are guild-dependent
+			if (reaction.isCustom()) { // Custom emoji codes are guild-dependent
 				code = DiscordUtils.getCustomEmoji(bot.jda, message.getGuild().getId(), code);
 			}
 			description += String.format("\n<%s> regex:[%s]", code, reaction.regex);

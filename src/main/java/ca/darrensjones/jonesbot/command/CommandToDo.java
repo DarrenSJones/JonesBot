@@ -13,7 +13,7 @@ import org.apache.commons.io.FileUtils;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-23
  * @since   1.0.2 2020-12-22
  */
 public class CommandToDo extends AbstractCommand {
@@ -24,17 +24,17 @@ public class CommandToDo extends AbstractCommand {
 
 	@Override
 	public String getName() {
-		return "To Do";
+		return "To-Do";
 	}
 
 	@Override
 	public String getDescription() {
-		return "JonesBot To Do List";
+		return "JonesBot to-do list";
 	}
 
 	@Override
 	public String[] getTriggers() {
-		return new String[] { "todo" };
+		return new String[] { "todo", "to-do" };
 	}
 
 	@Override
@@ -44,13 +44,13 @@ public class CommandToDo extends AbstractCommand {
 
 	@Override
 	public String getHelp() {
-		return "**" + bot.getPrefix() + "todo** Displays the current to do list.";
+		return "**" + bot.getPrefix() + "todo** Displays the current to-do list.";
 	}
 
 	@Override
 	public void execute(Message message) {
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.setTitle("JonesBot To Do List");
+		eb.setTitle("JonesBot To-Do List");
 		eb.setDescription(readToDo());
 		eb.setColor(new Color(0, 153, 255));
 		message.getChannel().sendMessage(eb.build()).queue();
