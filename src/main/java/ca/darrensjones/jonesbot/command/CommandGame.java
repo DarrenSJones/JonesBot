@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author  Darren Jones
- * @version 1.1.3 2021-01-14
+ * @version 1.2.1 2021-02-23
  * @since   1.1.2 2020-12-29
  */
 public class CommandGame extends AbstractCommand {
@@ -33,7 +33,7 @@ public class CommandGame extends AbstractCommand {
 
 	@Override
 	public CommandVisibility visibility() {
-		return CommandVisibility.PUBLIC;
+		return CommandVisibility.HIDDEN;
 	}
 
 	@Override
