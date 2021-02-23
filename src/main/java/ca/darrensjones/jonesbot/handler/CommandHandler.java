@@ -12,7 +12,7 @@ import org.reflections.Reflections;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-22
+ * @version 1.2.1 2021-02-23
  * @since   1.0.0 2020-11-22
  */
 public class CommandHandler {
@@ -35,7 +35,7 @@ public class CommandHandler {
 		if (command != null) {
 			Reporter.info(String.format("Command found:[%s]", command.getName()));
 			if (hasHelp(content)) {
-				Reporter.info("Executing 'help' subcommand.");
+				Reporter.info(String.format("Executing help. content[%s]", content));
 				EmbedBuilder eb = new EmbedBuilder();
 				eb.setTitle("Help: " + command.getName());
 				eb.setDescription(command.getHelp());
@@ -46,7 +46,7 @@ public class CommandHandler {
 				command.execute(message);
 			}
 		} else {
-			Reporter.warn(String.format("Command not found:[%s]", content));
+			Reporter.warn(String.format("Command not found. content:[%s]", content));
 		}
 
 		Reporter.info("End CommandHandler.");
