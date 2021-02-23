@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-22
  * @since   1.0.0 2020-11-18
  */
 public class AutoResponseHandler {
@@ -48,7 +48,7 @@ public class AutoResponseHandler {
 	 */
 	public boolean hasReaction(String content) {
 		for (OAutoResponseReaction reaction : bot.dataHandler.autoResponseReactions) {
-			Pattern pattern = Pattern.compile("(?=(\\W|^)" + reaction.regex + "(\\W|$))");
+			Pattern pattern = Pattern.compile("(?=(\\W|^)(" + reaction.regex + ")(\\W|$))");
 			if (pattern.matcher(content.toLowerCase()).find()) return true;
 		}
 		return false;
@@ -61,7 +61,7 @@ public class AutoResponseHandler {
 	public List<OAutoResponseReaction> getReactions(String content) {
 		ArrayList<Object[]> a = new ArrayList<Object[]>(); // <index, OReaction>
 		for (OAutoResponseReaction reaction : bot.dataHandler.autoResponseReactions) {
-			Pattern pattern = Pattern.compile("(?=(\\W|^)" + reaction.regex + "(\\W|$))");
+			Pattern pattern = Pattern.compile("(?=(\\W|^)(" + reaction.regex + ")(\\W|$))");
 			Matcher matcher = pattern.matcher(content.toLowerCase());
 			if (matcher.find()) {
 				int index = 0;
