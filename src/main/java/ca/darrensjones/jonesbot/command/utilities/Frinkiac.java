@@ -18,7 +18,7 @@ import org.json.simple.parser.JSONParser;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-24
  * @since   1.0.0 2020-12-08
  */
 public class Frinkiac {
@@ -47,21 +47,26 @@ public class Frinkiac {
 	}
 
 	public static EmbedBuilder process(String textChannelId, String content, String prefix,
-			Color color, String host, List<OFrinkiacSaved> saved, HashMap<String, String[]> last) {
+			Color color, String host, List<OFrinkiacSaved> savedList,
+			HashMap<String, String[]> last) {
 
 		boolean flagDetail = false;
 
 		if (Pattern.compile(prefix + "saved\\s?").matcher(content.toLowerCase()).find()) {
-			return Frinkiac.buildEmbedSaved(color, host, saved);
+			Reporter.info("Posting Frinkiac saved list.");
+			return Frinkiac.buildEmbedSaved(color, host, savedList);
 		} else if (Pattern.compile(prefix + "regex\\s?").matcher(content.toLowerCase()).find()) {
-			return Frinkiac.buildEmbedRegex(color, host, saved);
+			Reporter.info("Posting Frinkiac regex list.");
+			return Frinkiac.buildEmbedRegex(color, host, savedList);
 		} else if (Pattern.compile(prefix + "l(ast)?\\s?").matcher(content.toLowerCase()).find()) {
+			Reporter.info("Posting details from last Frinkiac response.");
 			String[] l = last.get(textChannelId);
 			return Frinkiac.buildEmbed(false, true, color, host, "[Last] " + l[0], l[1], null);
-		} else
-			if (Pattern.compile(prefix + "d(etail)?\\s?").matcher(content.toLowerCase()).find()) {
-				flagDetail = true;
-			}
+		}
+
+		if (Pattern.compile(prefix + "d(etail)?\\s?").matcher(content.toLowerCase()).find()) {
+			flagDetail = true;
+		}
 
 		String caption = null;
 		String title, request;
@@ -78,21 +83,24 @@ public class Frinkiac {
 
 		if (StringUtils.isBlank(query)) {
 			title = "Random Search";
-			request = host + "/api/random";
-		} else if (Frinkiac.hasSaved(saved, query)) {
-			OFrinkiacSaved s = Frinkiac.getSaved(saved, query);
-			title = String.format("Saved: \"%s\"", s.name);
-			request = Frinkiac.buildRequestUrlKeyTimestamp(host, s.key, s.timestamp);
+			request = String.format("%s/api/random", host);
+		} else if (Frinkiac.hasSaved(savedList, query)) {
+			OFrinkiacSaved saved = Frinkiac.getSaved(savedList, query);
+			String key = saved.key;
+			String timestamp = saved.timestamp;
+			title = String.format("Saved: \"%s\"", saved.name);
+			request = Frinkiac.buildRequestUrl(host, key, timestamp);
 		} else if (Frinkiac.isKeyTimestamp(query)) {
 			String key = query.split("\\s+")[0];
 			String timestamp = query.split("\\s+")[1];
 			title = String.format("Timestamp: \"%s\"", query);
-			request = Frinkiac.buildRequestUrlKeyTimestamp(host, key, timestamp);
+			request = Frinkiac.buildRequestUrl(host, key, timestamp);
 		} else {
 			title = String.format("Search: \"%s\"", query);
-			request = host + "/api/search?q=" + query.trim().replaceAll("\\s+", "%20");
+			request = String.format("%s/api/search?q=%s", host, query.replaceAll("\\s+", "%20"));
 		}
 
+		Reporter.info(String.format("title:[%s] request:[%s]", title, request));
 		response = getResponse(host, request);
 
 		if (StringUtils.isNotBlank(response)) {
@@ -180,26 +188,28 @@ public class Frinkiac {
 	}
 
 	public static String getResponse(String host, String request) {
+		String response = "";
 		try {
-			String response = RequestUtils.getResponseBody(request);
+			response = RequestUtils.getResponseBody(request);
+			Reporter.info("Frinkiac response found.");
 			if (request.contains("/api/search?q=")) { // Query Search needs an extra request
 				JSONObject obj = (JSONObject) ((JSONArray) new JSONParser().parse(response)).get(0);
 				String key = obj.get("Episode").toString();
 				String timestamp = obj.get("Timestamp").toString();
-				request = Frinkiac.buildRequestUrlKeyTimestamp(host, key, timestamp);
+				request = Frinkiac.buildRequestUrl(host, key, timestamp);
 				response = RequestUtils.getResponseBody(request);
+				Reporter.info("Frinkiac query response also found.");
 			}
-			return response;
 		} catch (Exception e) {
 			Reporter.error("Frinkiac response not found.");
-			e.printStackTrace();
 			return "";
 		}
+		return response;
 	}
 
 	public static boolean hasSaved(List<OFrinkiacSaved> list, String content) {
 		for (OFrinkiacSaved saved : list) {
-			String regex = "(?=(\\W|^)" + saved.regex + "(\\W|$))";
+			String regex = "(?=(\\W|^)(" + saved.regex + ")(\\W|$))";
 			if (Pattern.compile(regex).matcher(content.toLowerCase()).find()) {
 				return true;
 			}
@@ -209,7 +219,7 @@ public class Frinkiac {
 
 	public static OFrinkiacSaved getSaved(List<OFrinkiacSaved> list, String content) {
 		for (OFrinkiacSaved saved : list) {
-			String regex = "(?=(\\W|^)" + saved.regex + "(\\W|$))";
+			String regex = "(?=(\\W|^)(" + saved.regex + ")(\\W|$))";
 			if (Pattern.compile(regex).matcher(content.toLowerCase()).find()) {
 				return saved;
 			}
@@ -226,7 +236,7 @@ public class Frinkiac {
 	}
 
 	/** Assumes that Key/Timestamp are in the correct format. */
-	public static String buildRequestUrlKeyTimestamp(String host, String key, String timestamp) {
+	public static String buildRequestUrl(String host, String key, String timestamp) {
 		if (key.equalsIgnoreCase("movie")) {
 			key = "Movie"; // Must have this casing
 		} else {

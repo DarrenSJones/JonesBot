@@ -18,7 +18,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-23
+ * @version 1.2.1 2021-02-24
  * @since   1.0.0 2020-12-09
  */
 public class TFrinkiac {
@@ -489,50 +489,50 @@ public class TFrinkiac {
 	}
 
 	@Test(dependsOnMethods = "isKeyTimestamp", alwaysRun = true)
-	public void buildRequestUrlKeyTimestamp() {
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "s1e1", "1"),
+	public void buildRequestUrl() {
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "s1e1", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "s1E1", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "s1E1", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "S1e1", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "S1e1", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "S1E1", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "S1E1", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "s01e1", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "s01e1", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "s01E1", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "s01E1", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "S01e1", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "S01e1", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "S01E1", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "S01E1", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "s1e01", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "s1e01", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "s1E01", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "s1E01", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "S1e01", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "S1e01", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "S1E01", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "S1E01", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "s01e01", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "s01e01", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "s01E01", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "s01E01", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "S01e01", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "S01e01", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "S01E01", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "S01E01", "1"),
 				"host/api/caption?e=S01E01&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "S99E99", "9999999"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "S99E99", "9999999"),
 				"host/api/caption?e=S99E99&t=9999999");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "movie", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "movie", "1"),
 				"host/api/caption?e=Movie&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "Movie", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "Movie", "1"),
 				"host/api/caption?e=Movie&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "moviE", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "moviE", "1"),
 				"host/api/caption?e=Movie&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "MOVIE", "1"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "MOVIE", "1"),
 				"host/api/caption?e=Movie&t=1");
-		Assert.assertEquals(Frinkiac.buildRequestUrlKeyTimestamp("host", "movie", "9999999"),
+		Assert.assertEquals(Frinkiac.buildRequestUrl("host", "movie", "9999999"),
 				"host/api/caption?e=Movie&t=9999999");
 	}
 }
