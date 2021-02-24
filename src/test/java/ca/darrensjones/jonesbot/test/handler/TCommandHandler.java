@@ -1,15 +1,14 @@
 package ca.darrensjones.jonesbot.test.handler;
 
+import ca.darrensjones.jonesbot.handler.CommandHandler;
+import ca.darrensjones.jonesbot.testcore.TBot;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import ca.darrensjones.jonesbot.handler.CommandHandler;
-import ca.darrensjones.jonesbot.testcore.TBot;
-
 /**
- * @author Darren Jones
- * @version 1.1.3 2021-01-14
- * @since 1.0.0 2020-11-23
+ * @author  Darren Jones
+ * @version 1.2.1 2021-02-24
+ * @since   1.0.0 2020-11-23
  */
 public class TCommandHandler {
 
@@ -18,7 +17,7 @@ public class TCommandHandler {
 	@Test
 	public void isCommand() {
 
-		// Prefix Check
+		// Prefix check
 		Assert.assertTrue(c.isCommand("!"));
 		Assert.assertTrue(c.isCommand("!!"));
 		Assert.assertTrue(c.isCommand("!@"));
@@ -52,7 +51,7 @@ public class TCommandHandler {
 		Assert.assertFalse(c.isCommand("reaction"));
 		Assert.assertFalse(c.isCommand("reactions"));
 
-		// Invalid Prefix
+		// Invalid prefix
 		Assert.assertFalse(c.isCommand("@ping"));
 		Assert.assertFalse(c.isCommand("#p"));
 		Assert.assertFalse(c.isCommand("$reaction"));
@@ -88,11 +87,11 @@ public class TCommandHandler {
 	@Test(dependsOnMethods = "getCommand", alwaysRun = true)
 	public void hasHelp() {
 
-		// Valid Help
+		// Valid help
 		Assert.assertTrue(c.hasHelp("!ping !help"));
 		Assert.assertTrue(c.hasHelp("!reaction !help"));
 
-		// Close-to-valid Help
+		// Close-to-valid help
 		Assert.assertFalse(c.hasHelp("!h"));
 		Assert.assertFalse(c.hasHelp("!help"));
 		Assert.assertFalse(c.hasHelp("!ping !h"));

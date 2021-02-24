@@ -13,11 +13,12 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-24
  * @since   1.0.0 2020-11-21
  */
 public class Tables {
 
+	/** This test is updated for each new Table added. */
 	@Test
 	public void allTables() {
 		List<String> tables = new ArrayList<String>();

@@ -1,19 +1,17 @@
 package ca.darrensjones.jonesbot.test.command;
 
-import java.io.File;
-
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import ca.darrensjones.jonesbot.command.CommandWeather;
 import ca.darrensjones.jonesbot.testcore.Mock;
 import ca.darrensjones.jonesbot.testcore.TBot;
+import java.io.File;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-23
+ * @version 1.2.1 2021-02-24
  * @since   1.0.0 2020-11-28
  */
 public class TCommandWeather {

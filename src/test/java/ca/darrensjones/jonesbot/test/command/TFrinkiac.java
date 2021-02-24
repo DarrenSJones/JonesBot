@@ -1,20 +1,18 @@
 package ca.darrensjones.jonesbot.test.command;
 
-import java.awt.Color;
-import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import ca.darrensjones.jonesbot.command.utilities.Frinkiac;
 import ca.darrensjones.jonesbot.db.controller.CFrinkiacSaved;
 import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
 import ca.darrensjones.jonesbot.testcore.Mock;
 import ca.darrensjones.jonesbot.testcore.TBot;
 import ca.darrensjones.jonesbot.testcore.TestUtils;
+import java.awt.Color;
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  * @author  Darren Jones
@@ -34,7 +32,7 @@ public class TFrinkiac {
 		List<OFrinkiacSaved> saved = TBot.getBot().dataHandler.simpsonsSaved;
 		HashMap<String, String[]> last = TBot.getBot().dataHandler.simpsonsLast;
 
-		// Valid Timestamp
+		// Valid timestamp
 		Mock.setExpectation("GET", "/api/caption?e=S06E04&t=741423", 200,
 				new File(path + "timestamp_bort.json"));
 		MessageEmbed m1 = Frinkiac
@@ -50,7 +48,7 @@ public class TFrinkiac {
 		Assert.assertEquals(m1.getFields().get(0).getValue(),
 				"\u200BMommy, buy me a license plate!\nNo. Come along, Bort.\nAre you talking to me?");
 
-		// Valid Query
+		// Valid query
 		Mock.setExpectation("GET", "/api/search?q=bort", 200, new File(path + "query_bort.json"));
 		MessageEmbed m2 = Frinkiac
 				.process("1", "!s !d bort\ntestencode", prefix, color, host, saved, last).build();
@@ -64,7 +62,7 @@ public class TFrinkiac {
 		Assert.assertEquals(m2.getFields().get(0).getValue(),
 				"\u200BMommy, buy me a license plate!\nNo. Come along, Bort.\nAre you talking to me?");
 
-		// Valid Query Saved
+		// Valid query saved
 		Mock.setExpectation("GET", "/api/caption?e=S03E22&t=937738", 200,
 				new File(path + "timestamp_trash.json"));
 		MessageEmbed m3 = Frinkiac
@@ -104,7 +102,7 @@ public class TFrinkiac {
 		Assert.assertEquals(m5.getDescription(), "Response not found, try another search.");
 		Assert.assertEquals(m5.getFields().size(), 0);
 
-		// Special Characters
+		// Special characters
 		Mock.setExpectation("GET", "/api/caption?e=Movie&t=999999", 200,
 				new File(path + "timestamp_special_characters.json"));
 		MessageEmbed m6 = Frinkiac
@@ -137,7 +135,7 @@ public class TFrinkiac {
 		String response = TestUtils
 				.readFile("src/test/resources/mock/frinkiac/timestamp_bort.json");
 
-		// Image and Detail
+		// Image and detail
 		MessageEmbed m1 = Frinkiac.buildEmbed(true, true, new Color(123, 123, 123),
 				"http://localhost:1080", "Title", response, "testencode").build();
 		Assert.assertEquals(m1.getImage().getUrl(),
@@ -150,7 +148,7 @@ public class TFrinkiac {
 		Assert.assertEquals(m1.getFields().get(0).getValue(),
 				"\u200BMommy, buy me a license plate!\nNo. Come along, Bort.\nAre you talking to me?");
 
-		// Image, No Detail
+		// Image, no detail
 		MessageEmbed m2 = Frinkiac.buildEmbed(true, false, new Color(123, 123, 123),
 				"http://localhost:1080", "Title", response, "testencode").build();
 		Assert.assertEquals(m2.getImage().getUrl(),
@@ -160,7 +158,7 @@ public class TFrinkiac {
 		Assert.assertEquals(m2.getDescription(), null);
 		Assert.assertEquals(m2.getFields().size(), 0);
 
-		// Detail, No Image
+		// Detail, no image
 		MessageEmbed m3 = Frinkiac.buildEmbed(false, true, new Color(123, 123, 123),
 				"http://localhost:1080", "Title", response, "testencode").build();
 		Assert.assertEquals(m3.getImage(), null);
@@ -172,7 +170,7 @@ public class TFrinkiac {
 		Assert.assertEquals(m3.getFields().get(0).getValue(),
 				"\u200BMommy, buy me a license plate!\nNo. Come along, Bort.\nAre you talking to me?");
 
-		// No Image or Detail (should never be used)
+		// No Image or detail (should never occur)
 		MessageEmbed m4 = Frinkiac.buildEmbed(false, false, new Color(123, 123, 123),
 				"http://localhost:1080", "Title", response, "testencode").build();
 		Assert.assertEquals(m4.getImage(), null);
@@ -274,7 +272,7 @@ public class TFrinkiac {
 		Assert.assertTrue(Frinkiac.hasSaved(list, "a flags"));
 		Assert.assertTrue(Frinkiac.hasSaved(list, "a flags a"));
 
-		// Special Characters
+		// Special characters
 		Assert.assertTrue(Frinkiac.hasSaved(list, "!flag!"));
 		Assert.assertTrue(Frinkiac.hasSaved(list, "a!flag!a"));
 		Assert.assertTrue(Frinkiac.hasSaved(list, "@flag@"));
@@ -400,7 +398,7 @@ public class TFrinkiac {
 		Assert.assertTrue(Frinkiac.hasSaved(list, "😊flags😊"));
 		Assert.assertTrue(Frinkiac.hasSaved(list, "a😊flags😊a"));
 
-		// Negative Tests
+		// Negative tests
 		Assert.assertFalse(Frinkiac.hasSaved(list, "test"));
 		Assert.assertFalse(Frinkiac.hasSaved(list, "s"));
 		Assert.assertFalse(Frinkiac.hasSaved(list, "sandwic"));
@@ -423,25 +421,25 @@ public class TFrinkiac {
 	public void getSaved() {
 		List<OFrinkiacSaved> list = CFrinkiacSaved.getById("1");
 
-		// No Regex
+		// No regex
 		Assert.assertEquals(Frinkiac.getSaved(list, "trash").name, "Trash");
 		Assert.assertEquals(Frinkiac.getSaved(list, "trash").regex, "trash");
 		Assert.assertEquals(Frinkiac.getSaved(list, "trash").key, "S03E22");
 		Assert.assertEquals(Frinkiac.getSaved(list, "trash").timestamp, "937738");
 
-		// No Regex Movie
+		// No regex movie
 		Assert.assertEquals(Frinkiac.getSaved(list, "pig").name, "Pig");
 		Assert.assertEquals(Frinkiac.getSaved(list, "pig").regex, "(spider )?pig");
 		Assert.assertEquals(Frinkiac.getSaved(list, "pig").key, "Movie");
 		Assert.assertEquals(Frinkiac.getSaved(list, "pig").timestamp, "1321236");
 
-		// Simple Regex
+		// Simple regex
 		Assert.assertEquals(Frinkiac.getSaved(list, "flag").name, "Flag");
 		Assert.assertEquals(Frinkiac.getSaved(list, "flag").regex, "flags?");
 		Assert.assertEquals(Frinkiac.getSaved(list, "flag").key, "S14E03");
 		Assert.assertEquals(Frinkiac.getSaved(list, "flag").timestamp, "883966");
 
-		// Complex Regex
+		// Complex regex
 		Assert.assertEquals(Frinkiac.getSaved(list, "catholic").name, "Catholic Church");
 		Assert.assertEquals(Frinkiac.getSaved(list, "catholic").regex,
 				"(catholic( church)?)|(we'?ve made a few changes)");

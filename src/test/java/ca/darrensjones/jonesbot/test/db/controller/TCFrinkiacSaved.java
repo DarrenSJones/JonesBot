@@ -1,17 +1,15 @@
 package ca.darrensjones.jonesbot.test.db.controller;
 
+import ca.darrensjones.jonesbot.db.controller.CFrinkiacSaved;
+import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
 import java.util.List;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import ca.darrensjones.jonesbot.db.controller.CFrinkiacSaved;
-import ca.darrensjones.jonesbot.db.model.OFrinkiacSaved;
-
 /**
- * @author Darren Jones
- * @version 1.0.0 2020-12-09
- * @since 1.0.0 2020-12-09
+ * @author  Darren Jones
+ * @version 1.2.1 2021-02-24
+ * @since   1.0.0 2020-12-09
  */
 public class TCFrinkiacSaved {
 
@@ -45,7 +43,8 @@ public class TCFrinkiacSaved {
 		Assert.assertEquals(s.get(4).name, "The Anvil");
 		Assert.assertEquals(s.get(4).key, "S08E15");
 		Assert.assertEquals(s.get(4).timestamp, "856087");
-		Assert.assertEquals(s.get(4).regex, "(the anvil)|(gay steel mill)|(we work hard\\,? we play hard)");
+		Assert.assertEquals(s.get(4).regex,
+				"(the anvil)|(gay steel mill)|(we work hard\\,? we play hard)");
 
 		// ID = 2: Futurama
 		List<OFrinkiacSaved> f = CFrinkiacSaved.getById("2");

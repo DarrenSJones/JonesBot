@@ -1,54 +1,53 @@
 package ca.darrensjones.jonesbot.test.command;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
 import ca.darrensjones.jonesbot.command.utilities.Frinkiac;
 import ca.darrensjones.jonesbot.handler.CommandHandler;
 import ca.darrensjones.jonesbot.testcore.TBot;
+import java.util.ArrayList;
+import java.util.List;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-23
+ * @version 1.2.1 2021-02-24
  * @since   1.0.0 2020-11-24
  */
 public class CommandBasics {
 
 	private static final CommandHandler h = TBot.getBot().commandHandler;
 
+	/** This test is updated for each new Command added. */
 	@Test
 	public void commands() {
 		Assert.assertEquals(h.commands.size(), 17);
-		Assert.assertNotNull(h.getCommand("!CatFact"));
-		Assert.assertNotNull(h.getCommand("!ChangeLog"));
-		Assert.assertNotNull(h.getCommand("!Cowbell"));
-		Assert.assertNotNull(h.getCommand("!Futurama"));
-		Assert.assertNotNull(h.getCommand("!Help"));
-		Assert.assertNotNull(h.getCommand("!Owner"));
-		Assert.assertNotNull(h.getCommand("!Ping"));
-		Assert.assertNotNull(h.getCommand("!Reaction"));
-		Assert.assertNotNull(h.getCommand("!Reload"));
-		Assert.assertNotNull(h.getCommand("!Rick&Morty"));
-		Assert.assertNotNull(h.getCommand("!Roll"));
-		Assert.assertNotNull(h.getCommand("!SimpleSchedule"));
-		Assert.assertNotNull(h.getCommand("!Simpsons"));
-		Assert.assertNotNull(h.getCommand("!ToDo"));
-		Assert.assertNotNull(h.getCommand("!Version"));
-		Assert.assertNotNull(h.getCommand("!Weather"));
+		Assert.assertNotNull(h.getCommand("!catfact"));
+		Assert.assertNotNull(h.getCommand("!changelog"));
+		Assert.assertNotNull(h.getCommand("!cowbell"));
+		Assert.assertNotNull(h.getCommand("!futurama"));
+		Assert.assertNotNull(h.getCommand("!help"));
+		Assert.assertNotNull(h.getCommand("!owner"));
+		Assert.assertNotNull(h.getCommand("!ping"));
+		Assert.assertNotNull(h.getCommand("!reaction"));
+		Assert.assertNotNull(h.getCommand("!reload"));
+		Assert.assertNotNull(h.getCommand("!rick&morty"));
+		Assert.assertNotNull(h.getCommand("!roll"));
+		Assert.assertNotNull(h.getCommand("!simpleschedule"));
+		Assert.assertNotNull(h.getCommand("!simpsons"));
+		Assert.assertNotNull(h.getCommand("!todo"));
+		Assert.assertNotNull(h.getCommand("!version"));
+		Assert.assertNotNull(h.getCommand("!weather"));
 	}
 
+	/** Validates that no duplicate triggers exist in Commands. */
 	@Test(dependsOnMethods = "commands", alwaysRun = true)
 	public void validateTriggers() {
 		List<String> triggers = new ArrayList<String>();
 		for (AbstractCommand command : h.commands) {
 			for (String trigger : command.getTriggers()) {
-				Assert.assertFalse(triggers.contains(trigger)); // Fails if duplicate command
-																// triggers exist
+				Assert.assertFalse(triggers.contains(trigger));
 				triggers.add(trigger);
 			}
 		}

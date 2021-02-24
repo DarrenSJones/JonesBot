@@ -1,18 +1,16 @@
 package ca.darrensjones.jonesbot.test.command;
 
-import java.io.File;
-
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import ca.darrensjones.jonesbot.command.CommandCatFact;
 import ca.darrensjones.jonesbot.testcore.Mock;
 import ca.darrensjones.jonesbot.testcore.TBot;
+import java.io.File;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
- * @author Darren Jones
- * @version 1.1.3 2021-01-14
- * @since 1.0.0 2020-11-26
+ * @author  Darren Jones
+ * @version 1.2.1 2021-02-24
+ * @since   1.0.0 2020-11-26
  */
 public class CommandRequests {
 
