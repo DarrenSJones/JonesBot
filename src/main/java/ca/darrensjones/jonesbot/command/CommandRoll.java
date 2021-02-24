@@ -15,7 +15,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-02-23
  * @since   1.1.0 2020-12-22
  */
 public class CommandRoll extends AbstractCommand {
@@ -50,8 +50,8 @@ public class CommandRoll extends AbstractCommand {
 	public String getHelp() {
 		String p = bot.getPrefix();
 		String output = "**" + p + "roll** Rolls a 6-sided die.";
-		output += "\n**" + p + "roll {sides}** Rolls a die with the given number of sides.";
-		output += "\n**" + p + "roll {amount}d{sides}** Rolls the die the given amount (eg. 2d6).";
+		output += "\n**" + p + "roll {faces}** Rolls a die with the given number of sides.";
+		output += "\n**" + p + "roll {amount}d{faces}** Rolls the die the given amount (eg. 2d6).";
 		return output;
 	}
 
@@ -65,55 +65,54 @@ public class CommandRoll extends AbstractCommand {
 	public String process(String content) {
 
 		// Dice faces, amount to roll
-		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		HashMap<Integer, Integer> rolls = new HashMap<Integer, Integer>();
 
 		// Dice faces, roll results
 		HashMap<Integer, List<Integer>> results = new HashMap<Integer, List<Integer>>();
 
-		Pattern pDice = Pattern.compile("\\d+(d|D)\\d+");
-		Matcher mMaxSides = Pattern.compile("\\s+\\d+$").matcher(content);
+		Pattern rollPattern = Pattern.compile("\\d+(d|D)\\d+");
+		Matcher maxMatcher = Pattern.compile("\\s+\\d+$").matcher(content);
 
 		// HashMap contains all dice to roll, and the amount of times to roll for each
 		try {
-			if (pDice.matcher(content).find()) {
-				Matcher mDice = pDice.matcher(content);
-				while (mDice.find()) {
-					int amount = Integer.parseInt(mDice.group().split("(d|D)")[0]);
-					int sides = Integer.parseInt(mDice.group().split("(d|D)")[1]);
-					if (map.containsKey(sides)) {
-						amount += map.get(sides);
+			if (rollPattern.matcher(content).find()) {
+				Matcher rollMatcher = rollPattern.matcher(content);
+				while (rollMatcher.find()) {
+					int amount = Integer.parseInt(rollMatcher.group().split("(d|D)")[0]);
+					int faces = Integer.parseInt(rollMatcher.group().split("(d|D)")[1]);
+					if (rolls.containsKey(faces)) {
+						amount += rolls.get(faces);
 					}
-					map.put(sides, amount);
+					rolls.put(faces, amount);
 				}
-			} else if (mMaxSides.find()) {
-				map.put(Integer.parseInt(mMaxSides.group().trim()), 1);
+			} else if (maxMatcher.find()) {
+				rolls.put(Integer.parseInt(maxMatcher.group().trim()), 1);
 			} else {
-				map.put(6, 1);
+				rolls.put(6, 1);
 			}
-
 		} catch (IllegalArgumentException e) {
 			return "Roll: Maximum must be greater than Minimum.";
 		}
 
 		// Iterates through the HashMap for each die
 		int total = 0;
-		for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+		for (Map.Entry<Integer, Integer> entry : rolls.entrySet()) {
 			List<Integer> list = new ArrayList<Integer>();
-			int sides = entry.getKey();
+			int faces = entry.getKey();
 			for (int i = 0; i < entry.getValue(); i++) {
-				int roll = roll(sides);
-				list.add(roll);
-				total += roll;
+				int result = roll(faces);
+				list.add(result);
+				total += result;
 			}
-			results.put(sides, list);
+			results.put(faces, list);
 		}
 
 		String output = String.format("Roll Total:[%s]", total);
 		for (Map.Entry<Integer, List<Integer>> entry : results.entrySet()) {
-			int size = entry.getValue().size();
-			String key = entry.getKey().toString();
-			String value = entry.getValue().toString();
-			output += String.format(", %sd%s:%s", size, key, value);
+			int amount = entry.getValue().size();
+			String faces = entry.getKey().toString();
+			String result = entry.getValue().toString();
+			output += String.format(", %sd%s:%s", amount, faces, result);
 		}
 
 		return output;
