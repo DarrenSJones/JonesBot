@@ -49,10 +49,10 @@ public class Mock {
 	/**
 	 * Sets all Mock Expectations before external requests are sent.
 	 * 
-	 * @param method             Currently only supports "GET"
-	 * @param path               URL the Expectation is mocking
-	 * @param responseStatusCode Status Code to return with the response
-	 * @param file               File that contains the response Body
+	 * @param method             Currently only supports "GET".
+	 * @param path               URL the expectation is mocking.
+	 * @param responseStatusCode Status code to return with the response.
+	 * @param file               File that contains the response body.
 	 */
 	public static void setExpectation(String method, String path, int responseStatusCode,
 			File file) {
@@ -79,7 +79,7 @@ public class Mock {
 		}
 	}
 
-	/** Sets the Mock Host and Port from the database.properties file. */
+	/** Sets the Mock host and port from the database.properties file. */
 	private static void setMock() {
 		Properties properties = new Properties();
 		try {
