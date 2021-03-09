@@ -1,4 +1,4 @@
-package ca.darrensjones.jonesbot.test.command;
+package ca.darrensjones.jonesbot.test.command.utilities;
 
 import ca.darrensjones.jonesbot.command.utilities.Frinkiac;
 import ca.darrensjones.jonesbot.db.controller.CFrinkiacSaved;
@@ -16,10 +16,10 @@ import org.testng.annotations.Test;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-24
+ * @version 1.2.1 2021-03-09
  * @since   1.0.0 2020-12-09
  */
-public class TFrinkiac {
+public class FrinkiacTest {
 
 	@Test
 	public void process() {

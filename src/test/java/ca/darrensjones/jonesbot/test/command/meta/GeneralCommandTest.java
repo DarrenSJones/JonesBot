@@ -1,4 +1,4 @@
-package ca.darrensjones.jonesbot.test.command;
+package ca.darrensjones.jonesbot.test.command.meta;
 
 import ca.darrensjones.jonesbot.command.meta.AbstractCommand;
 import ca.darrensjones.jonesbot.command.meta.CommandVisibility;
@@ -12,10 +12,10 @@ import org.testng.annotations.Test;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-24
+ * @version 1.2.1 2021-03-09
  * @since   1.0.0 2020-11-24
  */
-public class CommandBasics {
+public class GeneralCommandTest {
 
 	private static final CommandHandler h = TBot.getBot().commandHandler;
 

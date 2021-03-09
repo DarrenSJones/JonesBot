@@ -11,10 +11,10 @@ import org.testng.annotations.Test;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-24
+ * @version 1.2.1 2021-03-09
  * @since   1.0.0 2020-11-28
  */
-public class TCommandWeather {
+public class CommandWeatherTest {
 
 	@Test
 	public void process() {

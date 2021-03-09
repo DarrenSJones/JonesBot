@@ -5,17 +5,18 @@
 
 	<test name="command">
 		<classes>
-			<class name="ca.darrensjones.jonesbot.test.command.CommandBasics" />
-			<class name="ca.darrensjones.jonesbot.test.command.CommandRequests" />
-			<class name="ca.darrensjones.jonesbot.test.command.TCommandWeather" />
-			<class name="ca.darrensjones.jonesbot.test.command.TFrinkiac" />
-			<class name="ca.darrensjones.jonesbot.test.command.TRoll" />
+			<class name="ca.darrensjones.jonesbot.test.command.meta.GeneralCommandTest" />
+			<class name="ca.darrensjones.jonesbot.test.command.utilities.FrinkiacTest" />
+			<class name="ca.darrensjones.jonesbot.test.command.CommandCatFactTest" />
+			<class name="ca.darrensjones.jonesbot.test.command.CommandRollTest" />
+			<class name="ca.darrensjones.jonesbot.test.command.CommandWeatherTest" />
 		</classes>
 	</test>
 
 	<test name="database">
 		<classes>
 			<class name="ca.darrensjones.jonesbot.test.db.DatabaseTablesTest" />
+
 			<class name="ca.darrensjones.jonesbot.test.db.controller.CAutoResponseReactionTest" />
 			<class name="ca.darrensjones.jonesbot.test.db.controller.CConfigTest" />
 			<class name="ca.darrensjones.jonesbot.test.db.controller.CFrinkiacSavedTest" />
