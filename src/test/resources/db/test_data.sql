@@ -16,7 +16,7 @@ UPDATE bot_config SET item_value = '12345678901234567890123456789012'								WHE
 INSERT INTO reaction VALUES (':lacrosse:',		N'🥍',			'lacrosse');
 INSERT INTO reaction VALUES (':tophat:',		N'🎩',			'top hat');
 INSERT INTO reaction VALUES (':sandwich:',		N'🥪',			'sandwich(es)?');
-INSERT INTO reaction VALUES (':man_mage:',		N'🧙‍♂️',			'(mages?|wizards?)');
+INSERT INTO reaction VALUES (':man_mage:',		N'🧙‍♂️',			'mages?|wizards?');
 INSERT INTO reaction VALUES (':flag_ca:',		N'🇨🇦',			'canada');
 INSERT INTO reaction VALUES (':tipsfedora:',	':tipsfedora:',	'm''?lady');
 
