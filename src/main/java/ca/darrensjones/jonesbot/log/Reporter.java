@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-22
+ * @version 1.2.1 2021-03-09
  * @since   1.0.0 2020-11-18
  */
 public class Reporter {
@@ -21,6 +21,12 @@ public class Reporter {
 	public static void error(String message) {
 		trace.error(message);
 		console.error(message);
+	}
+
+	public static void error(String message, Exception e) {
+		trace.error(message);
+		console.error(message);
+		e.printStackTrace();
 	}
 
 	public static void fatal(String message, Exception e) {
