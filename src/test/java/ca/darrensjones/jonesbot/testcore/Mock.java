@@ -19,7 +19,7 @@ import org.mockserver.model.Parameter;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-03-09
  * @since   1.0.0 2020-11-25
  */
 public class Mock {
@@ -49,13 +49,12 @@ public class Mock {
 	/**
 	 * Sets all Mock Expectations before external requests are sent.
 	 * 
-	 * @param method             Currently only supports "GET".
-	 * @param path               URL the expectation is mocking.
-	 * @param responseStatusCode Status code to return with the response.
-	 * @param file               File that contains the response body.
+	 * @param method     Currently only supports "GET".
+	 * @param path       URL the expectation is mocking.
+	 * @param statusCode Status code to return with the response.
+	 * @param file       File that contains the response body.
 	 */
-	public static void setExpectation(String method, String path, int responseStatusCode,
-			File file) {
+	public static void setExpectation(String method, String path, int statusCode, File file) {
 		String requestPath = path;
 		List<Parameter> requestParameters = new ArrayList<Parameter>();
 		if (path.contains("?")) {
@@ -71,11 +70,10 @@ public class Mock {
 			String responseBody = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
 			client.when(HttpRequest.request().withMethod(method).withPath(requestPath)
 					.withQueryStringParameters(requestParameters), Times.unlimited())
-					.respond(HttpResponse.response().withStatusCode(responseStatusCode)
+					.respond(HttpResponse.response().withStatusCode(statusCode)
 							.withBody(responseBody));
 		} catch (Exception e) {
-			Reporter.error("Mock setExpectation.");
-			e.printStackTrace();
+			Reporter.error("Mock setExpectation.", e);
 		}
 	}
 
@@ -89,8 +87,7 @@ public class Mock {
 			port = properties.getProperty("mockPort");
 			Reporter.debug("Loaded mock properties.");
 		} catch (Exception e) {
-			Reporter.error("Failed to set mock properties.");
-			e.printStackTrace();
+			Reporter.error("Failed to set mock properties.", e);
 		}
 	}
 }

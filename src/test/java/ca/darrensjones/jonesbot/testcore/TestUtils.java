@@ -7,7 +7,7 @@ import org.apache.commons.io.FileUtils;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-03-09
  * @since   1.0.0 2020-11-28
  */
 public class TestUtils {
@@ -17,8 +17,7 @@ public class TestUtils {
 		try {
 			output = FileUtils.readFileToString(new File(filePath), StandardCharsets.UTF_8);
 		} catch (Exception e) {
-			Reporter.error("TestUtils readFile.");
-			e.printStackTrace();
+			Reporter.error("TestUtils readFile.", e);
 		}
 		return output;
 	}
