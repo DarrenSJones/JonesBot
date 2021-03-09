@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
  * @version 1.2.1 2021-02-24
  * @since   1.0.0 2020-11-23
  */
-public class TCommandHandler {
+public class CommandHandlerTest {
 
 	private static final CommandHandler c = TBot.getBot().commandHandler;
 

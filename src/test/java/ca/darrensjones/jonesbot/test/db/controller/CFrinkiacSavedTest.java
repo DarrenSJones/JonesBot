@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
  * @version 1.2.1 2021-02-24
  * @since   1.0.0 2020-12-09
  */
-public class TCFrinkiacSaved {
+public class CFrinkiacSavedTest {
 
 	@Test
 	public void getById() {

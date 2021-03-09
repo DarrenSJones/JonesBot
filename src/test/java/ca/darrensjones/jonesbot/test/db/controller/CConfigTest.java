@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
  * @version 1.2.1 2021-02-24
  * @since   1.1.4 2021-01-21
  */
-public class TCConfig {
+public class CConfigTest {
 
 	@Test
 	public void getConfigValues() {

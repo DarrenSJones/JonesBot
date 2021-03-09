@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
  * @version 1.2.1 2021-02-24
  * @since   1.2.0 2021-02-12
  */
-public class TCSimpleSchedule {
+public class CSimpleScheduleTest {
 
 	LocalDate mo = LocalDate.of(2021, 2, 1);
 	LocalDate tu = LocalDate.of(2021, 2, 2);

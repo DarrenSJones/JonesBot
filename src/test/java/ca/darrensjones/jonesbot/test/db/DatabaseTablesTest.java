@@ -16,7 +16,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
  * @version 1.2.1 2021-02-24
  * @since   1.0.0 2020-11-21
  */
-public class Tables {
+public class DatabaseTablesTest {
 
 	/** This test is updated for each new Table added. */
 	@Test

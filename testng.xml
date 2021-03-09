@@ -3,30 +3,30 @@
 
 <suite name="JonesBot Test Suite" verbose="10" preserve-order="true">
 
-	<test name="Database">
-		<classes>
-			<class name="ca.darrensjones.jonesbot.test.db.Tables" />
-			<class name="ca.darrensjones.jonesbot.test.db.controller.TCAutoResponseReaction" />
-			<class name="ca.darrensjones.jonesbot.test.db.controller.TCConfig" />
-			<class name="ca.darrensjones.jonesbot.test.db.controller.TCFrinkiacSaved" />
-			<class name="ca.darrensjones.jonesbot.test.db.controller.TCSimpleSchedule" />
-		</classes>
-	</test>
-
-	<test name="Handlers">
-		<classes>
-			<class name="ca.darrensjones.jonesbot.test.handler.TAutoResponseHandler" />
-			<class name="ca.darrensjones.jonesbot.test.handler.TCommandHandler" />
-		</classes>
-	</test>
-
-	<test name="Commands">
+	<test name="command">
 		<classes>
 			<class name="ca.darrensjones.jonesbot.test.command.CommandBasics" />
 			<class name="ca.darrensjones.jonesbot.test.command.CommandRequests" />
 			<class name="ca.darrensjones.jonesbot.test.command.TCommandWeather" />
 			<class name="ca.darrensjones.jonesbot.test.command.TFrinkiac" />
 			<class name="ca.darrensjones.jonesbot.test.command.TRoll" />
+		</classes>
+	</test>
+
+	<test name="database">
+		<classes>
+			<class name="ca.darrensjones.jonesbot.test.db.DatabaseTablesTest" />
+			<class name="ca.darrensjones.jonesbot.test.db.controller.CAutoResponseReactionTest" />
+			<class name="ca.darrensjones.jonesbot.test.db.controller.CConfigTest" />
+			<class name="ca.darrensjones.jonesbot.test.db.controller.CFrinkiacSavedTest" />
+			<class name="ca.darrensjones.jonesbot.test.db.controller.CSimpleScheduleTest" />
+		</classes>
+	</test>
+
+	<test name="handler">
+		<classes>
+			<class name="ca.darrensjones.jonesbot.test.handler.AutoResponseHandlerTest" />
+			<class name="ca.darrensjones.jonesbot.test.handler.CommandHandlerTest" />
 		</classes>
 	</test>
 

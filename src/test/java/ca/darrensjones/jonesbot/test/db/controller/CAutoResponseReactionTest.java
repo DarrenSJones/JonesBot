@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
  * @version 1.2.1 2021-02-24
  * @since   1.0.0 2020-11-21
  */
-public class TCAutoResponseReaction {
+public class CAutoResponseReactionTest {
 
 	@Test
 	public void getAll() {
