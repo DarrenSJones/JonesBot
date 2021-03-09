@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-24
+ * @version 1.2.1 2021-03-09
  * @since   1.0.0 2020-11-21
  */
 public class CAutoResponseReactionTest {
@@ -39,7 +39,7 @@ public class CAutoResponseReactionTest {
 		Assert.assertEquals(l.get(3).id, 4);
 		Assert.assertEquals(l.get(3).shortcode, ":man_mage:");
 		Assert.assertEquals(l.get(3).unicode, "🧙‍♂️");
-		Assert.assertEquals(l.get(3).regex, "(mages?|wizards?)");
+		Assert.assertEquals(l.get(3).regex, "mages?|wizards?");
 		Assert.assertFalse(l.get(3).isCustom());
 
 		Assert.assertEquals(l.get(4).id, 5);

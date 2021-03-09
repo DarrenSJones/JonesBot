@@ -1,7 +1,6 @@
 package ca.darrensjones.jonesbot.test.db;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import ca.darrensjones.jonesbot.log.Reporter;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-24
+ * @version 1.2.1 2021-03-09
  * @since   1.0.0 2020-11-21
  */
 public class DatabaseTablesTest {
@@ -21,15 +20,16 @@ public class DatabaseTablesTest {
 	/** This test is updated for each new Table added. */
 	@Test
 	public void allTables() {
+		String query = "SELECT * FROM " + "jonesbottest" + ".sys.tables ORDER BY name";
 		List<String> tables = new ArrayList<String>();
 		try {
-			ResultSet rs = BotDB.get()
-					.select("SELECT * FROM " + "jonesbottest" + ".sys.tables ORDER BY name");
-			while (rs.next()) tables.add(rs.getString(1));
+			ResultSet rs = BotDB.get().select(query);
+			while (rs.next()) {
+				tables.add(rs.getString(1));
+			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("Tables allTables.");
-			e.printStackTrace();
+			Reporter.error("Tables allTables.", e);
 		}
 
 		Assert.assertEquals(tables.size(), 4);
@@ -59,6 +59,7 @@ public class DatabaseTablesTest {
 		Assert.assertEquals(columns.get(5), "regex");
 	}
 
+	// TODO rename the "reaction" table to "autoresponse_reaction"
 	@Test(dependsOnMethods = "frinkiac_saved", alwaysRun = true)
 	public void reaction() {
 		List<String> columns = getColumnNames("reaction");
@@ -82,19 +83,18 @@ public class DatabaseTablesTest {
 		Assert.assertEquals(columns.get(6), "event_value");
 	}
 
-	/**
-	 * A standard way of returning column names by Table. Not a Test.
-	 */
+	/** A standard way of returning column names by Table. Not a test. */
 	private List<String> getColumnNames(String tableName) {
+		String query = "SELECT * FROM " + tableName;
 		List<String> columns = new ArrayList<String>();
 		try {
-			ResultSet rs = BotDB.get().select("SELECT * FROM " + tableName);
-			ResultSetMetaData rsmd = rs.getMetaData();
-			for (int i = 1; i <= rsmd.getColumnCount(); i++) columns.add(rsmd.getColumnName(i));
+			ResultSet rs = BotDB.get().select(query);
+			for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+				columns.add(rs.getMetaData().getColumnName(i));
+			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("Tables getColumnNames.");
-			e.printStackTrace();
+			Reporter.error("Tables getColumnNames.", e);
 		}
 		return columns;
 	}

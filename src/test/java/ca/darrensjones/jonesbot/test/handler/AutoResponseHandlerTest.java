@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-24
+ * @version 1.2.1 2021-03-09
  * @since   1.0.0 2020-11-21
  */
 public class AutoResponseHandlerTest {
@@ -244,8 +244,7 @@ public class AutoResponseHandlerTest {
 		Assert.assertEquals(r.getReactions("sandwich sandwiche").get(0).shortcode, ":sandwich:");
 		Assert.assertEquals(r.getReactions("sandwich sandwiche").get(0).unicode, "🥪");
 		Assert.assertEquals(r.getReactions("sandwich sandwiche").get(0).regex, "sandwich(es)?");
-		Assert.assertEquals(r.getReactions("sandwich sandwich sandwich sandwich sandwich").size(),
-				1);
+		Assert.assertEquals(r.getReactions("sandwich sandwich sandwich sandwich").size(), 1);
 
 		// Multiple reactions with single match
 		Assert.assertEquals(r.getReactions("sandwich wizard").size(), 2);
@@ -256,45 +255,35 @@ public class AutoResponseHandlerTest {
 		Assert.assertEquals(r.getReactions("sandwich wizard").get(1).id, 4);
 		Assert.assertEquals(r.getReactions("sandwich wizard").get(1).shortcode, ":man_mage:");
 		Assert.assertEquals(r.getReactions("sandwich wizard").get(1).unicode, "🧙‍♂️");
-		Assert.assertEquals(r.getReactions("sandwich wizard").get(1).regex, "(mages?|wizards?)");
+		Assert.assertEquals(r.getReactions("sandwich wizard").get(1).regex, "mages?|wizards?");
 
 		// Multiple reactions with single match opposite order
 		Assert.assertEquals(r.getReactions("wizard sandwich").size(), 2);
 		Assert.assertEquals(r.getReactions("wizard sandwich").get(0).id, 4);
 		Assert.assertEquals(r.getReactions("wizard sandwich").get(0).shortcode, ":man_mage:");
 		Assert.assertEquals(r.getReactions("wizard sandwich").get(0).unicode, "🧙‍♂️");
-		Assert.assertEquals(r.getReactions("wizard sandwich").get(0).regex, "(mages?|wizards?)");
+		Assert.assertEquals(r.getReactions("wizard sandwich").get(0).regex, "mages?|wizards?");
 		Assert.assertEquals(r.getReactions("wizard sandwich").get(1).id, 3);
 		Assert.assertEquals(r.getReactions("wizard sandwich").get(1).shortcode, ":sandwich:");
 		Assert.assertEquals(r.getReactions("wizard sandwich").get(1).unicode, "🥪");
 		Assert.assertEquals(r.getReactions("wizard sandwich").get(1).regex, "sandwich(es)?");
 
 		// Multiple reactions with multiple matches
-		Assert.assertEquals(r.getReactions("sandwich wizard sandwich").size(), 2);
-		Assert.assertEquals(r.getReactions("sandwich wizard sandwich").get(0).id, 3);
-		Assert.assertEquals(r.getReactions("sandwich wizard sandwich").get(0).shortcode,
-				":sandwich:");
-		Assert.assertEquals(r.getReactions("sandwich wizard sandwich").get(0).unicode, "🥪");
-		Assert.assertEquals(r.getReactions("sandwich wizard sandwich").get(0).regex,
-				"sandwich(es)?");
-		Assert.assertEquals(r.getReactions("sandwich wizard sandwich").get(1).id, 4);
-		Assert.assertEquals(r.getReactions("sandwich wizard sandwich").get(1).shortcode,
-				":man_mage:");
-		Assert.assertEquals(r.getReactions("sandwich wizard sandwich").get(1).unicode, "🧙‍♂️");
-		Assert.assertEquals(r.getReactions("sandwich wizard sandwich").get(1).regex,
-				"(mages?|wizards?)");
+		Assert.assertEquals(r.getReactions("mage sandwich mage").size(), 2);
+		Assert.assertEquals(r.getReactions("mage sandwich mage").get(0).id, 4);
+		Assert.assertEquals(r.getReactions("mage sandwich mage").get(0).shortcode, ":man_mage:");
+		Assert.assertEquals(r.getReactions("mage sandwich mage").get(0).unicode, "🧙‍♂️");
+		Assert.assertEquals(r.getReactions("mage sandwich mage").get(0).regex, "mages?|wizards?");
+		Assert.assertEquals(r.getReactions("mage sandwich mage").get(1).id, 3);
+		Assert.assertEquals(r.getReactions("mage sandwich mage").get(1).shortcode, ":sandwich:");
+		Assert.assertEquals(r.getReactions("mage sandwich mage").get(1).unicode, "🥪");
+		Assert.assertEquals(r.getReactions("mage sandwich mage").get(1).regex, "sandwich(es)?");
 
 		// Reaction order
-		Assert.assertEquals(r.getReactions("sandwich top hat canada wizard lacrosse").size(), 5);
-		Assert.assertEquals(
-				r.getReactions("sandwich top hat canada wizard lacrosse").get(0).unicode, "🥪");
-		Assert.assertEquals(
-				r.getReactions("sandwich top hat canada wizard lacrosse").get(1).unicode, "🎩");
-		Assert.assertEquals(
-				r.getReactions("sandwich top hat canada wizard lacrosse").get(2).unicode, "🇨🇦");
-		Assert.assertEquals(
-				r.getReactions("sandwich top hat canada wizard lacrosse").get(3).unicode, "🧙‍♂️");
-		Assert.assertEquals(
-				r.getReactions("sandwich top hat canada wizard lacrosse").get(4).unicode, "🥍");
+		Assert.assertEquals(r.getReactions("sandwich top hat canada mage").size(), 4);
+		Assert.assertEquals(r.getReactions("sandwich top hat canada mage").get(0).unicode, "🥪");
+		Assert.assertEquals(r.getReactions("sandwich top hat canada mage").get(1).unicode, "🎩");
+		Assert.assertEquals(r.getReactions("sandwich top hat canada mage").get(2).unicode, "🇨🇦");
+		Assert.assertEquals(r.getReactions("sandwich top hat canada mage").get(3).unicode, "🧙‍♂️");
 	}
 }
