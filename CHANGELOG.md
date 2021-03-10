@@ -3,14 +3,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased][Unreleased]
+## [1.2.1][1.2.1] - 2021-03-10 Internal Reformatting and Logging Cleanup
 ### Changed
 - Standardized logging across the bot and the types of information that are recorded (and where).
 - Simplified Reporter types and outputs.
 - Reordered imports to be alphabetical with no other sorting.
+- Renamed tests to fit style guide, and reorganized tests to fit the formatting.
 
 ### Fixed
-- AutoResponse Reactions now always match a full word, whether the regex is entered correctly or not.
+- AutoResponse Reactions now always match a full word, whether the regex is contained correctly or not.
 
 ## [1.2.0][1.2.0] - 2021-02-15 - Simple Schedule
 ### Added
@@ -25,7 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [1.1.4][1.1.4] - 2021-02-02 - Database Updater
 ### Added
 - DbUpdater, a new process that handles all database creation and updates.
-- Gradle JavaExec can now run DbUpdater from the command line before the bot is ran.
+- Gradle JavaExec can now run DBUpdater from the command line before the bot is ran.
 
 ### Changed
 - ReadMe installation was changed for DbUpdater to remove manual steps.
