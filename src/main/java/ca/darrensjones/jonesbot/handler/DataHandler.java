@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-22
+ * @version 1.2.1 2021-03-10
  * @since   1.0.0 2020-12-08
  */
 public class DataHandler {
@@ -33,11 +33,14 @@ public class DataHandler {
 		loadLast();
 	}
 
+	/** Used by the 'reload' command. */
 	public void reloadSQL() {
 		autoResponseReactions = CAutoResponseReaction.getAll();
+
 		simpsonsSaved = CFrinkiacSaved.getById("1");
 		futuramaSaved = CFrinkiacSaved.getById("2");
 		rickMortySaved = CFrinkiacSaved.getById("3");
+
 		Reporter.info("DataHandler SQL reloaded.");
 	}
 
@@ -45,7 +48,8 @@ public class DataHandler {
 		simpsonsLast = new HashMap<String, String[]>();
 		futuramaLast = new HashMap<String, String[]>();
 		rickMortyLast = new HashMap<String, String[]>();
-		Reporter.info("DataHandler last loaded.");
+
+		Reporter.info("DataHandler Last loaded.");
 	}
 
 	/** Used by Frinkiac to store the most recent response by channel, overwriting any existing. */
