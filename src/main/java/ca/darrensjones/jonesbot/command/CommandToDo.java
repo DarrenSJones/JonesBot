@@ -13,7 +13,7 @@ import org.apache.commons.io.FileUtils;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-23
+ * @version 1.2.1 2021-03-09
  * @since   1.0.2 2020-12-22
  */
 public class CommandToDo extends AbstractCommand {
@@ -60,8 +60,7 @@ public class CommandToDo extends AbstractCommand {
 		try {
 			return FileUtils.readFileToString(new File("todo.txt"), StandardCharsets.UTF_8);
 		} catch (Exception e) {
-			Reporter.error("ReadToDo Error.");
-			e.printStackTrace();
+			Reporter.error("ReadToDo Error.", e);
 			return null;
 		}
 	}

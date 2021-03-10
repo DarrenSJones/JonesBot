@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-03-09
  * @since   1.0.0 2020-12-03
  */
 public class CFrinkiacSaved {
@@ -36,8 +36,7 @@ public class CFrinkiacSaved {
 			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("CFrinkiacSaved getById.");
-			e.printStackTrace();
+			Reporter.error("CFrinkiacSaved getById.", e);
 		}
 		return list;
 	}

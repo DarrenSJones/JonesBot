@@ -14,7 +14,7 @@ import org.json.simple.parser.JSONParser;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-23
+ * @version 1.2.1 2021-03-09
  * @since   1.0.0 2020-11-24
  */
 public class CommandCatFact extends AbstractCommand {
@@ -67,8 +67,7 @@ public class CommandCatFact extends AbstractCommand {
 			fact = obj.get("fact").toString();
 			Reporter.info(String.format("Cat Fact found:[%s]", fact));
 		} catch (Exception e) {
-			Reporter.error(fact);
-			e.printStackTrace();
+			Reporter.error(fact, e);
 		}
 		return fact;
 	}

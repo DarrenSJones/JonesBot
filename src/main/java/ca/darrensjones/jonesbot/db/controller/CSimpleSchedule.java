@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-03-09
  * @since   1.2.0 2021-02-12
  */
 public class CSimpleSchedule {
@@ -51,7 +51,7 @@ public class CSimpleSchedule {
 			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("CSimpleSchedule getScheduleByDate.");
+			Reporter.error("CSimpleSchedule getScheduleByDate.", e);
 			e.printStackTrace();
 		}
 		return list;
@@ -69,7 +69,7 @@ public class CSimpleSchedule {
 			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("CSimpleSchedule getScheduleByDate.");
+			Reporter.error("CSimpleSchedule getScheduleByDate.", e);
 			e.printStackTrace();
 		}
 		return list;
@@ -88,7 +88,7 @@ public class CSimpleSchedule {
 			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("CSimpleSchedule getScheduleByDate.");
+			Reporter.error("CSimpleSchedule getScheduleByDate.", e);
 			e.printStackTrace();
 		}
 		return list;

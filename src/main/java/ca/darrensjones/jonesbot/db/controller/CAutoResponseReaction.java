@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-03-09
  * @since   1.0.0 2020-11-18
  */
 public class CAutoResponseReaction {
@@ -33,8 +33,7 @@ public class CAutoResponseReaction {
 			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("CAutoResponseReaction getAll.");
-			e.printStackTrace();
+			Reporter.error("CAutoResponseReaction getAll.", e);
 		}
 		return list;
 	}

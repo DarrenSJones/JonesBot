@@ -21,7 +21,7 @@ import org.json.simple.parser.JSONParser;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-23
+ * @version 1.2.1 2021-03-09
  * @since   1.0.0 2020-11-26
  */
 public class CommandWeather extends AbstractCommand {
@@ -207,8 +207,7 @@ public class CommandWeather extends AbstractCommand {
 			eb.setDescription("City not found: " + city);
 
 		} catch (Exception e) {
-			Reporter.error("CommandWeather EmbedBuilder error.");
-			e.printStackTrace();
+			Reporter.error("CommandWeather EmbedBuilder error.", e);
 			eb.setDescription("CommandWeather EmbedBuilder error.");
 		}
 

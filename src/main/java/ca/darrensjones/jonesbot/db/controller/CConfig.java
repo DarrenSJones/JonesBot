@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 /**
  * @author  Darren Jones
- * @version 1.2.1 2021-02-18
+ * @version 1.2.1 2021-03-09
  * @since   1.0.0 2020-11-18
  */
 public class CConfig {
@@ -21,8 +21,7 @@ public class CConfig {
 			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("CConfig getConfigValues.");
-			e.printStackTrace();
+			Reporter.error("CConfig getConfigValues.", e);
 		}
 		return new String[] { map.get("BOT_PREFIX"), map.get("BOT_TOKEN"), map.get("BOT_OWNER_ID"),
 				map.get("BOT_GITHUB_REPO"), map.get("WEATHER_TOKEN") };
@@ -38,8 +37,7 @@ public class CConfig {
 			}
 			rs.getStatement().close();
 		} catch (Exception e) {
-			Reporter.error("CConfig getDatabaseVersion.");
-			e.printStackTrace();
+			Reporter.error("CConfig getDatabaseVersion.", e);
 		}
 		return version;
 	}
